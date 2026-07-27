@@ -4,7 +4,7 @@
 
 在线体验：[kakeya-conjecture-lab.pages.dev](https://kakeya-conjecture-lab.pages.dev/)
 
-![挂谷猜想交互实验室](docs/screenshots/hero-wide-fixed.png)
+![挂谷猜想交互实验室](docs/screenshots/hero-live.png)
 
 ## 页面包含什么
 
@@ -58,4 +58,3 @@ npm run deploy
 这套“资料核验、直觉模型、正式定义、互动实验、边界说明、来源追溯”的讲解方式也适合日食、月食、太阳系、四季、潮汐、轨道等科学主题
 
 它可以帮助孩子通过操作理解科学知识，也可以帮助成年人更快建立对陌生问题的整体认识
-
