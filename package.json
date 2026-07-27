@@ -1,0 +1,19 @@
+{
+  "name": "kakeya-conjecture-lab",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "deploy": "npm run build && npx wrangler pages deploy dist --project-name=kakeya-conjecture-lab --branch=production"
+  },
+  "dependencies": {
+    "three": "^0.179.1"
+  },
+  "devDependencies": {
+    "vite-plugin-singlefile": "^2.3.3",
+    "vite": "^7.0.6"
+  }
+}
