@@ -6,32 +6,6 @@ const AXIAL_TILT_DEG = 23.44;
 
 const template = `
     <style>
-      .seasons-hero {
-        max-width: var(--max);
-        margin: 0 auto;
-        padding: clamp(56px, 7vw, 110px) var(--gutter) clamp(24px, 3vw, 48px);
-      }
-      .seasons-kicker {
-        margin: 0 0 18px;
-        color: var(--red);
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .seasons-hero h1 {
-        margin: 0 0 20px;
-        font-family: var(--serif);
-        font-size: clamp(40px, 5.6vw, 82px);
-        line-height: 1.08;
-        letter-spacing: -0.04em;
-      }
-      .seasons-lead {
-        max-width: 660px;
-        margin: 0;
-        color: var(--muted);
-        font-size: clamp(16px, 1.6vw, 19px);
-      }
       .seasons-intuition {
         padding-top: clamp(40px, 5vw, 70px);
         padding-bottom: clamp(40px, 5vw, 70px);
@@ -58,9 +32,6 @@ const template = `
         margin: 0;
         color: var(--muted);
         font-size: 14px;
-      }
-      .seasons-lab-section {
-        padding-top: clamp(30px, 4vw, 60px);
       }
       .seasons-canvas {
         position: absolute;
@@ -160,61 +131,24 @@ const template = `
     </style>
 
     <div class="seasons-scene" id="main">
-      <header class="seasons-hero">
-        <p class="seasons-kicker">FIG. 02 / SEASONS LAB</p>
-        <h1>四季，来自一根<br />倾斜的地轴</h1>
-        <p class="seasons-lead">
-          日地距离一年只变化约 3.3%，真正改变阳光的，是 23.44° 的地轴倾角：
-          它决定阳光落下的角度与白昼的长短。
-        </p>
-      </header>
-
-      <section class="seasons-intuition section-pad" aria-labelledby="seasons-intuition-title">
-        <div class="section-heading">
-          <p class="section-index">01</p>
-          <div>
-            <h2 id="seasons-intuition-title">直觉模型</h2>
-            <p>公转一圈，地轴方向几乎不变；变的是太阳直射点落在哪条纬线上。</p>
-          </div>
-        </div>
-        <div class="seasons-copy">
-          <article>
-            <span>01 / 指向不变</span>
-            <h3>地轴始终指向同一方向</h3>
-            <p>
-              地球绕太阳公转时，自转轴始终指向天空中几乎同一个位置（北极星附近），
-              与公转轨道面法线夹角约 23.44°。于是一年之中，太阳直射点在南北回归线
-              （±23.44°）之间往返移动。
-            </p>
-          </article>
-          <article>
-            <span>02 / 角度决定能量</span>
-            <h3>直射得多，斜射摊薄</h3>
-            <p>
-              直射时，单位面积地表接收的阳光最多，白昼也更长；斜射时，同一束阳光
-              摊在更大的面积上，且白昼变短。北半球的夏至前后，正是“直射靠北 + 长昼”
-              两个效应叠加的时候。
-            </p>
-          </article>
-          <article>
-            <span>03 / 距离不是原因</span>
-            <h3>近日点反而在 1 月</h3>
-            <p>
-              地球轨道接近圆形：近日点在 1 月初（约 1.471 亿千米），远日点在 7 月初
-              （约 1.521 亿千米），相差仅约 3.3%。若距离主导季节，南北半球就不会
-              季节相反——事实恰恰相反。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="seasons-lab-section section-pad" aria-labelledby="seasons-lab-title">
-        <div class="section-heading">
-          <p class="section-index">02</p>
-          <div>
-            <h2 id="seasons-lab-title">互动实验：拖动公转位置</h2>
-            <p>拖动滑杆让地球沿轨道移动，观察直射纬度与南北半球昼长如何此消彼长。</p>
-          </div>
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="figure-no">FIG. 02 / SEASONS LAB</p>
+          <h1>四季，<br />来自一根<br />倾斜的地轴</h1>
+          <p class="hero-lead">
+            日地距离一年只变化约 3.3%，真正改变阳光的，是 23.44° 的地轴倾角：
+            它决定阳光落下的角度与白昼的长短。
+          </p>
+          <a class="primary-action" href="#seasons-intuition">
+            开始实验
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M14 7l5 5-5 5" />
+            </svg>
+          </a>
+          <p class="hero-note">
+            拖动旋转 · 滚轮缩放 · 滑杆移动公转位置<br />
+            昼长按理想球面几何计算，画面比例经过夸张。
+          </p>
         </div>
 
         <div class="lab-shell" aria-label="四季公转交互实验">
@@ -281,9 +215,48 @@ const template = `
         </div>
       </section>
 
+      <section class="seasons-intuition section-pad" id="seasons-intuition" aria-labelledby="seasons-intuition-title">
+        <div class="section-heading">
+          <p class="section-index">01</p>
+          <div>
+            <h2 id="seasons-intuition-title">直觉模型</h2>
+            <p>公转一圈，地轴方向几乎不变；变的是太阳直射点落在哪条纬线上。</p>
+          </div>
+        </div>
+        <div class="seasons-copy">
+          <article>
+            <span>01 / 指向不变</span>
+            <h3>地轴始终指向同一方向</h3>
+            <p>
+              地球绕太阳公转时，自转轴始终指向天空中几乎同一个位置（北极星附近），
+              与公转轨道面法线夹角约 23.44°。于是一年之中，太阳直射点在南北回归线
+              （±23.44°）之间往返移动。
+            </p>
+          </article>
+          <article>
+            <span>02 / 角度决定能量</span>
+            <h3>直射得多，斜射摊薄</h3>
+            <p>
+              直射时，单位面积地表接收的阳光最多，白昼也更长；斜射时，同一束阳光
+              摊在更大的面积上，且白昼变短。北半球的夏至前后，正是“直射靠北 + 长昼”
+              两个效应叠加的时候。
+            </p>
+          </article>
+          <article>
+            <span>03 / 距离不是原因</span>
+            <h3>近日点反而在 1 月</h3>
+            <p>
+              地球轨道接近圆形：近日点在 1 月初（约 1.471 亿千米），远日点在 7 月初
+              （约 1.521 亿千米），相差仅约 3.3%。若距离主导季节，南北半球就不会
+              季节相反——事实恰恰相反。
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="section-pad" aria-labelledby="seasons-limits-title">
         <div class="section-heading">
-          <p class="section-index">03</p>
+          <p class="section-index">02</p>
           <div>
             <h2 id="seasons-limits-title">这个模型简化了什么</h2>
             <p>把简化说清楚，直觉才不会变成误解。</p>
@@ -327,7 +300,7 @@ const template = `
 
       <section class="sources section-pad" aria-labelledby="seasons-sources-title">
         <div class="section-heading light-heading">
-          <p class="section-index">04</p>
+          <p class="section-index">03</p>
           <div>
             <h2 id="seasons-sources-title">来源与核验路径</h2>
             <p>数值与结论以下列资料为准。</p>
@@ -407,7 +380,8 @@ class SeasonsScene3D {
 
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    this.camera.position.set(0, 7.5, 10.5);
+    // 窄画布（约 559×650）下拉远视点，保证轨道环与四个节气标签完整可见
+    this.camera.position.set(0, 15.5, 17);
 
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -418,7 +392,7 @@ class SeasonsScene3D {
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.07;
     this.controls.minDistance = 4;
-    this.controls.maxDistance = 24;
+    this.controls.maxDistance = 30;
     this.controls.enablePan = false;
 
     this.buildScene();
@@ -550,7 +524,7 @@ class SeasonsScene3D {
   }
 
   resetCamera() {
-    this.camera.position.set(0, 7.5, 10.5);
+    this.camera.position.set(0, 15.5, 17);
     this.controls.target.set(0, 0, 0);
     this.controls.update();
   }

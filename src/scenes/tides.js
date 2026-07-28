@@ -10,32 +10,6 @@ const SUN_RATIO = 0.46; // 太阳引潮力约为月球的 46%
 
 const template = `
     <style>
-      .tides-hero {
-        max-width: var(--max);
-        margin: 0 auto;
-        padding: clamp(56px, 7vw, 110px) var(--gutter) clamp(24px, 3vw, 48px);
-      }
-      .tides-kicker {
-        margin: 0 0 18px;
-        color: var(--red);
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .tides-hero h1 {
-        margin: 0 0 20px;
-        font-family: var(--serif);
-        font-size: clamp(40px, 5.6vw, 82px);
-        line-height: 1.08;
-        letter-spacing: -0.04em;
-      }
-      .tides-lead {
-        max-width: 660px;
-        margin: 0;
-        color: var(--muted);
-        font-size: clamp(16px, 1.6vw, 19px);
-      }
       .tides-intuition {
         padding-top: clamp(40px, 5vw, 70px);
         padding-bottom: clamp(40px, 5vw, 70px);
@@ -163,61 +137,24 @@ const template = `
     </style>
 
     <div class="tides-scene" id="main">
-      <header class="tides-hero">
-        <p class="tides-kicker">FIG. 04 / TIDES LAB</p>
-        <h1>月亮拉海水，<br />拉出两个隆起</h1>
-        <p class="tides-lead">
-          潮汐不是月亮“吸走”海水那么简单：近月侧与远月侧同时鼓起，
-          地球在双隆起下自转，多数海岸一天迎来约两次涨落。
-        </p>
-      </header>
-
-      <section class="tides-intuition section-pad" aria-labelledby="tides-intuition-title">
-        <div class="section-heading">
-          <p class="section-index">01</p>
-          <div>
-            <h2 id="tides-intuition-title">直觉模型</h2>
-            <p>关键不是引力本身，而是引力在地球两侧的“差值”。</p>
-          </div>
-        </div>
-        <div class="tides-copy">
-          <article>
-            <span>01 / 差异引力</span>
-            <h3>近侧拉得多，远侧拉得少</h3>
-            <p>
-              月球引力随距离衰减：地球近月一侧被拉得比地心更用力，远月一侧
-              被拉得更弱。以地心为参照，两侧海水都相对“向外”偏离——
-              这就是引潮力，也是双隆起的来源。
-            </p>
-          </article>
-          <article>
-            <span>02 / 立方反比</span>
-            <h3>引潮力 ∝ M / r³</h3>
-            <p>
-              引力按 1/r² 衰减，而引潮力是引力的差值，按 1/r³ 衰减。
-              太阳引力远强于月球，但因距离是地月距离的约 390 倍，
-              其引潮力反而只有月球的约 46%——月球主导潮汐。
-            </p>
-          </article>
-          <article>
-            <span>03 / 大潮小潮</span>
-            <h3>叠加还是抵消</h3>
-            <p>
-              朔（新月）与望（满月）时，日月引潮力方向成一线，隆起叠加，
-              形成大潮；上弦、下弦时两者相互垂直，部分抵消，形成小潮。
-              两者潮差通常相差可达一倍左右，随海区而异。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section-pad" aria-labelledby="tides-lab-title" style="padding-top: clamp(30px, 4vw, 60px);">
-        <div class="section-heading">
-          <p class="section-index">02</p>
-          <div>
-            <h2 id="tides-lab-title">互动实验：拉近月亮</h2>
-            <p>拖动距离滑杆观察隆起幅度按 1/r³ 变化；打开太阳影响，转动月球位置演示大潮与小潮。</p>
-          </div>
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="figure-no">FIG. 04 / TIDES LAB</p>
+          <h1>月亮拉海水，<br />拉出<br />两个隆起</h1>
+          <p class="hero-lead">
+            潮汐不是月亮“吸走”海水那么简单：近月侧与远月侧同时鼓起，
+            地球在双隆起下自转，多数海岸一天迎来约两次涨落。
+          </p>
+          <a class="primary-action" href="#tides-intuition">
+            开始实验
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M14 7l5 5-5 5" />
+            </svg>
+          </a>
+          <p class="hero-note">
+            拖动旋转 · 滚轮缩放 · 滑杆调节地月距离与公转位置<br />
+            隆起幅度已大幅夸张，引潮力按 1/r³ 真实关系计算。
+          </p>
         </div>
 
         <div class="lab-shell" aria-label="潮汐交互实验">
@@ -284,9 +221,48 @@ const template = `
         </div>
       </section>
 
+      <section class="tides-intuition section-pad" id="tides-intuition" aria-labelledby="tides-intuition-title">
+        <div class="section-heading">
+          <p class="section-index">01</p>
+          <div>
+            <h2 id="tides-intuition-title">直觉模型</h2>
+            <p>关键不是引力本身，而是引力在地球两侧的“差值”。</p>
+          </div>
+        </div>
+        <div class="tides-copy">
+          <article>
+            <span>01 / 差异引力</span>
+            <h3>近侧拉得多，远侧拉得少</h3>
+            <p>
+              月球引力随距离衰减：地球近月一侧被拉得比地心更用力，远月一侧
+              被拉得更弱。以地心为参照，两侧海水都相对“向外”偏离——
+              这就是引潮力，也是双隆起的来源。
+            </p>
+          </article>
+          <article>
+            <span>02 / 立方反比</span>
+            <h3>引潮力 ∝ M / r³</h3>
+            <p>
+              引力按 1/r² 衰减，而引潮力是引力的差值，按 1/r³ 衰减。
+              太阳引力远强于月球，但因距离是地月距离的约 390 倍，
+              其引潮力反而只有月球的约 46%——月球主导潮汐。
+            </p>
+          </article>
+          <article>
+            <span>03 / 大潮小潮</span>
+            <h3>叠加还是抵消</h3>
+            <p>
+              朔（新月）与望（满月）时，日月引潮力方向成一线，隆起叠加，
+              形成大潮；上弦、下弦时两者相互垂直，部分抵消，形成小潮。
+              两者潮差通常相差可达一倍左右，随海区而异。
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="section-pad" aria-labelledby="tides-limits-title">
         <div class="section-heading">
-          <p class="section-index">03</p>
+          <p class="section-index">02</p>
           <div>
             <h2 id="tides-limits-title">这个模型简化了什么</h2>
             <p>这里演示的是“平衡潮”理想模型——真实海潮要复杂得多。</p>
@@ -332,7 +308,7 @@ const template = `
 
       <section class="sources section-pad" aria-labelledby="tides-sources-title">
         <div class="section-heading light-heading">
-          <p class="section-index">04</p>
+          <p class="section-index">03</p>
           <div>
             <h2 id="tides-sources-title">来源与核验路径</h2>
             <p>数值与结论以下列资料为准。</p>
@@ -388,7 +364,8 @@ class TidesScene3D {
 
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    this.camera.position.set(0, 5.6, 6.4);
+    // 窄画布（约 559×650）下拉远视点，保证双隆起与月球轨道完整可见
+    this.camera.position.set(0, 9.6, 11.6);
 
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -399,7 +376,7 @@ class TidesScene3D {
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.07;
     this.controls.minDistance = 2.6;
-    this.controls.maxDistance = 18;
+    this.controls.maxDistance = 22;
     this.controls.enablePan = false;
 
     this.buildScene();
@@ -559,7 +536,7 @@ class TidesScene3D {
   }
 
   resetCamera() {
-    this.camera.position.set(0, 5.6, 6.4);
+    this.camera.position.set(0, 9.6, 11.6);
     this.controls.target.set(0, 0, 0);
     this.controls.update();
   }

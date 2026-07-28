@@ -4,8 +4,15 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const template = `
   <style>
-    .ss-scene .hero { grid-template-columns: 1fr; }
-    .ss-scene .hero-copy { max-width: 780px; }
+    .ss-scene #ss-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+      touch-action: none;
+    }
+    .ss-scene #ss-canvas:active { cursor: grabbing; }
     .ss-intuition-copy { max-width: 850px; }
     .ss-intuition-copy p { margin: 0 0 18px; color: var(--muted, #555); font-size: 16px; line-height: 1.9; }
     .ss-intuition-copy p strong { color: inherit; }
@@ -58,7 +65,7 @@ const template = `
         <p class="hero-lead">
           水星 88 天转一圈，海王星要 165 年。把时间拨快，行星的节奏差立刻显形。
         </p>
-        <a class="primary-action" href="#ss-lab">
+        <a class="primary-action" href="#ss-intuition">
           开始实验
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14M14 7l5 5-5 5" />
@@ -68,42 +75,6 @@ const template = `
           拖动旋转 · 滚轮缩放 · 滑杆调节时间倍速<br />
           公转周期比例真实，行星大小经过夸张。
         </p>
-      </div>
-    </section>
-
-    <section class="section-pad" aria-labelledby="ss-intuition-title">
-      <div class="section-heading">
-        <p class="section-index">01</p>
-        <div>
-          <h2 id="ss-intuition-title">直觉模型：越远越慢的行星</h2>
-          <p>公转周期不是随意的，它被开普勒第三定律锁死在轨道半径上。</p>
-        </div>
-      </div>
-      <div class="ss-intuition-copy">
-        <p>
-          行星离太阳越远，走得越慢，路也越长。开普勒第三定律给出精确关系：<strong>周期的平方
-          正比于轨道半长轴的立方</strong>。海王星距离太阳约 30 天文单位，周期便是
-          30<sup>1.5</sup> ≈ 165 个地球年——自 1846 年被发现以来，它刚完成第一整圈。
-        </p>
-        <p>
-          真实比例下的太阳系几乎全是空隙：若把地球轨道画成 1 米，海王星在 30 米外，而行星本身
-          小到看不见。因此本实验提供两种画法——压缩尺度便于总览节奏，真实间距还原空旷本相。
-        </p>
-        <p>
-          "火星逆行"曾困扰古代天文学家上千年：火星通常相对恒星背景向东走，每约 26 个月却倒退
-          数周。哥白尼给出的解释很朴素——地球在内圈跑得快（约 30 km/s 对火星 24 km/s），每次
-          "超车"时，从地球看去火星就在天幕上打了一个回环。打开逆行演示，观察视线轨迹。
-        </p>
-      </div>
-    </section>
-
-    <section class="section-pad" id="ss-lab" aria-labelledby="ss-lab-title">
-      <div class="section-heading">
-        <p class="section-index">02</p>
-        <div>
-          <h2 id="ss-lab-title">互动实验：拨动太阳系的时钟</h2>
-          <p>调节倍速、切换尺度；打开逆行演示，看地球"超车"火星的瞬间。</p>
-        </div>
       </div>
 
       <div class="lab-shell" aria-label="太阳系三维交互实验">
@@ -149,9 +120,35 @@ const template = `
       </div>
     </section>
 
+    <section class="section-pad" id="ss-intuition" aria-labelledby="ss-intuition-title">
+      <div class="section-heading">
+        <p class="section-index">01</p>
+        <div>
+          <h2 id="ss-intuition-title">直觉模型：越远越慢的行星</h2>
+          <p>公转周期不是随意的，它被开普勒第三定律锁死在轨道半径上。</p>
+        </div>
+      </div>
+      <div class="ss-intuition-copy">
+        <p>
+          行星离太阳越远，走得越慢，路也越长。开普勒第三定律给出精确关系：<strong>周期的平方
+          正比于轨道半长轴的立方</strong>。海王星距离太阳约 30 天文单位，周期便是
+          30<sup>1.5</sup> ≈ 165 个地球年——自 1846 年被发现以来，它刚完成第一整圈。
+        </p>
+        <p>
+          真实比例下的太阳系几乎全是空隙：若把地球轨道画成 1 米，海王星在 30 米外，而行星本身
+          小到看不见。因此本实验提供两种画法——压缩尺度便于总览节奏，真实间距还原空旷本相。
+        </p>
+        <p>
+          "火星逆行"曾困扰古代天文学家上千年：火星通常相对恒星背景向东走，每约 26 个月却倒退
+          数周。哥白尼给出的解释很朴素——地球在内圈跑得快（约 30 km/s 对火星 24 km/s），每次
+          "超车"时，从地球看去火星就在天幕上打了一个回环。打开逆行演示，观察视线轨迹。
+        </p>
+      </div>
+    </section>
+
     <section class="section-pad" aria-labelledby="ss-limits-title">
       <div class="section-heading">
-        <p class="section-index">03</p>
+        <p class="section-index">02</p>
         <div>
           <h2 id="ss-limits-title">这个模型简化了什么</h2>
           <p>周期比例可信，形状与大小另当别论。</p>
@@ -187,7 +184,7 @@ const template = `
 
     <section class="sources section-pad" aria-labelledby="ss-sources-title">
       <div class="section-heading light-heading">
-        <p class="section-index">04</p>
+        <p class="section-index">03</p>
         <div>
           <h2 id="ss-sources-title">来源与核验路径</h2>
           <p>轨道半长轴与公转周期取自 NASA 行星数据表。</p>
@@ -467,8 +464,9 @@ class SolarSystemScene3D {
   }
 
   resetCamera() {
+    // 窄画布（约 559×650）下拉远基准视点，保证海王星轨道完整可见
     const dist = this.compact ? 1 : 2.6;
-    this.camera.position.set(0, 17 * dist, 25 * dist);
+    this.camera.position.set(0, 31 * dist, 46 * dist);
     this.controls.target.set(0, 0, 0);
     this.controls.update();
   }

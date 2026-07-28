@@ -5,8 +5,15 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const template = `
   <style>
-    .le-scene .hero { grid-template-columns: 1fr; }
-    .le-scene .hero-copy { max-width: 780px; }
+    .le-scene #le-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+      touch-action: none;
+    }
+    .le-scene #le-canvas:active { cursor: grabbing; }
     .le-intuition-copy { max-width: 850px; }
     .le-intuition-copy p { margin: 0 0 18px; color: var(--muted, #555); font-size: 16px; line-height: 1.9; }
     .le-intuition-copy p strong { color: inherit; }
@@ -42,7 +49,7 @@ const template = `
         <p class="hero-lead">
           月食是月球穿过地球影锥的过程。全食时它不消失，而是被地球大气折射的红光点亮。
         </p>
-        <a class="primary-action" href="#le-lab">
+        <a class="primary-action" href="#le-intuition">
           开始实验
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14M14 7l5 5-5 5" />
@@ -52,43 +59,6 @@ const template = `
           拖动旋转 · 滚轮缩放 · 滑杆或播放键推动月球<br />
           画面距离经过压缩，食分由真实公里数值计算。
         </p>
-      </div>
-    </section>
-
-    <section class="section-pad" aria-labelledby="le-intuition-title">
-      <div class="section-heading">
-        <p class="section-index">01</p>
-        <div>
-          <h2 id="le-intuition-title">直觉模型：一次穿过影子的旅行</h2>
-          <p>地球背向太阳的一侧拖着两层影子，月球偶尔会游进去。</p>
-        </div>
-      </div>
-      <div class="le-intuition-copy">
-        <p>
-          地球的本影是一个长约 <strong>140 万公里</strong>的锥体，在月球轨道距离处直径仍约
-          9200 公里，超过月球直径的 2.6 倍。围绕本影还有一圈更淡的半影。满月时若月球恰好
-          位于黄白交点附近，就会先后穿过半影与本影，形成半影月食、月偏食或月全食。
-        </p>
-        <p>
-          与日食相同，月球轨道 5.1° 的倾角让多数满月从影锥上方或下方掠过——月食也不是每月
-          都有。但月食一旦发生，面向月球的整个半球都能看到，这就是多数人一生中看过的月食
-          远多于日食的原因。
-        </p>
-        <p>
-          月全食的红色来自<strong>瑞利散射</strong>：太阳光掠过地球大气边缘时，波长较短的蓝
-          光被空气分子强烈散射掉（散射强度约与波长四次方成反比），剩下的红光经大气折射弯
-          进本影内部，把月面照成暗红色——本质上，那是环绕地球一整圈的日出与日落投在月亮上。
-        </p>
-      </div>
-    </section>
-
-    <section class="section-pad" id="le-lab" aria-labelledby="le-lab-title">
-      <div class="section-heading">
-        <p class="section-index">02</p>
-        <div>
-          <h2 id="le-lab-title">互动实验：把月亮推进影锥</h2>
-          <p>0° 即满月方位。调整轨道位置与倾角偏移，观察食分与月面颜色的变化。</p>
-        </div>
       </div>
 
       <div class="lab-shell" aria-label="月食三维交互实验">
@@ -135,9 +105,36 @@ const template = `
       </div>
     </section>
 
+    <section class="section-pad" id="le-intuition" aria-labelledby="le-intuition-title">
+      <div class="section-heading">
+        <p class="section-index">01</p>
+        <div>
+          <h2 id="le-intuition-title">直觉模型：一次穿过影子的旅行</h2>
+          <p>地球背向太阳的一侧拖着两层影子，月球偶尔会游进去。</p>
+        </div>
+      </div>
+      <div class="le-intuition-copy">
+        <p>
+          地球的本影是一个长约 <strong>140 万公里</strong>的锥体，在月球轨道距离处直径仍约
+          9200 公里，超过月球直径的 2.6 倍。围绕本影还有一圈更淡的半影。满月时若月球恰好
+          位于黄白交点附近，就会先后穿过半影与本影，形成半影月食、月偏食或月全食。
+        </p>
+        <p>
+          与日食相同，月球轨道 5.1° 的倾角让多数满月从影锥上方或下方掠过——月食也不是每月
+          都有。但月食一旦发生，面向月球的整个半球都能看到，这就是多数人一生中看过的月食
+          远多于日食的原因。
+        </p>
+        <p>
+          月全食的红色来自<strong>瑞利散射</strong>：太阳光掠过地球大气边缘时，波长较短的蓝
+          光被空气分子强烈散射掉（散射强度约与波长四次方成反比），剩下的红光经大气折射弯
+          进本影内部，把月面照成暗红色——本质上，那是环绕地球一整圈的日出与日落投在月亮上。
+        </p>
+      </div>
+    </section>
+
     <section class="section-pad" aria-labelledby="le-limits-title">
       <div class="section-heading">
-        <p class="section-index">03</p>
+        <p class="section-index">02</p>
         <div>
           <h2 id="le-limits-title">这个模型简化了什么</h2>
           <p>影锥与月球的相对大小是真实的，其余多有取舍。</p>
@@ -173,7 +170,7 @@ const template = `
 
     <section class="sources section-pad" aria-labelledby="le-sources-title">
       <div class="section-heading light-heading">
-        <p class="section-index">04</p>
+        <p class="section-index">03</p>
         <div>
           <h2 id="le-sources-title">来源与核验路径</h2>
           <p>数值与机制描述以下列资料为准。</p>
@@ -250,8 +247,7 @@ class LunarEclipseScene3D {
     this.playing = false;
 
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(42, 1, 0.01, 300);
-    this.camera.position.set(3.2, 3, 8.8);
+    this.camera = new THREE.PerspectiveCamera(50, 1, 0.01, 300);
 
     this.renderer = new THREE.WebGLRenderer({
       canvas,
@@ -267,8 +263,9 @@ class LunarEclipseScene3D {
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.07;
     this.controls.minDistance = 3;
-    this.controls.maxDistance = 40;
+    this.controls.maxDistance = 90;
     this.controls.enablePan = false;
+    this.resetCamera();
 
     this.moonBaseColor = new THREE.Color(0xcfc9bc);
     this.moonPenumbraColor = new THREE.Color(0x8d897f);
@@ -472,8 +469,9 @@ class LunarEclipseScene3D {
   }
 
   resetCamera() {
-    this.camera.position.set(3.2, 3, 8.8);
-    this.controls.target.set(0, 0, 0);
+    // 窄画布（约 559×650）下的全景构图：太阳(-40)、地球影锥(0→+7)与月球轨道一屏收齐
+    this.camera.position.set(-18.5, 16, 63);
+    this.controls.target.set(-18.5, 0.5, 0);
     this.controls.update();
   }
 

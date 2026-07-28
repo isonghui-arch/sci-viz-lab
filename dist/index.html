@@ -4447,8 +4447,15 @@ void main() {
     </div>
 `,R0=window.matchMedia("(prefers-reduced-motion: reduce)").matches,C0={red:new Pt("#e43b32"),amber:new Pt("#e7a329"),blue:new Pt("#7894ad"),ivory:new Pt("#f3efe5"),navy:new Pt("#07182d")};function dl(i,t,e,n=2){const s=Math.min(window.devicePixelRatio||1,n),r=Math.max(1,Math.floor(t*s)),a=Math.max(1,Math.floor(e*s));return(i.width!==r||i.height!==a)&&(i.width=r,i.height=a),s}function Dc(i,t){const e=Math.PI*(3-Math.sqrt(5)),n=1-i/Math.max(1,t-1)*2,s=Math.sqrt(Math.max(0,1-n*n)),r=e*i;return new w(Math.cos(r)*s,n,Math.sin(r)*s)}function P0(i){const t=Math.abs(i.y)<.88?new w(0,1,0):new w(1,0,0),e=new w().crossVectors(i,t).normalize(),n=new w().crossVectors(i,e).normalize();return[e,n]}class D0{constructor(t){this.canvas=t,this.mode="star",this.count=320,this.radius=.014,this.motion=!R0,this.group=new on,this.tempObject=new ve,this.tempColor=new Pt,this.scene=new Hn,this.scene.fog=new Zo(464941,.045),this.camera=new Se(38,1,.01,100),this.camera.position.set(3.25,2.2,3.5),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0,powerPreference:"high-performance"}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.toneMapping=$c,this.renderer.toneMappingExposure=1.1,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.065,this.controls.minDistance=2.4,this.controls.maxDistance=8,this.controls.enablePan=!1,this.scene.add(this.group),this.addLighting(),this.addGuides(),this.rebuild(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize()}addLighting(){this.scene.add(new us(14149876,463134,1.6));const t=new li(16769463,2.4);t.position.set(3,4,2),this.scene.add(t);const e=new li(6266321,1.4);e.position.set(-4,-1,-3),this.scene.add(e)}addGuides(){const t=new Te({color:7178143,transparent:!0,opacity:.22});[1.1,1.55,2].forEach((s,r)=>{const a=[];for(let l=0;l<=128;l+=1){const h=l/128*Math.PI*2;a.push(new w(Math.cos(h)*s,-.72+r*.05,Math.sin(h)*s))}const o=new Nt().setFromPoints(a),c=new Ce(o,t);this.scene.add(c)});const e=new Te({color:13030879,transparent:!0,opacity:.3});[[new w(-2.2,0,0),new w(2.2,0,0)],[new w(0,-2.2,0),new w(0,2.2,0)],[new w(0,0,-2.2),new w(0,0,2.2)]].forEach(s=>{const r=new Nt().setFromPoints(s);this.scene.add(new Ce(r,e))})}clearGroup(){for(;this.group.children.length;){const t=this.group.children.pop();t.geometry?.dispose(),Array.isArray(t.material)?t.material.forEach(e=>e.dispose()):t.material?.dispose()}}centerFor(t,e,n){const[s,r]=P0(t),a=e*1.61803398875;if(this.mode==="spread")return s.multiplyScalar(Math.sin(a*2.3)*.72).add(r.multiplyScalar(Math.cos(a*1.7)*.72));if(this.mode==="sticky"){const o=e%12,c=o/12*Math.PI*2,l=new w(Math.cos(c)*.42,(o%3-1)*.28,Math.sin(c)*.42),h=s.multiplyScalar(Math.sin(a*4.1)*.055).add(r.multiplyScalar(Math.cos(a*3.7)*.055));return l.add(h)}if(this.mode==="grains"){const o=Math.ceil(Math.cbrt(n)),c=e%o,l=Math.floor(e/o)%o,h=Math.floor(e/(o*o));return new w((c-(o-1)/2)*.19,(l-(o-1)/2)*.19,(h-(o-1)/2)*.19)}return new w(0,0,0)}addFatTubes(){if(this.mode!=="sticky")return;const t=new Tn(.075,.075,2.05,12,1,!0),e=new jt({color:C0.amber,transparent:!0,opacity:.07,side:Re,depthWrite:!1}),n=new Ta(t,e,12);for(let s=0;s<12;s+=1){const r=Dc(s,12),a=s/12*Math.PI*2;this.tempObject.position.set(Math.cos(a)*.42,(s%3-1)*.28,Math.sin(a)*.42),this.tempObject.quaternion.setFromUnitVectors(new w(0,1,0),r),this.tempObject.scale.set(1,1,1),this.tempObject.updateMatrix(),n.setMatrixAt(s,this.tempObject.matrix)}this.group.add(n)}addGrains(){if(this.mode!=="grains")return;const t=48,e=new ds(.22,.38,.12),n=new Eu(e),s=new Te({color:15180585,transparent:!0,opacity:.22});for(let r=0;r<t;r+=1){const a=r%4-1.5,o=Math.floor(r/4)%4-1.5,c=Math.floor(r/16)-1,l=new Su(n.clone(),s.clone());l.position.set(a*.42,o*.42,c*.44),l.rotation.set(.08*o,.16*a,.08*c),this.group.add(l)}n.dispose(),e.dispose(),s.dispose()}rebuild(){this.clearGroup();const t=this.mode==="grains"?.62:2.05,e=this.count>600?6:9,n=new Tn(this.radius,this.radius,t,e,1,!0),s=new jt({color:16727860,transparent:!0,opacity:this.mode==="star"?.62:.5,side:Re,depthWrite:!1,depthTest:!0,blending:wi,toneMapped:!1}),r=s.clone();r.color.set(16758059),r.opacity=this.mode==="star"?.7:.56,r.depthTest=!1;const a=new Ta(n,s,this.count),o=Math.ceil(this.count/5),c=new Ta(n.clone(),r,o);a.instanceMatrix.setUsage(Rd);let l=0;for(let h=0;h<this.count;h+=1){let d=Dc(h,this.count);if(this.mode==="grains"){const p=(h%9-4)*.025;d=new w(p,1,Math.sin(h*1.3)*.055).normalize()}this.tempObject.position.copy(this.centerFor(d,h,this.count)),this.tempObject.quaternion.setFromUnitVectors(new w(0,1,0),d),this.tempObject.scale.set(1,1,1),this.tempObject.updateMatrix(),a.setMatrixAt(h,this.tempObject.matrix),h%5===0&&(c.setMatrixAt(l,this.tempObject.matrix),l+=1)}a.instanceMatrix.needsUpdate=!0,c.instanceMatrix.needsUpdate=!0,this.group.add(a),this.group.add(c),this.addFatTubes(),this.addGrains(),this.group.rotation.set(-.05,.16,.08)}setMode(t){this.mode=t,this.rebuild()}setCount(t){this.count=t,this.rebuild()}setRadius(t){this.radius=t,this.rebuild()}resetCamera(){this.camera.position.set(3.25,2.2,3.5),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;if(!t)return;const e=t.clientWidth,n=t.clientHeight;this.camera.aspect=e/Math.max(1,n),this.camera.updateProjectionMatrix(),this.renderer.setSize(e,n,!1)}render(){this.motion&&(this.group.rotation.y+=.0016),this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),this.clearGroup(),this.scene.traverse(t=>{t.geometry?.dispose(),Array.isArray(t.material)?t.material.forEach(e=>e.dispose()):t.material?.dispose()}),this.renderer.dispose()}}let hs=null;const le=i=>hs.querySelector(i),Zn=i=>[...hs.querySelectorAll(i)];class L0{constructor(t){this.canvas=t,this.ctx=t.getContext("2d",{alpha:!0,willReadFrequently:!0}),this.mode="center",this.count=72,this.resizeObserver=new ResizeObserver(()=>this.draw()),this.resizeObserver.observe(t.parentElement),this.draw()}segment(t,e,n,s){const r=t/e*Math.PI,a=Math.min(n,s)*.54;let o=n*.5,c=s*.48;if(this.mode==="fan"){const d=t/Math.max(1,e-1)-.5;o+=d*n*.28,c+=Math.sin(r*3)*s*.07}if(this.mode==="compress"){const d=t/Math.max(1,e-1)-.5;o+=Math.sin(r*2)*n*.105,c+=d*s*.08}const l=Math.cos(r)*a*.5,h=Math.sin(r)*a*.5;return[o-l,c-h,o+l,c+h]}coverage(t,e){const s=Math.max(160,Math.round(360*(e/t))),r=document.createElement("canvas");r.width=360,r.height=s;const a=r.getContext("2d",{willReadFrequently:!0});a.lineCap="round",a.lineWidth=6,a.strokeStyle="#fff";for(let l=0;l<this.count;l+=1){const[h,d,p,f]=this.segment(l,this.count,360,s);a.beginPath(),a.moveTo(h,d),a.lineTo(p,f),a.stroke()}const o=a.getImageData(0,0,360,s).data;let c=0;for(let l=3;l<o.length;l+=4)o[l]>0&&(c+=1);return c/(360*s)*100}draw(){if(!hs)return;const t=this.canvas.getBoundingClientRect(),e=dl(this.canvas,t.width,t.height),n=t.width,s=t.height,r=this.ctx;r.setTransform(e,0,0,e,0,0),r.clearRect(0,0,n,s);const a=r.createRadialGradient(n*.5,s*.48,0,n*.5,s*.48,Math.min(n,s)*.34);a.addColorStop(0,"rgba(227,58,50,0.24)"),a.addColorStop(1,"rgba(227,58,50,0)"),r.fillStyle=a,r.fillRect(0,0,n,s),r.lineCap="round";for(let o=0;o<this.count;o+=1){const[c,l,h,d]=this.segment(o,this.count,n,s);r.beginPath(),r.moveTo(c,l),r.lineTo(h,d),r.strokeStyle=o%7===0?"rgba(229,165,38,0.74)":"rgba(227,58,50,0.38)",r.lineWidth=o%7===0?1.4:.85,r.stroke()}r.fillStyle="#f3efe5",r.beginPath(),r.arc(n*.5,s*.48,3.2,0,Math.PI*2),r.fill(),le("#pixel-coverage").textContent=`${this.coverage(n,s).toFixed(1)}%`,le("#needle-count-value").textContent=String(this.count)}setMode(t){this.mode=t,this.draw()}setCount(t){this.count=t,this.draw()}dispose(){this.resizeObserver.disconnect()}}class I0{constructor(t){this.canvas=t,this.ctx=t.getContext("2d"),this.delta=.03,this.resizeObserver=new ResizeObserver(()=>this.draw()),this.resizeObserver.observe(t.parentElement),this.draw()}draw(){const t=this.canvas.getBoundingClientRect(),e=dl(this.canvas,t.width,t.height),n=t.width,s=t.height,r=this.ctx;r.setTransform(e,0,0,e,0,0),r.clearRect(0,0,n,s),r.fillStyle="#e8e0d1",r.fillRect(0,0,n,s),r.strokeStyle="rgba(17,19,21,0.08)",r.lineWidth=1;for(let d=0;d<=n;d+=26)r.beginPath(),r.moveTo(d,0),r.lineTo(d,s),r.stroke();for(let d=0;d<=s;d+=26)r.beginPath(),r.moveTo(0,d),r.lineTo(n,d),r.stroke();const a=n*.5,o=s*.52,c=Math.min(n,s)*.6,l=Math.max(2,this.delta*Math.min(n,s)*2.2),h=24;r.lineCap="round",r.lineWidth=l,r.strokeStyle="rgba(72,102,132,0.2)";for(let d=0;d<h;d+=1){const p=d/h*Math.PI,f=Math.cos(p)*c*.5,g=Math.sin(p)*c*.5;r.beginPath(),r.moveTo(a-f,o-g),r.lineTo(a+f,o+g),r.stroke()}r.lineWidth=1;for(let d=0;d<h;d+=1){const p=d/h*Math.PI,f=Math.cos(p)*c*.5,g=Math.sin(p)*c*.5;r.beginPath(),r.moveTo(a-f,o-g),r.lineTo(a+f,o+g),r.strokeStyle=d%5===0?"#b41f24":"rgba(17,19,21,0.55)",r.stroke()}r.fillStyle="#b41f24",r.font=`11px ${getComputedStyle(document.documentElement).getPropertyValue("--mono")}`,r.fillText(`δ = ${this.delta.toFixed(3)}`,16,22)}setDelta(t){this.delta=t,this.draw()}dispose(){this.resizeObserver.disconnect()}}const U0=[{kicker:"STEP 1 · DISCRETIZE",title:"把“每个方向”换成约 δ<sup>−2</sup> 根细管",intuition:"在三维中，从球面选取彼此相隔约 δ 的方向，数量约为 δ<sup>−2</sup>。每个方向放一根长 1、半径 δ 的管。问题转化为：这些管最多能重叠到什么程度？",math:"并集 U(𝕋) 越小，典型重数 μ(𝕋) = (Σ<sub>T∈𝕋</sub>|T|) / |U(𝕋)| 越大。目标是证明 μ 只能有 δ<sup>−ε</sup> 级损失。"},{kicker:"STEP 2 · MULTISCALE",title:"在中间尺度 ρ 上，把细管装进粗管",intuition:"把每根 δ 细管加粗到半径 ρ。相近的方向与位置会合并成同一根粗管。这样可以同时观察“粗尺度有多少束”和“每束里塞了多少细管”。",math:"记 𝕋<sub>ρ</sub> 为 ρ 粗管族，𝕋<sub>Tρ</sub> 为落在某根粗管内的细管。经分层选择后有 |𝕋| ≈ |𝕋<sub>ρ</sub>|·|𝕋<sub>Tρ</sub>|。"},{kicker:"STEP 3 · STICKINESS",title:"“黏连”表示每个尺度都接近允许的最大打包",intuition:"若相近细管在所有中间尺度上总能稳定地抱成束，配置就具有多尺度自相似。王虹与 Zahl 先解决了这一高度结构化的特殊情形。",math:"黏连情形中，重数近似分解为 μ(𝕋) ≈ μ(𝕋<sub>Tρ</sub>)·μ(𝕋<sub>ρ</sub>)。多个尺度上的近似等号迫使配置出现很强的刚性。"},{kicker:"STEP 4 · GRAININESS",title:"局部重叠被迫长成平行的“木纹颗粒”",intuition:"在合适的小球里，管的并集呈现许多薄而短的矩形片；同一个小球中的颗粒大体平行。这种 graininess 让复杂线管问题出现可数、可比较的局部骨架。",math:"Katz–Łaba–Tao 的结构思想把黏连配置联系到 planiness、graininess 与离散 sum-product。王虹与 Zahl 完成其中需要的大量技术环节。"},{kicker:"STEP 5 · INDUCTION ON SCALES",title:"非黏连配置若声称“最坏”，尺度归纳会逼出矛盾",intuition:"王虹与 Zahl 证明：缺少黏连时，可以在某些小球、薄板或凸集里重排尺度信息，得到比假设更好的重叠上界。真正的最坏情形因此只能是已解决的黏连情形。",math:"证明引入 Frostman 型密度条件与高密度引理，并在厚棱柱、薄棱柱等情形中结合归纳和二维 L² 估计。若最佳指数 β > 0，非黏连情形会给出 μ(𝕋) ≪ |𝕋|<sup>β</sup>，违背 β 的最坏性，故 β = 0。"}];class N0{constructor(t){this.canvas=t,this.ctx=t.getContext("2d"),this.stage=0,this.resizeObserver=new ResizeObserver(()=>this.draw()),this.resizeObserver.observe(t.parentElement),this.draw()}line(t,e,n,s,r,a="rgba(227,58,50,0.65)",o=1){t.beginPath(),t.moveTo(e,n),t.lineTo(s,r),t.strokeStyle=a,t.lineWidth=o,t.stroke()}drawTubes(t,e,n,s=!1){const r=s?36:54,a=e*.5,o=n*.47,c=Math.min(e,n)*.62;for(let l=0;l<r;l+=1){const h=l/r*Math.PI+(s?(l%6-3)*.008:0),d=s?(l%6-2.5)*Math.min(e,n)*.015:0,p=Math.cos(h)*c*.5,f=Math.sin(h)*c*.5;this.line(t,a-p,o-f+d,a+p,o+f+d,l%7===0?"rgba(229,165,38,0.82)":"rgba(227,58,50,0.48)",l%7===0?1.4:.85)}}draw(){const t=this.canvas.getBoundingClientRect(),e=dl(this.canvas,t.width,t.height),n=t.width,s=t.height,r=this.ctx;if(r.setTransform(e,0,0,e,0,0),r.clearRect(0,0,n,s),r.lineCap="round",this.stage===0&&(this.drawTubes(r,n,s,!1),r.strokeStyle="rgba(243,239,229,0.24)",r.strokeRect(n*.23,s*.17,n*.54,s*.58)),this.stage===1){this.drawTubes(r,n,s,!0);for(let a=0;a<6;a+=1){const o=a/6*Math.PI,c=n*.5,l=s*.47,h=Math.min(n,s)*.68,d=Math.cos(o)*h*.5,p=Math.sin(o)*h*.5;this.line(r,c-d,l-p,c+d,l+p,"rgba(120,148,173,0.2)",14)}}if(this.stage===2)for(let o=0;o<7;o+=1){const c=o/7*Math.PI,l=n*(.22+o%4*.18),h=s*(.33+Math.floor(o/4)*.28);for(let d=0;d<12;d+=1){const p=c+(d-6)*.012,f=Math.min(n,s)*.36,g=Math.cos(p)*f*.5,v=Math.sin(p)*f*.5;this.line(r,l-g,h-v,l+g,h+v,"rgba(227,58,50,0.5)",1)}r.beginPath(),r.arc(l,h,25,0,Math.PI*2),r.fillStyle="rgba(229,165,38,0.07)",r.fill()}if(this.stage===3){const a=Math.max(5,Math.floor(n/100)),o=5,c=n*.16,l=s*.2,h=n*.68/Math.max(1,a-1),d=s*.55/Math.max(1,o-1);for(let p=0;p<o;p+=1)for(let f=0;f<a;f+=1){const g=c+f*h+p%2*14,v=l+p*d;r.save(),r.translate(g,v),r.rotate(-.2+p*.045),r.fillStyle=(p+f)%4===0?"rgba(229,165,38,0.3)":"rgba(243,239,229,0.14)",r.strokeStyle="rgba(243,239,229,0.28)",r.fillRect(-26,-8,52,16),r.strokeRect(-26,-8,52,16),r.restore()}}if(this.stage===4){for(let o=0;o<5;o+=1){const c=Math.min(n,s)*(.16+o*.115);r.strokeStyle=o===4?"rgba(229,165,38,0.78)":"rgba(120,148,173,0.45)",r.lineWidth=1,r.strokeRect(n*.5-c/2,s*.47-c/2,c,c),r.fillStyle="rgba(243,239,229,0.58)",r.font="11px monospace",r.fillText(o===0?"δ":`ρ${o}`,n*.5+c/2+8,s*.47-c/2+11)}this.line(r,n*.18,s*.82,n*.82,s*.82,"rgba(227,58,50,0.65)",1);for(let o=0;o<5;o+=1){const c=n*.18+o/4*n*.64;r.beginPath(),r.arc(c,s*.82,5,0,Math.PI*2),r.fillStyle=o===4?"#e5a526":"#e33a32",r.fill()}}}setStage(t){this.stage=t,this.draw()}dispose(){this.resizeObserver.disconnect()}}const F0={star:"中心星束",spread:"分散排列",sticky:"多尺度黏连",grains:"木纹颗粒"},O0={center:"所有线段穿过同一中心，方向齐全，重叠也最直观。它展示方向条件，并未给出面积最小的构造。",fan:"让相邻方向的线段稍微错位，交叉区域被拉成扇形。经典 Besicovitch–Perron 构造会反复切分三角形并平移，过程精细得多。",compress:"把中心位置压到一条窄带附近，许多方向继续相交。这个模式只演示“通过安排位置增加重叠”的想法。"};let Ue=null;function B0(){const{heroScene:i,needleCanvas:t,minkowskiCanvas:e,proofCanvas:n}=Ue,s=le("#local-motion-toggle");function r(){s.textContent=i.motion?"暂停旋转":"继续旋转",s.setAttribute("aria-pressed",String(i.motion))}s.addEventListener("click",()=>{i.motion=!i.motion,r()}),r(),Zn(".mode-button").forEach(c=>{c.addEventListener("click",()=>{Zn(".mode-button").forEach(h=>h.classList.remove("is-active")),c.classList.add("is-active"),i.setMode(c.dataset.mode);const l=`${i.count} 根细管 · δ = ${i.radius.toFixed(3)} · ${F0[c.dataset.mode]}`;le("#canvas-status").textContent=l})}),le("#tube-count").addEventListener("input",c=>{const l=Number(c.target.value);le("#tube-count-output").textContent=String(l),i.setCount(l),le("#canvas-status").textContent=`${l} 根细管 · δ = ${i.radius.toFixed(3)}`}),le("#tube-radius").addEventListener("input",c=>{const l=Number(c.target.value);le("#tube-radius-output").textContent=l.toFixed(3),i.setRadius(l),le("#canvas-status").textContent=`${i.count} 根细管 · δ = ${l.toFixed(3)}`}),le("#reset-camera").addEventListener("click",()=>i.resetCamera()),Zn("[data-needle-mode]").forEach(c=>{c.addEventListener("click",()=>{Zn("[data-needle-mode]").forEach(l=>l.classList.remove("is-active")),c.classList.add("is-active"),t.setMode(c.dataset.needleMode),le("#needle-explanation").textContent=O0[c.dataset.needleMode]})}),le("#needle-count").addEventListener("input",c=>{const l=Number(c.target.value);le("#needle-count-output").textContent=String(l),t.setCount(l)}),le("#delta-slider").addEventListener("input",c=>{const l=Number(c.target.value);le("#delta-output").textContent=`δ = ${l.toFixed(3)}`,e.setDelta(l)});function a(c){const l=U0[c];le("#proof-kicker").textContent=l.kicker,le("#proof-step-title").innerHTML=l.title,le("#proof-step-body").innerHTML=l[Ue.proofLevel],le("#proof-math").hidden=Ue.proofLevel!=="math",Ue.proofLevel==="math"&&(le("#proof-math p").innerHTML=l.math)}Zn(".proof-stage").forEach(c=>{c.addEventListener("click",()=>{Zn(".proof-stage").forEach(h=>{h.classList.remove("is-active"),h.setAttribute("aria-selected","false")}),c.classList.add("is-active"),c.setAttribute("aria-selected","true");const l=Number(c.dataset.proofStage);n.setStage(l),a(l)})}),Zn("[data-proof-level]").forEach(c=>{c.addEventListener("click",()=>{Zn("[data-proof-level]").forEach(h=>h.classList.remove("is-active")),c.classList.add("is-active"),Ue.proofLevel=c.dataset.proofLevel;const l=Number(le(".proof-stage.is-active").dataset.proofStage);a(l)})});function o(){const c=hs?.querySelector(".reading-progress span");if(!c)return;const l=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight,d=h>0?l/h:0;c.style.width=`${Math.min(1,Math.max(0,d))*100}%`}Ue.onScroll=o,window.addEventListener("scroll",Ue.onScroll,{passive:!0}),window.addEventListener("resize",Ue.onScroll),o()}const z0={id:"kakeya",name:"挂谷猜想",getDefaultParams(){return{mode:"star",count:320,radius:.014}},init(i){hs=i,i.innerHTML=A0,Ue={heroScene:new D0(le("#hero-canvas")),needleCanvas:new L0(le("#needle-canvas")),minkowskiCanvas:new I0(le("#minkowski-canvas")),proofCanvas:new N0(le("#proof-canvas")),proofLevel:"intuition",onScroll:null},B0()},update(){Ue?.heroScene.render()},dispose(){Ue&&(window.removeEventListener("scroll",Ue.onScroll),window.removeEventListener("resize",Ue.onScroll),Ue.heroScene.dispose(),Ue.needleCanvas.dispose(),Ue.minkowskiCanvas.dispose(),Ue.proofCanvas.dispose(),Ue=null,hs=null)}},k0=`
   <style>
-    .se-scene .hero { grid-template-columns: 1fr; }
-    .se-scene .hero-copy { max-width: 780px; }
+    .se-scene #se-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+      touch-action: none;
+    }
+    .se-scene #se-canvas:active { cursor: grabbing; }
     .se-intuition-copy { max-width: 850px; }
     .se-intuition-copy p { margin: 0 0 18px; color: var(--muted, #555); font-size: 16px; line-height: 1.9; }
     .se-intuition-copy p strong { color: inherit; }
@@ -4484,7 +4491,7 @@ void main() {
         <p class="hero-lead">
           日食是月球本影与半影扫过地表的几何事件。轨道倾角 5.1°，让这场对齐每年只成功几次。
         </p>
-        <a class="primary-action" href="#se-lab">
+        <a class="primary-action" href="#se-intuition">
           开始实验
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14M14 7l5 5-5 5" />
@@ -4494,42 +4501,6 @@ void main() {
           拖动旋转 · 滚轮缩放 · 滑杆移动月球<br />
           画面比例经过夸张，食型判定使用真实天文数值。
         </p>
-      </div>
-    </section>
-
-    <section class="section-pad" aria-labelledby="se-intuition-title">
-      <div class="section-heading">
-        <p class="section-index">01</p>
-        <div>
-          <h2 id="se-intuition-title">直觉模型：一次苛刻的三点对齐</h2>
-          <p>新月每月都有，日食却不是。差别藏在两个角度和一段距离里。</p>
-        </div>
-      </div>
-      <div class="se-intuition-copy">
-        <p>
-          太阳直径约为月球的 400 倍，距离也恰好约为月地距离的 400 倍——两者在天空中的视直径
-          几乎相同，都接近 0.5°。这一巧合让月球有机会不多不少地遮住日面，露出日冕。
-        </p>
-        <p>
-          但月球绕地轨道相对黄道面倾斜约 <strong>5.1°</strong>。多数新月时刻，月球从太阳
-          上方或下方数千公里处掠过，影子落进太空。只有当新月恰好发生在轨道与黄道的交点
-          附近，本影或半影才能碰到地球，这就是日食季每年只出现约两次的原因。
-        </p>
-        <p>
-          即使对齐成功，食型还取决于距离：月球本影平均长约 37.4 万公里，而月地平均距离约
-          38.4 万公里。月球离地球较近时本影尖端够得着地面，看到日全食；较远时本影在半空
-          收尖，地面进入其延长线（伪本影），看到的是日环食。
-        </p>
-      </div>
-    </section>
-
-    <section class="section-pad" id="se-lab" aria-labelledby="se-lab-title">
-      <div class="section-heading">
-        <p class="section-index">02</p>
-        <div>
-          <h2 id="se-lab-title">互动实验：移动月球，追踪影子</h2>
-          <p>0° 即新月方位。改变轨道位置、交点方位与月地距离，观察食型如何切换。</p>
-        </div>
       </div>
 
       <div class="lab-shell" aria-label="日食三维交互实验">
@@ -4582,9 +4553,35 @@ void main() {
       </div>
     </section>
 
+    <section class="section-pad" id="se-intuition" aria-labelledby="se-intuition-title">
+      <div class="section-heading">
+        <p class="section-index">01</p>
+        <div>
+          <h2 id="se-intuition-title">直觉模型：一次苛刻的三点对齐</h2>
+          <p>新月每月都有，日食却不是。差别藏在两个角度和一段距离里。</p>
+        </div>
+      </div>
+      <div class="se-intuition-copy">
+        <p>
+          太阳直径约为月球的 400 倍，距离也恰好约为月地距离的 400 倍——两者在天空中的视直径
+          几乎相同，都接近 0.5°。这一巧合让月球有机会不多不少地遮住日面，露出日冕。
+        </p>
+        <p>
+          但月球绕地轨道相对黄道面倾斜约 <strong>5.1°</strong>。多数新月时刻，月球从太阳
+          上方或下方数千公里处掠过，影子落进太空。只有当新月恰好发生在轨道与黄道的交点
+          附近，本影或半影才能碰到地球，这就是日食季每年只出现约两次的原因。
+        </p>
+        <p>
+          即使对齐成功，食型还取决于距离：月球本影平均长约 37.4 万公里，而月地平均距离约
+          38.4 万公里。月球离地球较近时本影尖端够得着地面，看到日全食；较远时本影在半空
+          收尖，地面进入其延长线（伪本影），看到的是日环食。
+        </p>
+      </div>
+    </section>
+
     <section class="section-pad" aria-labelledby="se-limits-title">
       <div class="section-heading">
-        <p class="section-index">03</p>
+        <p class="section-index">02</p>
         <div>
           <h2 id="se-limits-title">这个模型简化了什么</h2>
           <p>先说清楚画面与真实世界的差距，再谈直觉。</p>
@@ -4620,7 +4617,7 @@ void main() {
 
     <section class="sources section-pad" aria-labelledby="se-sources-title">
       <div class="section-heading light-heading">
-        <p class="section-index">04</p>
+        <p class="section-index">03</p>
         <div>
           <h2 id="se-sources-title">来源与核验路径</h2>
           <p>数值与机制描述以下列资料为准。</p>
@@ -4653,11 +4650,18 @@ void main() {
       </p>
     </section>
   </div>
-`,ge={RS:696e3,RM:1737.4,RE:6371,INCL:5.145},be={earthR:1,moonR:.2727,orbitR:4,sunPos:new w(-40,0,0),sunR:4};function wh(i){i.geometry?.dispose(),Array.isArray(i.material)?i.material.forEach(t=>t.dispose()):i.material?.dispose()}function xr(i){for(;i.children.length;){const t=i.children.pop();wh(t)}}class G0{constructor(t){this.canvas=t,this.thetaDeg=0,this.omegaDeg=0,this.distKm=384400,this.inclDeg=ge.INCL,this.scene=new Hn,this.camera=new Se(42,1,.01,300),this.camera.position.set(2.6,3.4,8.6),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0,powerPreference:"high-performance"}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=3,this.controls.maxDistance=40,this.controls.enablePan=!1,this.shadowGroup=new on,this.orbitGroup=new on,this.scene.add(this.shadowGroup,this.orbitGroup),this.buildStatics(),this.rebuildOrbitRing(),this.refresh(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize()}buildStatics(){this.scene.add(new ol(2241351,1.4));const t=new li(16773848,3.2);t.position.copy(be.sunPos),this.scene.add(t);const e=700,n=new Float32Array(e*3);for(let c=0;c<e;c+=1){const l=new w().randomDirection().multiplyScalar(120);n.set([l.x,l.y,l.z],c*3)}const s=new Nt;s.setAttribute("position",new Oe(n,3)),this.stars=new tl(s,new Kr({color:13621478,size:.28,transparent:!0,opacity:.65})),this.scene.add(this.stars);const r=new Tt(new Yt(be.sunR,40,40),new jt({color:16767364,toneMapped:!1}));r.position.copy(be.sunPos);const a=new Tt(new Yt(be.sunR*1.5,32,32),new jt({color:16758861,transparent:!0,opacity:.16,side:Ne,depthWrite:!1}));a.position.copy(be.sunPos),this.scene.add(r,a),this.earth=new Tt(new Yt(be.earthR,48,48),new oi({color:4157352,roughness:.85,metalness:0})),this.scene.add(this.earth),this.moon=new Tt(new Yt(be.moonR,36,36),new oi({color:12170408,roughness:1,metalness:0})),this.scene.add(this.moon);const o=[];for(let c=0;c<=160;c+=1){const l=c/160*Math.PI*2;o.push(new w(Math.cos(l)*be.orbitR,0,Math.sin(l)*be.orbitR))}this.eclipticRing=new Ce(new Nt().setFromPoints(o),new Te({color:7178143,transparent:!0,opacity:.28})),this.scene.add(this.eclipticRing)}nodeAxis(){const t=ue.degToRad(this.omegaDeg);return new w(-Math.cos(t),0,Math.sin(t))}moonDirection(t){const e=ue.degToRad(t);return new w(-Math.cos(e),0,Math.sin(e)).applyAxisAngle(this.nodeAxis(),ue.degToRad(this.inclDeg))}rebuildOrbitRing(){xr(this.orbitGroup);const t=[];for(let r=0;r<=240;r+=1)t.push(this.moonDirection(r/240*360).multiplyScalar(be.orbitR));const e=new Ce(new Nt().setFromPoints(t),new Te({color:13030879,transparent:!0,opacity:.5}));this.orbitGroup.add(e);const n=new jt({color:15180585}),s=new Yt(.05,12,12);[1,-1].forEach(r=>{const a=new Tt(s.clone(),n.clone());a.position.copy(this.nodeAxis().multiplyScalar(be.orbitR*r)),this.orbitGroup.add(a)}),s.dispose(),n.dispose()}computeEclipse(t){const e=this.moonDirection(t),n=e.clone().multiplyScalar(this.distKm),s=new w(-1496e5,0,0),r=n.clone().sub(s).normalize(),a=n.clone().negate().dot(r),o=n.clone().cross(r).length(),c=ue.radToDeg(Math.asin(ue.clamp(e.y,-1,1))),l={dir:e,moonKm:n,axis:r,t:a,offset:o,betaDeg:c,type:"none",label:"无日食"};if(a<=0)return l;const h=Math.max(1,a-ge.RE),d=n.distanceTo(s);return l.umbraLen=d*ge.RM/(ge.RS-ge.RM),l.rUmbra=ge.RM-h*(ge.RS-ge.RM)/d,l.rPenumbra=ge.RM+h*(ge.RS+ge.RM)/d,o>ge.RE+l.rPenumbra||(o>ge.RE+Math.abs(l.rUmbra)?(l.type="partial",l.label="日偏食"):l.rUmbra>0?(l.type="total",l.label="日全食"):(l.type="annular",l.label="日环食")),l}axisSurfacePoint(t){if(t.t<=0||t.offset>=ge.RE)return null;const e=t.moonKm.clone().add(t.axis.clone().multiplyScalar(t.t)),n=Math.sqrt(ge.RE*ge.RE-t.offset*t.offset);return e.sub(t.axis.clone().multiplyScalar(n)).multiplyScalar(be.earthR/ge.RE)}rebuildShadow(t){xr(this.shadowGroup);const e=t.dir.clone().multiplyScalar(be.orbitR);if(this.moon.position.copy(e),t.type==="none"&&t.t<=0)return;const n=e.clone().sub(be.sunPos).normalize(),s=this.axisSurfacePoint(t),r=s?e.distanceTo(s):Math.max(.4,e.length()-be.earthR),a=r/Math.max(1,this.distKm-ge.RE),o=new w(0,1,0),c=Math.max(.02,t.rPenumbra/ge.RE*be.earthR),l=new Tn(c,be.moonR*.98,r,32,1,!0),h=new Tt(l,new jt({color:15180585,transparent:!0,opacity:.09,side:Re,depthWrite:!1}));h.position.copy(e).addScaledVector(n,r/2),h.quaternion.setFromUnitVectors(o,n),this.shadowGroup.add(h);const d=t.umbraLen*a,p=Math.min(d,r),f=Math.max(.004,be.moonR*.96*(1-p/d)),g=new Tn(f,be.moonR*.96,p,32,1,!0),v=new Tt(g,new jt({color:4396048,transparent:!0,opacity:.5,side:Re,depthWrite:!1}));if(v.position.copy(e).addScaledVector(n,p/2),v.quaternion.setFromUnitVectors(o,n),this.shadowGroup.add(v),t.type==="annular"&&d<r){const u=new Tn(Math.max(.01,Math.abs(t.rUmbra)/ge.RE*be.earthR),.004,r-d,24,1,!0),E=new Tt(u,new jt({color:14957362,transparent:!0,opacity:.2,side:Re,depthWrite:!1}));E.position.copy(e).addScaledVector(n,d+(r-d)/2),E.quaternion.setFromUnitVectors(o,n),this.shadowGroup.add(E)}if(s){const u=s.clone().normalize(),E=Math.max(.035,Math.abs(t.rUmbra)/ge.RE*be.earthR),S=new Tt(new Fr(E,28),new jt({color:14957362,side:Re,toneMapped:!1}));S.position.copy(s).addScaledVector(u,.006),S.lookAt(s.clone().add(u)),this.shadowGroup.add(S);const M=new Tt(new Fr(Math.min(.9,c),32),new jt({color:657940,transparent:!0,opacity:.32,side:Re,depthWrite:!1}));M.position.copy(s).addScaledVector(u,.004),M.lookAt(s.clone().add(u)),this.shadowGroup.add(M)}const m=[];for(let u=-2.5;u<=2.5;u+=.05){const E=this.computeEclipse(this.thetaDeg+u),S=this.axisSurfacePoint(E);S&&m.push(S.multiplyScalar(1.008))}if(m.length>1){const u=new Ce(new Nt().setFromPoints(m),new Te({color:16734798,transparent:!0,opacity:.9}));this.shadowGroup.add(u)}}refresh(){const t=this.computeEclipse(this.thetaDeg);return this.rebuildShadow(t),this.lastInfo=t,t}setTheta(t){return this.thetaDeg=t,this.refresh()}setOmega(t){return this.omegaDeg=t,this.rebuildOrbitRing(),this.refresh()}setDist(t){return this.distKm=t,this.refresh()}setInclination(t){return this.inclDeg=t,this.rebuildOrbitRing(),this.refresh()}resetCamera(){this.camera.position.set(2.6,3.4,8.6),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;if(!t)return;const e=t.clientWidth,n=t.clientHeight;this.camera.aspect=e/Math.max(1,n),this.camera.updateProjectionMatrix(),this.renderer.setSize(e,n,!1)}render(t){this.earth.rotation.y+=t*.12,this.stars.rotation.y+=t*.004,this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),xr(this.shadowGroup),xr(this.orbitGroup),this.scene.traverse(t=>wh(t)),this.renderer.dispose()}}let Io=null,Bn=null;const rn=i=>Io.querySelector(i);function H0(i,t){const e=i.betaDeg.toFixed(2),n=Math.round(i.offset),s=[`月球黄纬 β = ${e}°`,`影轴距地心 ${n.toLocaleString()} km`];return i.rUmbra!==void 0&&(i.rUmbra>0?s.push(`本影触地，地表本影半径约 ${Math.max(0,Math.round(i.rUmbra))} km`):s.push(`本影长 ${Math.round(i.umbraLen).toLocaleString()} km，未及地面`)),i.type==="none"&&s.push(t===0?"倾角为 0°时，任何新月都会日食":"影子从地球上方或下方掠过"),s.join(`
+`,ge={RS:696e3,RM:1737.4,RE:6371,INCL:5.145},be={earthR:1,moonR:.2727,orbitR:4,sunPos:new w(-40,0,0),sunR:4};function wh(i){i.geometry?.dispose(),Array.isArray(i.material)?i.material.forEach(t=>t.dispose()):i.material?.dispose()}function xr(i){for(;i.children.length;){const t=i.children.pop();wh(t)}}class G0{constructor(t){this.canvas=t,this.thetaDeg=0,this.omegaDeg=0,this.distKm=384400,this.inclDeg=ge.INCL,this.scene=new Hn,this.camera=new Se(50,1,.01,300),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0,powerPreference:"high-performance"}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=3,this.controls.maxDistance=90,this.controls.enablePan=!1,this.resetCamera(),this.shadowGroup=new on,this.orbitGroup=new on,this.scene.add(this.shadowGroup,this.orbitGroup),this.buildStatics(),this.rebuildOrbitRing(),this.refresh(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize()}buildStatics(){this.scene.add(new ol(2241351,1.4));const t=new li(16773848,3.2);t.position.copy(be.sunPos),this.scene.add(t);const e=700,n=new Float32Array(e*3);for(let c=0;c<e;c+=1){const l=new w().randomDirection().multiplyScalar(120);n.set([l.x,l.y,l.z],c*3)}const s=new Nt;s.setAttribute("position",new Oe(n,3)),this.stars=new tl(s,new Kr({color:13621478,size:.28,transparent:!0,opacity:.65})),this.scene.add(this.stars);const r=new Tt(new Yt(be.sunR,40,40),new jt({color:16767364,toneMapped:!1}));r.position.copy(be.sunPos);const a=new Tt(new Yt(be.sunR*1.5,32,32),new jt({color:16758861,transparent:!0,opacity:.16,side:Ne,depthWrite:!1}));a.position.copy(be.sunPos),this.scene.add(r,a),this.earth=new Tt(new Yt(be.earthR,48,48),new oi({color:4157352,roughness:.85,metalness:0})),this.scene.add(this.earth),this.moon=new Tt(new Yt(be.moonR,36,36),new oi({color:12170408,roughness:1,metalness:0})),this.scene.add(this.moon);const o=[];for(let c=0;c<=160;c+=1){const l=c/160*Math.PI*2;o.push(new w(Math.cos(l)*be.orbitR,0,Math.sin(l)*be.orbitR))}this.eclipticRing=new Ce(new Nt().setFromPoints(o),new Te({color:7178143,transparent:!0,opacity:.28})),this.scene.add(this.eclipticRing)}nodeAxis(){const t=ue.degToRad(this.omegaDeg);return new w(-Math.cos(t),0,Math.sin(t))}moonDirection(t){const e=ue.degToRad(t);return new w(-Math.cos(e),0,Math.sin(e)).applyAxisAngle(this.nodeAxis(),ue.degToRad(this.inclDeg))}rebuildOrbitRing(){xr(this.orbitGroup);const t=[];for(let r=0;r<=240;r+=1)t.push(this.moonDirection(r/240*360).multiplyScalar(be.orbitR));const e=new Ce(new Nt().setFromPoints(t),new Te({color:13030879,transparent:!0,opacity:.5}));this.orbitGroup.add(e);const n=new jt({color:15180585}),s=new Yt(.05,12,12);[1,-1].forEach(r=>{const a=new Tt(s.clone(),n.clone());a.position.copy(this.nodeAxis().multiplyScalar(be.orbitR*r)),this.orbitGroup.add(a)}),s.dispose(),n.dispose()}computeEclipse(t){const e=this.moonDirection(t),n=e.clone().multiplyScalar(this.distKm),s=new w(-1496e5,0,0),r=n.clone().sub(s).normalize(),a=n.clone().negate().dot(r),o=n.clone().cross(r).length(),c=ue.radToDeg(Math.asin(ue.clamp(e.y,-1,1))),l={dir:e,moonKm:n,axis:r,t:a,offset:o,betaDeg:c,type:"none",label:"无日食"};if(a<=0)return l;const h=Math.max(1,a-ge.RE),d=n.distanceTo(s);return l.umbraLen=d*ge.RM/(ge.RS-ge.RM),l.rUmbra=ge.RM-h*(ge.RS-ge.RM)/d,l.rPenumbra=ge.RM+h*(ge.RS+ge.RM)/d,o>ge.RE+l.rPenumbra||(o>ge.RE+Math.abs(l.rUmbra)?(l.type="partial",l.label="日偏食"):l.rUmbra>0?(l.type="total",l.label="日全食"):(l.type="annular",l.label="日环食")),l}axisSurfacePoint(t){if(t.t<=0||t.offset>=ge.RE)return null;const e=t.moonKm.clone().add(t.axis.clone().multiplyScalar(t.t)),n=Math.sqrt(ge.RE*ge.RE-t.offset*t.offset);return e.sub(t.axis.clone().multiplyScalar(n)).multiplyScalar(be.earthR/ge.RE)}rebuildShadow(t){xr(this.shadowGroup);const e=t.dir.clone().multiplyScalar(be.orbitR);if(this.moon.position.copy(e),t.type==="none"&&t.t<=0)return;const n=e.clone().sub(be.sunPos).normalize(),s=this.axisSurfacePoint(t),r=s?e.distanceTo(s):Math.max(.4,e.length()-be.earthR),a=r/Math.max(1,this.distKm-ge.RE),o=new w(0,1,0),c=Math.max(.02,t.rPenumbra/ge.RE*be.earthR),l=new Tn(c,be.moonR*.98,r,32,1,!0),h=new Tt(l,new jt({color:15180585,transparent:!0,opacity:.09,side:Re,depthWrite:!1}));h.position.copy(e).addScaledVector(n,r/2),h.quaternion.setFromUnitVectors(o,n),this.shadowGroup.add(h);const d=t.umbraLen*a,p=Math.min(d,r),f=Math.max(.004,be.moonR*.96*(1-p/d)),g=new Tn(f,be.moonR*.96,p,32,1,!0),v=new Tt(g,new jt({color:4396048,transparent:!0,opacity:.5,side:Re,depthWrite:!1}));if(v.position.copy(e).addScaledVector(n,p/2),v.quaternion.setFromUnitVectors(o,n),this.shadowGroup.add(v),t.type==="annular"&&d<r){const u=new Tn(Math.max(.01,Math.abs(t.rUmbra)/ge.RE*be.earthR),.004,r-d,24,1,!0),E=new Tt(u,new jt({color:14957362,transparent:!0,opacity:.2,side:Re,depthWrite:!1}));E.position.copy(e).addScaledVector(n,d+(r-d)/2),E.quaternion.setFromUnitVectors(o,n),this.shadowGroup.add(E)}if(s){const u=s.clone().normalize(),E=Math.max(.035,Math.abs(t.rUmbra)/ge.RE*be.earthR),S=new Tt(new Fr(E,28),new jt({color:14957362,side:Re,toneMapped:!1}));S.position.copy(s).addScaledVector(u,.006),S.lookAt(s.clone().add(u)),this.shadowGroup.add(S);const M=new Tt(new Fr(Math.min(.9,c),32),new jt({color:657940,transparent:!0,opacity:.32,side:Re,depthWrite:!1}));M.position.copy(s).addScaledVector(u,.004),M.lookAt(s.clone().add(u)),this.shadowGroup.add(M)}const m=[];for(let u=-2.5;u<=2.5;u+=.05){const E=this.computeEclipse(this.thetaDeg+u),S=this.axisSurfacePoint(E);S&&m.push(S.multiplyScalar(1.008))}if(m.length>1){const u=new Ce(new Nt().setFromPoints(m),new Te({color:16734798,transparent:!0,opacity:.9}));this.shadowGroup.add(u)}}refresh(){const t=this.computeEclipse(this.thetaDeg);return this.rebuildShadow(t),this.lastInfo=t,t}setTheta(t){return this.thetaDeg=t,this.refresh()}setOmega(t){return this.omegaDeg=t,this.rebuildOrbitRing(),this.refresh()}setDist(t){return this.distKm=t,this.refresh()}setInclination(t){return this.inclDeg=t,this.rebuildOrbitRing(),this.refresh()}resetCamera(){this.camera.position.set(-18.5,16,63),this.controls.target.set(-18.5,.5,0),this.controls.update()}resize(){const t=this.canvas.parentElement;if(!t)return;const e=t.clientWidth,n=t.clientHeight;this.camera.aspect=e/Math.max(1,n),this.camera.updateProjectionMatrix(),this.renderer.setSize(e,n,!1)}render(t){this.earth.rotation.y+=t*.12,this.stars.rotation.y+=t*.004,this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),xr(this.shadowGroup),xr(this.orbitGroup),this.scene.traverse(t=>wh(t)),this.renderer.dispose()}}let Io=null,Bn=null;const rn=i=>Io.querySelector(i);function H0(i,t){const e=i.betaDeg.toFixed(2),n=Math.round(i.offset),s=[`月球黄纬 β = ${e}°`,`影轴距地心 ${n.toLocaleString()} km`];return i.rUmbra!==void 0&&(i.rUmbra>0?s.push(`本影触地，地表本影半径约 ${Math.max(0,Math.round(i.rUmbra))} km`):s.push(`本影长 ${Math.round(i.umbraLen).toLocaleString()} km，未及地面`)),i.type==="none"&&s.push(t===0?"倾角为 0°时，任何新月都会日食":"影子从地球上方或下方掠过"),s.join(`
 `)}function As(){const i=Bn.scene3d.lastInfo;rn("#se-type").textContent=i.label,rn("#se-detail").textContent=H0(i,Bn.scene3d.inclDeg),rn("#se-caption").textContent=Bn.scene3d.inclDeg===0?"假想倾角 0° · 每个新月都成日食":"月球轨道倾角 5.1°"}function V0(){const i=Bn.scene3d;rn("#se-theta").addEventListener("input",e=>{const n=Number(e.target.value);rn("#se-theta-output").textContent=`${n.toFixed(1)}°`,i.setTheta(n),As()}),rn("#se-omega").addEventListener("input",e=>{const n=Number(e.target.value);rn("#se-omega-output").textContent=`${n}°`,i.setOmega(n),As()}),rn("#se-dist").addEventListener("input",e=>{const n=Number(e.target.value);rn("#se-dist-output").textContent=`${n} km`,i.setDist(n),As()});const t=rn("#se-incl-toggle");t.addEventListener("click",()=>{const e=i.inclDeg!==0;i.setInclination(e?0:ge.INCL),t.textContent=e?"恢复倾角 5.1°":"假想倾角 = 0°",t.setAttribute("aria-pressed",String(e)),As()}),rn("#se-reset-camera").addEventListener("click",()=>i.resetCamera())}const W0={id:"solar-eclipse",name:"日食",getDefaultParams(){return{thetaDeg:0,omegaDeg:0,distKm:384400,inclDeg:ge.INCL}},init(i){Io=i,i.innerHTML=k0,Bn={scene3d:new G0(rn("#se-canvas"))},V0(),As()},update(i){const t=Math.min(i?.delta??0,.05);Bn?.scene3d.render(t)},dispose(){Bn&&(Bn.scene3d.dispose(),Bn=null,Io=null)}},X0=`
   <style>
-    .le-scene .hero { grid-template-columns: 1fr; }
-    .le-scene .hero-copy { max-width: 780px; }
+    .le-scene #le-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+      touch-action: none;
+    }
+    .le-scene #le-canvas:active { cursor: grabbing; }
     .le-intuition-copy { max-width: 850px; }
     .le-intuition-copy p { margin: 0 0 18px; color: var(--muted, #555); font-size: 16px; line-height: 1.9; }
     .le-intuition-copy p strong { color: inherit; }
@@ -4693,7 +4697,7 @@ void main() {
         <p class="hero-lead">
           月食是月球穿过地球影锥的过程。全食时它不消失，而是被地球大气折射的红光点亮。
         </p>
-        <a class="primary-action" href="#le-lab">
+        <a class="primary-action" href="#le-intuition">
           开始实验
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14M14 7l5 5-5 5" />
@@ -4703,43 +4707,6 @@ void main() {
           拖动旋转 · 滚轮缩放 · 滑杆或播放键推动月球<br />
           画面距离经过压缩，食分由真实公里数值计算。
         </p>
-      </div>
-    </section>
-
-    <section class="section-pad" aria-labelledby="le-intuition-title">
-      <div class="section-heading">
-        <p class="section-index">01</p>
-        <div>
-          <h2 id="le-intuition-title">直觉模型：一次穿过影子的旅行</h2>
-          <p>地球背向太阳的一侧拖着两层影子，月球偶尔会游进去。</p>
-        </div>
-      </div>
-      <div class="le-intuition-copy">
-        <p>
-          地球的本影是一个长约 <strong>140 万公里</strong>的锥体，在月球轨道距离处直径仍约
-          9200 公里，超过月球直径的 2.6 倍。围绕本影还有一圈更淡的半影。满月时若月球恰好
-          位于黄白交点附近，就会先后穿过半影与本影，形成半影月食、月偏食或月全食。
-        </p>
-        <p>
-          与日食相同，月球轨道 5.1° 的倾角让多数满月从影锥上方或下方掠过——月食也不是每月
-          都有。但月食一旦发生，面向月球的整个半球都能看到，这就是多数人一生中看过的月食
-          远多于日食的原因。
-        </p>
-        <p>
-          月全食的红色来自<strong>瑞利散射</strong>：太阳光掠过地球大气边缘时，波长较短的蓝
-          光被空气分子强烈散射掉（散射强度约与波长四次方成反比），剩下的红光经大气折射弯
-          进本影内部，把月面照成暗红色——本质上，那是环绕地球一整圈的日出与日落投在月亮上。
-        </p>
-      </div>
-    </section>
-
-    <section class="section-pad" id="le-lab" aria-labelledby="le-lab-title">
-      <div class="section-heading">
-        <p class="section-index">02</p>
-        <div>
-          <h2 id="le-lab-title">互动实验：把月亮推进影锥</h2>
-          <p>0° 即满月方位。调整轨道位置与倾角偏移，观察食分与月面颜色的变化。</p>
-        </div>
       </div>
 
       <div class="lab-shell" aria-label="月食三维交互实验">
@@ -4786,9 +4753,36 @@ void main() {
       </div>
     </section>
 
+    <section class="section-pad" id="le-intuition" aria-labelledby="le-intuition-title">
+      <div class="section-heading">
+        <p class="section-index">01</p>
+        <div>
+          <h2 id="le-intuition-title">直觉模型：一次穿过影子的旅行</h2>
+          <p>地球背向太阳的一侧拖着两层影子，月球偶尔会游进去。</p>
+        </div>
+      </div>
+      <div class="le-intuition-copy">
+        <p>
+          地球的本影是一个长约 <strong>140 万公里</strong>的锥体，在月球轨道距离处直径仍约
+          9200 公里，超过月球直径的 2.6 倍。围绕本影还有一圈更淡的半影。满月时若月球恰好
+          位于黄白交点附近，就会先后穿过半影与本影，形成半影月食、月偏食或月全食。
+        </p>
+        <p>
+          与日食相同，月球轨道 5.1° 的倾角让多数满月从影锥上方或下方掠过——月食也不是每月
+          都有。但月食一旦发生，面向月球的整个半球都能看到，这就是多数人一生中看过的月食
+          远多于日食的原因。
+        </p>
+        <p>
+          月全食的红色来自<strong>瑞利散射</strong>：太阳光掠过地球大气边缘时，波长较短的蓝
+          光被空气分子强烈散射掉（散射强度约与波长四次方成反比），剩下的红光经大气折射弯
+          进本影内部，把月面照成暗红色——本质上，那是环绕地球一整圈的日出与日落投在月亮上。
+        </p>
+      </div>
+    </section>
+
     <section class="section-pad" aria-labelledby="le-limits-title">
       <div class="section-heading">
-        <p class="section-index">03</p>
+        <p class="section-index">02</p>
         <div>
           <h2 id="le-limits-title">这个模型简化了什么</h2>
           <p>影锥与月球的相对大小是真实的，其余多有取舍。</p>
@@ -4824,7 +4818,7 @@ void main() {
 
     <section class="sources section-pad" aria-labelledby="le-sources-title">
       <div class="section-heading light-heading">
-        <p class="section-index">04</p>
+        <p class="section-index">03</p>
         <div>
           <h2 id="le-sources-title">来源与核验路径</h2>
           <p>数值与机制描述以下列资料为准。</p>
@@ -4857,11 +4851,18 @@ void main() {
       </p>
     </section>
   </div>
-`,we={RS:696e3,RM:1737.4,RE:6371,DS:1496e5,DM:384400},Mr={rUmbra:we.RE-we.DM*(we.RS-we.RE)/we.DS,rPenumbra:we.RE+we.DM*(we.RS+we.RE)/we.DS},me={earthR:1,moonR:we.RM/we.RE,orbitR:4,sunPos:new w(-40,0,0),coneLen:7};function q0(i){i.geometry?.dispose(),Array.isArray(i.material)?i.material.forEach(t=>t.dispose()):i.material?.dispose()}class Y0{constructor(t){this.canvas=t,this.phiDeg=-6,this.betaDeg=.2,this.playing=!1,this.scene=new Hn,this.camera=new Se(42,1,.01,300),this.camera.position.set(3.2,3,8.8),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0,powerPreference:"high-performance"}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=3,this.controls.maxDistance=40,this.controls.enablePan=!1,this.moonBaseColor=new Pt(13617596),this.moonPenumbraColor=new Pt(9275775),this.moonRedColor=new Pt(9184274),this.tempColor=new Pt,this.buildStatics(),this.refresh(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize()}buildStatics(){this.scene.add(new ol(2241351,1.5));const t=new li(16773848,3);t.position.copy(me.sunPos),this.scene.add(t);const e=700,n=new Float32Array(e*3);for(let v=0;v<e;v+=1){const m=new w().randomDirection().multiplyScalar(120);n.set([m.x,m.y,m.z],v*3)}const s=new Nt;s.setAttribute("position",new Oe(n,3)),this.stars=new tl(s,new Kr({color:13621478,size:.28,transparent:!0,opacity:.65})),this.scene.add(this.stars);const r=new Tt(new Yt(4,40,40),new jt({color:16767364,toneMapped:!1}));r.position.copy(me.sunPos);const a=new Tt(new Yt(6,32,32),new jt({color:16758861,transparent:!0,opacity:.16,side:Ne,depthWrite:!1}));a.position.copy(me.sunPos),this.scene.add(r,a),this.earth=new Tt(new Yt(me.earthR,48,48),new oi({color:4157352,roughness:.85,metalness:0})),this.scene.add(this.earth);const o=new Tt(new al(me.earthR*1.01,.035,12,72),new jt({color:16742972,transparent:!0,opacity:.4,depthWrite:!1}));o.rotation.y=Math.PI/2,this.scene.add(o);const c=new w(0,1,0),l=new w(1,0,0),h=(me.earthR-Mr.rUmbra/we.RE*me.earthR)/me.orbitR,d=Math.max(.01,me.earthR-h*me.coneLen),p=new Tt(new Tn(d,me.earthR*.99,me.coneLen,40,1,!0),new jt({color:4001032,transparent:!0,opacity:.5,side:Re,depthWrite:!1}));p.position.copy(l.clone().multiplyScalar(me.coneLen/2)),p.quaternion.setFromUnitVectors(c,l),this.scene.add(p);const f=(Mr.rPenumbra/we.RE*me.earthR-me.earthR)/me.orbitR,g=new Tt(new Tn(me.earthR+f*me.coneLen,me.earthR,me.coneLen,40,1,!0),new jt({color:10246688,transparent:!0,opacity:.08,side:Re,depthWrite:!1}));g.position.copy(l.clone().multiplyScalar(me.coneLen/2)),g.quaternion.setFromUnitVectors(c,l),this.scene.add(g),this.moonMaterial=new oi({color:this.moonBaseColor.clone(),roughness:1,metalness:0}),this.moon=new Tt(new Yt(me.moonR,36,36),this.moonMaterial),this.scene.add(this.moon),this.orbitRing=new Ce(new Nt,new Te({color:13030879,transparent:!0,opacity:.5})),this.scene.add(this.orbitRing),this.rebuildOrbitRing()}moonScenePosition(t){const e=ue.degToRad(t),n=ue.degToRad(this.betaDeg);return new w(Math.cos(e)*Math.cos(n),Math.sin(n),Math.sin(e)*Math.cos(n)).multiplyScalar(me.orbitR)}rebuildOrbitRing(){const t=[];for(let e=0;e<=240;e+=1)t.push(this.moonScenePosition(e/240*360));this.orbitRing.geometry.dispose(),this.orbitRing.geometry=new Nt().setFromPoints(t)}computeEclipse(){const t=ue.degToRad(this.phiDeg),e=ue.degToRad(this.betaDeg),n=we.DM*Math.cos(t)*Math.cos(e),s=we.DM*Math.sqrt(Math.sin(e)**2+Math.sin(t)**2*Math.cos(e)**2),r={sep:s,umbralMag:NaN,penumbralMag:NaN,type:"none",label:"无月食"};return n<=0||(r.umbralMag=(Mr.rUmbra+we.RM-s)/(2*we.RM),r.penumbralMag=(Mr.rPenumbra+we.RM-s)/(2*we.RM),r.umbralMag>=1?(r.type="total",r.label="月全食"):r.umbralMag>0?(r.type="partial",r.label="月偏食"):r.penumbralMag>0&&(r.type="penumbral",r.label="半影月食")),r}tintMoon(t){const e=this.tempColor.copy(this.moonBaseColor);if(t.type!=="none"&&Number.isFinite(t.penumbralMag)){const n=ue.clamp(t.penumbralMag,0,1);e.lerp(this.moonPenumbraColor,n*.7);const s=ue.clamp(t.umbralMag,0,1);e.lerp(this.moonRedColor,s)}this.moonMaterial.color.copy(e)}refresh(){this.moon.position.copy(this.moonScenePosition(this.phiDeg));const t=this.computeEclipse();return this.tintMoon(t),this.lastInfo=t,t}setPhi(t){return this.phiDeg=t,this.refresh()}setBeta(t){return this.betaDeg=t,this.rebuildOrbitRing(),this.refresh()}resetCamera(){this.camera.position.set(3.2,3,8.8),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;if(!t)return;const e=t.clientWidth,n=t.clientHeight;this.camera.aspect=e/Math.max(1,n),this.camera.updateProjectionMatrix(),this.renderer.setSize(e,n,!1)}render(t){let e=!1;return this.playing&&(this.phiDeg+=t*2.2,this.phiDeg>14&&(this.phiDeg=-14),this.refresh(),e=!0),this.earth.rotation.y+=t*.12,this.stars.rotation.y+=t*.004,this.controls.update(),this.renderer.render(this.scene,this.camera),e}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),this.scene.traverse(t=>q0(t)),this.renderer.dispose()}}let Uo=null,yn=null;const fn=i=>Uo.querySelector(i);function Lc(i){return Number.isFinite(i)&&i>-5?Math.max(0,i).toFixed(2):"—"}function Or(){const i=yn.scene3d.lastInfo;fn("#le-phase").textContent=i.label;const t=[`本影食分 ${Lc(i.umbralMag)} · 半影食分 ${Lc(i.penumbralMag)}`,`月心距影轴 ${Math.round(i.sep).toLocaleString()} km`];i.type==="total"?t.push("月面完全入本影，被折射红光照亮"):i.type==="none"&&t.push("月球在影锥之外或位于向日侧"),fn("#le-detail").textContent=t.join(`
+`,we={RS:696e3,RM:1737.4,RE:6371,DS:1496e5,DM:384400},Mr={rUmbra:we.RE-we.DM*(we.RS-we.RE)/we.DS,rPenumbra:we.RE+we.DM*(we.RS+we.RE)/we.DS},me={earthR:1,moonR:we.RM/we.RE,orbitR:4,sunPos:new w(-40,0,0),coneLen:7};function q0(i){i.geometry?.dispose(),Array.isArray(i.material)?i.material.forEach(t=>t.dispose()):i.material?.dispose()}class Y0{constructor(t){this.canvas=t,this.phiDeg=-6,this.betaDeg=.2,this.playing=!1,this.scene=new Hn,this.camera=new Se(50,1,.01,300),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0,powerPreference:"high-performance"}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=3,this.controls.maxDistance=90,this.controls.enablePan=!1,this.resetCamera(),this.moonBaseColor=new Pt(13617596),this.moonPenumbraColor=new Pt(9275775),this.moonRedColor=new Pt(9184274),this.tempColor=new Pt,this.buildStatics(),this.refresh(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize()}buildStatics(){this.scene.add(new ol(2241351,1.5));const t=new li(16773848,3);t.position.copy(me.sunPos),this.scene.add(t);const e=700,n=new Float32Array(e*3);for(let v=0;v<e;v+=1){const m=new w().randomDirection().multiplyScalar(120);n.set([m.x,m.y,m.z],v*3)}const s=new Nt;s.setAttribute("position",new Oe(n,3)),this.stars=new tl(s,new Kr({color:13621478,size:.28,transparent:!0,opacity:.65})),this.scene.add(this.stars);const r=new Tt(new Yt(4,40,40),new jt({color:16767364,toneMapped:!1}));r.position.copy(me.sunPos);const a=new Tt(new Yt(6,32,32),new jt({color:16758861,transparent:!0,opacity:.16,side:Ne,depthWrite:!1}));a.position.copy(me.sunPos),this.scene.add(r,a),this.earth=new Tt(new Yt(me.earthR,48,48),new oi({color:4157352,roughness:.85,metalness:0})),this.scene.add(this.earth);const o=new Tt(new al(me.earthR*1.01,.035,12,72),new jt({color:16742972,transparent:!0,opacity:.4,depthWrite:!1}));o.rotation.y=Math.PI/2,this.scene.add(o);const c=new w(0,1,0),l=new w(1,0,0),h=(me.earthR-Mr.rUmbra/we.RE*me.earthR)/me.orbitR,d=Math.max(.01,me.earthR-h*me.coneLen),p=new Tt(new Tn(d,me.earthR*.99,me.coneLen,40,1,!0),new jt({color:4001032,transparent:!0,opacity:.5,side:Re,depthWrite:!1}));p.position.copy(l.clone().multiplyScalar(me.coneLen/2)),p.quaternion.setFromUnitVectors(c,l),this.scene.add(p);const f=(Mr.rPenumbra/we.RE*me.earthR-me.earthR)/me.orbitR,g=new Tt(new Tn(me.earthR+f*me.coneLen,me.earthR,me.coneLen,40,1,!0),new jt({color:10246688,transparent:!0,opacity:.08,side:Re,depthWrite:!1}));g.position.copy(l.clone().multiplyScalar(me.coneLen/2)),g.quaternion.setFromUnitVectors(c,l),this.scene.add(g),this.moonMaterial=new oi({color:this.moonBaseColor.clone(),roughness:1,metalness:0}),this.moon=new Tt(new Yt(me.moonR,36,36),this.moonMaterial),this.scene.add(this.moon),this.orbitRing=new Ce(new Nt,new Te({color:13030879,transparent:!0,opacity:.5})),this.scene.add(this.orbitRing),this.rebuildOrbitRing()}moonScenePosition(t){const e=ue.degToRad(t),n=ue.degToRad(this.betaDeg);return new w(Math.cos(e)*Math.cos(n),Math.sin(n),Math.sin(e)*Math.cos(n)).multiplyScalar(me.orbitR)}rebuildOrbitRing(){const t=[];for(let e=0;e<=240;e+=1)t.push(this.moonScenePosition(e/240*360));this.orbitRing.geometry.dispose(),this.orbitRing.geometry=new Nt().setFromPoints(t)}computeEclipse(){const t=ue.degToRad(this.phiDeg),e=ue.degToRad(this.betaDeg),n=we.DM*Math.cos(t)*Math.cos(e),s=we.DM*Math.sqrt(Math.sin(e)**2+Math.sin(t)**2*Math.cos(e)**2),r={sep:s,umbralMag:NaN,penumbralMag:NaN,type:"none",label:"无月食"};return n<=0||(r.umbralMag=(Mr.rUmbra+we.RM-s)/(2*we.RM),r.penumbralMag=(Mr.rPenumbra+we.RM-s)/(2*we.RM),r.umbralMag>=1?(r.type="total",r.label="月全食"):r.umbralMag>0?(r.type="partial",r.label="月偏食"):r.penumbralMag>0&&(r.type="penumbral",r.label="半影月食")),r}tintMoon(t){const e=this.tempColor.copy(this.moonBaseColor);if(t.type!=="none"&&Number.isFinite(t.penumbralMag)){const n=ue.clamp(t.penumbralMag,0,1);e.lerp(this.moonPenumbraColor,n*.7);const s=ue.clamp(t.umbralMag,0,1);e.lerp(this.moonRedColor,s)}this.moonMaterial.color.copy(e)}refresh(){this.moon.position.copy(this.moonScenePosition(this.phiDeg));const t=this.computeEclipse();return this.tintMoon(t),this.lastInfo=t,t}setPhi(t){return this.phiDeg=t,this.refresh()}setBeta(t){return this.betaDeg=t,this.rebuildOrbitRing(),this.refresh()}resetCamera(){this.camera.position.set(-18.5,16,63),this.controls.target.set(-18.5,.5,0),this.controls.update()}resize(){const t=this.canvas.parentElement;if(!t)return;const e=t.clientWidth,n=t.clientHeight;this.camera.aspect=e/Math.max(1,n),this.camera.updateProjectionMatrix(),this.renderer.setSize(e,n,!1)}render(t){let e=!1;return this.playing&&(this.phiDeg+=t*2.2,this.phiDeg>14&&(this.phiDeg=-14),this.refresh(),e=!0),this.earth.rotation.y+=t*.12,this.stars.rotation.y+=t*.004,this.controls.update(),this.renderer.render(this.scene,this.camera),e}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),this.scene.traverse(t=>q0(t)),this.renderer.dispose()}}let Uo=null,yn=null;const fn=i=>Uo.querySelector(i);function Lc(i){return Number.isFinite(i)&&i>-5?Math.max(0,i).toFixed(2):"—"}function Or(){const i=yn.scene3d.lastInfo;fn("#le-phase").textContent=i.label;const t=[`本影食分 ${Lc(i.umbralMag)} · 半影食分 ${Lc(i.penumbralMag)}`,`月心距影轴 ${Math.round(i.sep).toLocaleString()} km`];i.type==="total"?t.push("月面完全入本影，被折射红光照亮"):i.type==="none"&&t.push("月球在影锥之外或位于向日侧"),fn("#le-detail").textContent=t.join(`
 `)}function $0(){fn("#le-phi").value=String(yn.scene3d.phiDeg),fn("#le-phi-output").textContent=`${yn.scene3d.phiDeg.toFixed(1)}°`}function j0(){const i=yn.scene3d,t=fn("#le-play");fn("#le-phi").addEventListener("input",e=>{const n=Number(e.target.value);fn("#le-phi-output").textContent=`${n.toFixed(1)}°`,i.playing=!1,t.textContent="播放入影过程",t.setAttribute("aria-pressed","false"),i.setPhi(n),Or()}),fn("#le-beta").addEventListener("input",e=>{const n=Number(e.target.value);fn("#le-beta-output").textContent=`${n.toFixed(2)}°`,i.setBeta(n),Or()}),t.addEventListener("click",()=>{i.playing=!i.playing,i.playing&&Math.abs(i.phiDeg)>14&&i.setPhi(-14),t.textContent=i.playing?"暂停":"播放入影过程",t.setAttribute("aria-pressed",String(i.playing))}),fn("#le-reset-camera").addEventListener("click",()=>i.resetCamera())}const K0={id:"lunar-eclipse",name:"月食",getDefaultParams(){return{phiDeg:-6,betaDeg:.2}},init(i){Uo=i,i.innerHTML=X0,yn={scene3d:new Y0(fn("#le-canvas"))},j0(),Or()},update(i){if(!yn)return;const t=Math.min(i?.delta??0,.05);yn.scene3d.render(t)&&($0(),Or())},dispose(){yn&&(yn.scene3d.dispose(),yn=null,Uo=null)}},Z0=`
   <style>
-    .ss-scene .hero { grid-template-columns: 1fr; }
-    .ss-scene .hero-copy { max-width: 780px; }
+    .ss-scene #ss-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+      touch-action: none;
+    }
+    .ss-scene #ss-canvas:active { cursor: grabbing; }
     .ss-intuition-copy { max-width: 850px; }
     .ss-intuition-copy p { margin: 0 0 18px; color: var(--muted, #555); font-size: 16px; line-height: 1.9; }
     .ss-intuition-copy p strong { color: inherit; }
@@ -4914,7 +4915,7 @@ void main() {
         <p class="hero-lead">
           水星 88 天转一圈，海王星要 165 年。把时间拨快，行星的节奏差立刻显形。
         </p>
-        <a class="primary-action" href="#ss-lab">
+        <a class="primary-action" href="#ss-intuition">
           开始实验
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14M14 7l5 5-5 5" />
@@ -4924,42 +4925,6 @@ void main() {
           拖动旋转 · 滚轮缩放 · 滑杆调节时间倍速<br />
           公转周期比例真实，行星大小经过夸张。
         </p>
-      </div>
-    </section>
-
-    <section class="section-pad" aria-labelledby="ss-intuition-title">
-      <div class="section-heading">
-        <p class="section-index">01</p>
-        <div>
-          <h2 id="ss-intuition-title">直觉模型：越远越慢的行星</h2>
-          <p>公转周期不是随意的，它被开普勒第三定律锁死在轨道半径上。</p>
-        </div>
-      </div>
-      <div class="ss-intuition-copy">
-        <p>
-          行星离太阳越远，走得越慢，路也越长。开普勒第三定律给出精确关系：<strong>周期的平方
-          正比于轨道半长轴的立方</strong>。海王星距离太阳约 30 天文单位，周期便是
-          30<sup>1.5</sup> ≈ 165 个地球年——自 1846 年被发现以来，它刚完成第一整圈。
-        </p>
-        <p>
-          真实比例下的太阳系几乎全是空隙：若把地球轨道画成 1 米，海王星在 30 米外，而行星本身
-          小到看不见。因此本实验提供两种画法——压缩尺度便于总览节奏，真实间距还原空旷本相。
-        </p>
-        <p>
-          "火星逆行"曾困扰古代天文学家上千年：火星通常相对恒星背景向东走，每约 26 个月却倒退
-          数周。哥白尼给出的解释很朴素——地球在内圈跑得快（约 30 km/s 对火星 24 km/s），每次
-          "超车"时，从地球看去火星就在天幕上打了一个回环。打开逆行演示，观察视线轨迹。
-        </p>
-      </div>
-    </section>
-
-    <section class="section-pad" id="ss-lab" aria-labelledby="ss-lab-title">
-      <div class="section-heading">
-        <p class="section-index">02</p>
-        <div>
-          <h2 id="ss-lab-title">互动实验：拨动太阳系的时钟</h2>
-          <p>调节倍速、切换尺度；打开逆行演示，看地球"超车"火星的瞬间。</p>
-        </div>
       </div>
 
       <div class="lab-shell" aria-label="太阳系三维交互实验">
@@ -5005,9 +4970,35 @@ void main() {
       </div>
     </section>
 
+    <section class="section-pad" id="ss-intuition" aria-labelledby="ss-intuition-title">
+      <div class="section-heading">
+        <p class="section-index">01</p>
+        <div>
+          <h2 id="ss-intuition-title">直觉模型：越远越慢的行星</h2>
+          <p>公转周期不是随意的，它被开普勒第三定律锁死在轨道半径上。</p>
+        </div>
+      </div>
+      <div class="ss-intuition-copy">
+        <p>
+          行星离太阳越远，走得越慢，路也越长。开普勒第三定律给出精确关系：<strong>周期的平方
+          正比于轨道半长轴的立方</strong>。海王星距离太阳约 30 天文单位，周期便是
+          30<sup>1.5</sup> ≈ 165 个地球年——自 1846 年被发现以来，它刚完成第一整圈。
+        </p>
+        <p>
+          真实比例下的太阳系几乎全是空隙：若把地球轨道画成 1 米，海王星在 30 米外，而行星本身
+          小到看不见。因此本实验提供两种画法——压缩尺度便于总览节奏，真实间距还原空旷本相。
+        </p>
+        <p>
+          "火星逆行"曾困扰古代天文学家上千年：火星通常相对恒星背景向东走，每约 26 个月却倒退
+          数周。哥白尼给出的解释很朴素——地球在内圈跑得快（约 30 km/s 对火星 24 km/s），每次
+          "超车"时，从地球看去火星就在天幕上打了一个回环。打开逆行演示，观察视线轨迹。
+        </p>
+      </div>
+    </section>
+
     <section class="section-pad" aria-labelledby="ss-limits-title">
       <div class="section-heading">
-        <p class="section-index">03</p>
+        <p class="section-index">02</p>
         <div>
           <h2 id="ss-limits-title">这个模型简化了什么</h2>
           <p>周期比例可信，形状与大小另当别论。</p>
@@ -5043,7 +5034,7 @@ void main() {
 
     <section class="sources section-pad" aria-labelledby="ss-sources-title">
       <div class="section-heading light-heading">
-        <p class="section-index">04</p>
+        <p class="section-index">03</p>
         <div>
           <h2 id="ss-sources-title">来源与核验路径</h2>
           <p>轨道半长轴与公转周期取自 NASA 行星数据表。</p>
@@ -5076,35 +5067,9 @@ void main() {
       </p>
     </section>
   </div>
-`,Jn=[{name:"水星",a:.387,period:87.97,color:10260352,size:.11,label:"88 天"},{name:"金星",a:.723,period:224.7,color:14202236,size:.17,label:"225 天"},{name:"地球",a:1,period:365.25,color:5210050,size:.18,label:"1 年"},{name:"火星",a:1.524,period:686.98,color:12866875,size:.14,label:"1.9 年"},{name:"木星",a:5.203,period:4332.59,color:13213806,size:.46,label:"11.9 年"},{name:"土星",a:9.537,period:10759.22,color:14270602,size:.4,label:"29.5 年"},{name:"天王星",a:19.191,period:30688.5,color:9422543,size:.26,label:"84 年"},{name:"海王星",a:30.069,period:60182,color:5205944,size:.25,label:"164.8 年"}],J0=2,Q0=3,t_=360,e_=3;function Th(i){i.geometry?.dispose(),Array.isArray(i.material)?i.material.forEach(t=>t.dispose()):i.material?.dispose()}function Ic(i){for(;i.children.length;){const t=i.children.pop();Th(t)}}class n_{constructor(t){this.canvas=t,this.simDays=0,this.daysPerSecond=10,this.compact=!0,this.retro=!1,this.trailPoints=[],this.daysSinceSample=0,this.angles=Jn.map((e,n)=>n*2.3999632%(Math.PI*2)),this.scene=new Hn,this.camera=new Se(46,1,.01,600),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0,powerPreference:"high-performance"}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=2.5,this.controls.maxDistance=220,this.controls.enablePan=!1,this.orbitGroup=new on,this.retroGroup=new on,this.scene.add(this.orbitGroup,this.retroGroup),this.buildStatics(),this.rebuildOrbits(),this.resetCamera(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize()}orbitRadius(t){return this.compact?3.4*Math.sqrt(t):1.7*t}celestialRadius(){return this.compact?26:70}buildStatics(){this.scene.add(new ol(2898509,1.6));const t=new gh(16773328,2.4,0,0);this.scene.add(t);const e=900,n=new Float32Array(e*3);for(let r=0;r<e;r+=1){const a=new w().randomDirection().multiplyScalar(280);n.set([a.x,a.y,a.z],r*3)}const s=new Nt;s.setAttribute("position",new Oe(n,3)),this.stars=new tl(s,new Kr({color:13621478,size:.5,transparent:!0,opacity:.6})),this.scene.add(this.stars),this.sun=new Tt(new Yt(1,40,40),new jt({color:16767364,toneMapped:!1})),this.sunHalo=new Tt(new Yt(1.5,32,32),new jt({color:16758861,transparent:!0,opacity:.18,side:Ne,depthWrite:!1})),this.scene.add(this.sun,this.sunHalo),this.planetMeshes=Jn.map(r=>{const a=new Tt(new Yt(r.size,28,28),new oi({color:r.color,roughness:.9,metalness:0}));return this.scene.add(a),a}),this.saturnRing=new Tt(new rl(Jn[5].size*1.4,Jn[5].size*2.2,48),new jt({color:13349511,transparent:!0,opacity:.55,side:Re,depthWrite:!1})),this.saturnRing.rotation.x=Math.PI/2-.45,this.scene.add(this.saturnRing),this.sightLine=new Ce(new Nt().setFromPoints([new w,new w]),new Te({color:15180585,transparent:!0,opacity:.9})),this.trailLine=new Ce(new Nt,new Te({color:14957362,transparent:!0,opacity:.85})),this.retroGroup.add(this.sightLine,this.trailLine),this.retroGroup.visible=!1}rebuildOrbits(){Ic(this.orbitGroup),Jn.forEach(e=>{const n=this.orbitRadius(e.a),s=[];for(let a=0;a<=180;a+=1){const o=a/180*Math.PI*2;s.push(new w(Math.cos(o)*n,0,Math.sin(o)*n))}const r=new Ce(new Nt().setFromPoints(s),new Te({color:7178143,transparent:!0,opacity:.3}));this.orbitGroup.add(r)});const t=this.compact?1:.55;this.sun.scale.setScalar(t),this.sunHalo.scale.setScalar(t),this.updatePlanetPositions()}planetPosition(t){const e=this.orbitRadius(Jn[t].a),n=this.angles[t];return new w(Math.cos(n)*e,0,Math.sin(n)*e)}updatePlanetPositions(){this.planetMeshes.forEach((t,e)=>{t.position.copy(this.planetPosition(e))}),this.saturnRing.position.copy(this.planetMeshes[5].position)}updateRetro(t){if(!this.retro)return;const e=this.planetPosition(J0),s=this.planetPosition(Q0).clone().sub(e).normalize(),r=e.clone().addScaledVector(s,this.celestialRadius()),a=this.sightLine.geometry.attributes.position;a.setXYZ(0,e.x,e.y,e.z),a.setXYZ(1,r.x,r.y,r.z),a.needsUpdate=!0,this.daysSinceSample+=t,this.daysSinceSample>=e_&&(this.daysSinceSample=0,this.trailPoints.push(r),this.trailPoints.length>t_&&this.trailPoints.shift(),this.trailLine.geometry.dispose(),this.trailLine.geometry=new Nt().setFromPoints(this.trailPoints))}setSpeed(t){this.daysPerSecond=t}setCompact(t){this.compact=t,this.clearTrail(),this.rebuildOrbits(),this.resetCamera()}setRetro(t){this.retro=t,this.retroGroup.visible=t,this.clearTrail()}clearTrail(){this.trailPoints=[],this.daysSinceSample=0,this.trailLine.geometry.dispose(),this.trailLine.geometry=new Nt}resetCamera(){const t=this.compact?1:2.6;this.camera.position.set(0,17*t,25*t),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;if(!t)return;const e=t.clientWidth,n=t.clientHeight;this.camera.aspect=e/Math.max(1,n),this.camera.updateProjectionMatrix(),this.renderer.setSize(e,n,!1)}render(t){const e=t*this.daysPerSecond;e>0&&(this.simDays+=e,Jn.forEach((n,s)=>{this.angles[s]=(this.angles[s]+e/n.period*Math.PI*2)%(Math.PI*2)}),this.updatePlanetPositions(),this.updateRetro(e)),this.stars.rotation.y+=t*.002,this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),Ic(this.orbitGroup),this.scene.traverse(t=>Th(t)),this.renderer.dispose()}}let No=null,un=null;const pn=i=>No.querySelector(i);function i_(i){return i===0?0:10**(i/25-1)}function Ah(i){return i===0?"暂停":i>=365.25?`${(i/365.25).toFixed(1)} 年/秒`:i>=10?`${Math.round(i)} 天/秒`:`${i.toFixed(1)} 天/秒`}function s_(i){const t=Math.floor(i/365.25),e=Math.floor(i%365.25);return t>0?`第 ${t} 年 ${e} 天`:`第 ${e} 天`}function Br(){const i=un.scene3d;pn("#ss-clock").textContent=s_(i.simDays);const t=[i.daysPerSecond===0?"时间静止":`倍速 ${Ah(i.daysPerSecond)}`];i.retro&&t.push("红线：火星在天幕上的视轨迹"),pn("#ss-detail").textContent=t.join(`
+`,Jn=[{name:"水星",a:.387,period:87.97,color:10260352,size:.11,label:"88 天"},{name:"金星",a:.723,period:224.7,color:14202236,size:.17,label:"225 天"},{name:"地球",a:1,period:365.25,color:5210050,size:.18,label:"1 年"},{name:"火星",a:1.524,period:686.98,color:12866875,size:.14,label:"1.9 年"},{name:"木星",a:5.203,period:4332.59,color:13213806,size:.46,label:"11.9 年"},{name:"土星",a:9.537,period:10759.22,color:14270602,size:.4,label:"29.5 年"},{name:"天王星",a:19.191,period:30688.5,color:9422543,size:.26,label:"84 年"},{name:"海王星",a:30.069,period:60182,color:5205944,size:.25,label:"164.8 年"}],J0=2,Q0=3,t_=360,e_=3;function Th(i){i.geometry?.dispose(),Array.isArray(i.material)?i.material.forEach(t=>t.dispose()):i.material?.dispose()}function Ic(i){for(;i.children.length;){const t=i.children.pop();Th(t)}}class n_{constructor(t){this.canvas=t,this.simDays=0,this.daysPerSecond=10,this.compact=!0,this.retro=!1,this.trailPoints=[],this.daysSinceSample=0,this.angles=Jn.map((e,n)=>n*2.3999632%(Math.PI*2)),this.scene=new Hn,this.camera=new Se(46,1,.01,600),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0,powerPreference:"high-performance"}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=2.5,this.controls.maxDistance=220,this.controls.enablePan=!1,this.orbitGroup=new on,this.retroGroup=new on,this.scene.add(this.orbitGroup,this.retroGroup),this.buildStatics(),this.rebuildOrbits(),this.resetCamera(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize()}orbitRadius(t){return this.compact?3.4*Math.sqrt(t):1.7*t}celestialRadius(){return this.compact?26:70}buildStatics(){this.scene.add(new ol(2898509,1.6));const t=new gh(16773328,2.4,0,0);this.scene.add(t);const e=900,n=new Float32Array(e*3);for(let r=0;r<e;r+=1){const a=new w().randomDirection().multiplyScalar(280);n.set([a.x,a.y,a.z],r*3)}const s=new Nt;s.setAttribute("position",new Oe(n,3)),this.stars=new tl(s,new Kr({color:13621478,size:.5,transparent:!0,opacity:.6})),this.scene.add(this.stars),this.sun=new Tt(new Yt(1,40,40),new jt({color:16767364,toneMapped:!1})),this.sunHalo=new Tt(new Yt(1.5,32,32),new jt({color:16758861,transparent:!0,opacity:.18,side:Ne,depthWrite:!1})),this.scene.add(this.sun,this.sunHalo),this.planetMeshes=Jn.map(r=>{const a=new Tt(new Yt(r.size,28,28),new oi({color:r.color,roughness:.9,metalness:0}));return this.scene.add(a),a}),this.saturnRing=new Tt(new rl(Jn[5].size*1.4,Jn[5].size*2.2,48),new jt({color:13349511,transparent:!0,opacity:.55,side:Re,depthWrite:!1})),this.saturnRing.rotation.x=Math.PI/2-.45,this.scene.add(this.saturnRing),this.sightLine=new Ce(new Nt().setFromPoints([new w,new w]),new Te({color:15180585,transparent:!0,opacity:.9})),this.trailLine=new Ce(new Nt,new Te({color:14957362,transparent:!0,opacity:.85})),this.retroGroup.add(this.sightLine,this.trailLine),this.retroGroup.visible=!1}rebuildOrbits(){Ic(this.orbitGroup),Jn.forEach(e=>{const n=this.orbitRadius(e.a),s=[];for(let a=0;a<=180;a+=1){const o=a/180*Math.PI*2;s.push(new w(Math.cos(o)*n,0,Math.sin(o)*n))}const r=new Ce(new Nt().setFromPoints(s),new Te({color:7178143,transparent:!0,opacity:.3}));this.orbitGroup.add(r)});const t=this.compact?1:.55;this.sun.scale.setScalar(t),this.sunHalo.scale.setScalar(t),this.updatePlanetPositions()}planetPosition(t){const e=this.orbitRadius(Jn[t].a),n=this.angles[t];return new w(Math.cos(n)*e,0,Math.sin(n)*e)}updatePlanetPositions(){this.planetMeshes.forEach((t,e)=>{t.position.copy(this.planetPosition(e))}),this.saturnRing.position.copy(this.planetMeshes[5].position)}updateRetro(t){if(!this.retro)return;const e=this.planetPosition(J0),s=this.planetPosition(Q0).clone().sub(e).normalize(),r=e.clone().addScaledVector(s,this.celestialRadius()),a=this.sightLine.geometry.attributes.position;a.setXYZ(0,e.x,e.y,e.z),a.setXYZ(1,r.x,r.y,r.z),a.needsUpdate=!0,this.daysSinceSample+=t,this.daysSinceSample>=e_&&(this.daysSinceSample=0,this.trailPoints.push(r),this.trailPoints.length>t_&&this.trailPoints.shift(),this.trailLine.geometry.dispose(),this.trailLine.geometry=new Nt().setFromPoints(this.trailPoints))}setSpeed(t){this.daysPerSecond=t}setCompact(t){this.compact=t,this.clearTrail(),this.rebuildOrbits(),this.resetCamera()}setRetro(t){this.retro=t,this.retroGroup.visible=t,this.clearTrail()}clearTrail(){this.trailPoints=[],this.daysSinceSample=0,this.trailLine.geometry.dispose(),this.trailLine.geometry=new Nt}resetCamera(){const t=this.compact?1:2.6;this.camera.position.set(0,31*t,46*t),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;if(!t)return;const e=t.clientWidth,n=t.clientHeight;this.camera.aspect=e/Math.max(1,n),this.camera.updateProjectionMatrix(),this.renderer.setSize(e,n,!1)}render(t){const e=t*this.daysPerSecond;e>0&&(this.simDays+=e,Jn.forEach((n,s)=>{this.angles[s]=(this.angles[s]+e/n.period*Math.PI*2)%(Math.PI*2)}),this.updatePlanetPositions(),this.updateRetro(e)),this.stars.rotation.y+=t*.002,this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),Ic(this.orbitGroup),this.scene.traverse(t=>Th(t)),this.renderer.dispose()}}let No=null,un=null;const pn=i=>No.querySelector(i);function i_(i){return i===0?0:10**(i/25-1)}function Ah(i){return i===0?"暂停":i>=365.25?`${(i/365.25).toFixed(1)} 年/秒`:i>=10?`${Math.round(i)} 天/秒`:`${i.toFixed(1)} 天/秒`}function s_(i){const t=Math.floor(i/365.25),e=Math.floor(i%365.25);return t>0?`第 ${t} 年 ${e} 天`:`第 ${e} 天`}function Br(){const i=un.scene3d;pn("#ss-clock").textContent=s_(i.simDays);const t=[i.daysPerSecond===0?"时间静止":`倍速 ${Ah(i.daysPerSecond)}`];i.retro&&t.push("红线：火星在天幕上的视轨迹"),pn("#ss-detail").textContent=t.join(`
 `)}function r_(){const i=pn("#ss-legend");Jn.forEach(t=>{const e=document.createElement("li"),n=document.createElement("i");n.style.background=`#${t.color.toString(16).padStart(6,"0")}`;const s=document.createElement("span");s.textContent=`${t.name} · ${t.label}`,e.append(n,s),i.appendChild(e)})}function a_(){const i=un.scene3d;pn("#ss-speed").addEventListener("input",n=>{const s=i_(Number(n.target.value));i.setSpeed(s),pn("#ss-speed-output").textContent=Ah(s),Br()});const t=pn("#ss-scale-toggle");t.addEventListener("click",()=>{const n=i.compact;i.setCompact(!n),t.textContent=n?"切换为压缩尺度":"切换为真实间距",t.setAttribute("aria-pressed",String(n)),pn("#ss-caption").textContent=n?"真实间距（AU 等比）· 行星大小非真实比例":"压缩尺度 · 行星大小非真实比例"});const e=pn("#ss-retro-toggle");e.addEventListener("click",()=>{const n=!i.retro;i.setRetro(n),e.textContent=n?"关闭火星逆行演示":"开启火星逆行演示",e.setAttribute("aria-pressed",String(n)),pn("#ss-retro-note").textContent=n?"黄线为地球→火星视线，红线为视轨迹":"",Br()}),pn("#ss-reset-camera").addEventListener("click",()=>i.resetCamera())}const o_={id:"solar-system",name:"太阳系",getDefaultParams(){return{daysPerSecond:10,compact:!0,retro:!1}},init(i){No=i,i.innerHTML=Z0,un={scene3d:new n_(pn("#ss-canvas")),clockTimer:0},r_(),a_(),Br()},update(i){if(!un)return;const t=Math.min(i?.delta??0,.05);un.scene3d.render(t),un.clockTimer+=t,un.clockTimer>=.25&&(un.clockTimer=0,Br())},dispose(){un&&(un.scene3d.dispose(),un=null,No=null)}},Fo=23.44,l_=`
     <style>
-      .seasons-hero {
-        max-width: var(--max);
-        margin: 0 auto;
-        padding: clamp(56px, 7vw, 110px) var(--gutter) clamp(24px, 3vw, 48px);
-      }
-      .seasons-kicker {
-        margin: 0 0 18px;
-        color: var(--red);
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .seasons-hero h1 {
-        margin: 0 0 20px;
-        font-family: var(--serif);
-        font-size: clamp(40px, 5.6vw, 82px);
-        line-height: 1.08;
-        letter-spacing: -0.04em;
-      }
-      .seasons-lead {
-        max-width: 660px;
-        margin: 0;
-        color: var(--muted);
-        font-size: clamp(16px, 1.6vw, 19px);
-      }
       .seasons-intuition {
         padding-top: clamp(40px, 5vw, 70px);
         padding-bottom: clamp(40px, 5vw, 70px);
@@ -5131,9 +5096,6 @@ void main() {
         margin: 0;
         color: var(--muted);
         font-size: 14px;
-      }
-      .seasons-lab-section {
-        padding-top: clamp(30px, 4vw, 60px);
       }
       .seasons-canvas {
         position: absolute;
@@ -5233,61 +5195,24 @@ void main() {
     </style>
 
     <div class="seasons-scene" id="main">
-      <header class="seasons-hero">
-        <p class="seasons-kicker">FIG. 02 / SEASONS LAB</p>
-        <h1>四季，来自一根<br />倾斜的地轴</h1>
-        <p class="seasons-lead">
-          日地距离一年只变化约 3.3%，真正改变阳光的，是 23.44° 的地轴倾角：
-          它决定阳光落下的角度与白昼的长短。
-        </p>
-      </header>
-
-      <section class="seasons-intuition section-pad" aria-labelledby="seasons-intuition-title">
-        <div class="section-heading">
-          <p class="section-index">01</p>
-          <div>
-            <h2 id="seasons-intuition-title">直觉模型</h2>
-            <p>公转一圈，地轴方向几乎不变；变的是太阳直射点落在哪条纬线上。</p>
-          </div>
-        </div>
-        <div class="seasons-copy">
-          <article>
-            <span>01 / 指向不变</span>
-            <h3>地轴始终指向同一方向</h3>
-            <p>
-              地球绕太阳公转时，自转轴始终指向天空中几乎同一个位置（北极星附近），
-              与公转轨道面法线夹角约 23.44°。于是一年之中，太阳直射点在南北回归线
-              （±23.44°）之间往返移动。
-            </p>
-          </article>
-          <article>
-            <span>02 / 角度决定能量</span>
-            <h3>直射得多，斜射摊薄</h3>
-            <p>
-              直射时，单位面积地表接收的阳光最多，白昼也更长；斜射时，同一束阳光
-              摊在更大的面积上，且白昼变短。北半球的夏至前后，正是“直射靠北 + 长昼”
-              两个效应叠加的时候。
-            </p>
-          </article>
-          <article>
-            <span>03 / 距离不是原因</span>
-            <h3>近日点反而在 1 月</h3>
-            <p>
-              地球轨道接近圆形：近日点在 1 月初（约 1.471 亿千米），远日点在 7 月初
-              （约 1.521 亿千米），相差仅约 3.3%。若距离主导季节，南北半球就不会
-              季节相反——事实恰恰相反。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="seasons-lab-section section-pad" aria-labelledby="seasons-lab-title">
-        <div class="section-heading">
-          <p class="section-index">02</p>
-          <div>
-            <h2 id="seasons-lab-title">互动实验：拖动公转位置</h2>
-            <p>拖动滑杆让地球沿轨道移动，观察直射纬度与南北半球昼长如何此消彼长。</p>
-          </div>
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="figure-no">FIG. 02 / SEASONS LAB</p>
+          <h1>四季，<br />来自一根<br />倾斜的地轴</h1>
+          <p class="hero-lead">
+            日地距离一年只变化约 3.3%，真正改变阳光的，是 23.44° 的地轴倾角：
+            它决定阳光落下的角度与白昼的长短。
+          </p>
+          <a class="primary-action" href="#seasons-intuition">
+            开始实验
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M14 7l5 5-5 5" />
+            </svg>
+          </a>
+          <p class="hero-note">
+            拖动旋转 · 滚轮缩放 · 滑杆移动公转位置<br />
+            昼长按理想球面几何计算，画面比例经过夸张。
+          </p>
         </div>
 
         <div class="lab-shell" aria-label="四季公转交互实验">
@@ -5354,9 +5279,48 @@ void main() {
         </div>
       </section>
 
+      <section class="seasons-intuition section-pad" id="seasons-intuition" aria-labelledby="seasons-intuition-title">
+        <div class="section-heading">
+          <p class="section-index">01</p>
+          <div>
+            <h2 id="seasons-intuition-title">直觉模型</h2>
+            <p>公转一圈，地轴方向几乎不变；变的是太阳直射点落在哪条纬线上。</p>
+          </div>
+        </div>
+        <div class="seasons-copy">
+          <article>
+            <span>01 / 指向不变</span>
+            <h3>地轴始终指向同一方向</h3>
+            <p>
+              地球绕太阳公转时，自转轴始终指向天空中几乎同一个位置（北极星附近），
+              与公转轨道面法线夹角约 23.44°。于是一年之中，太阳直射点在南北回归线
+              （±23.44°）之间往返移动。
+            </p>
+          </article>
+          <article>
+            <span>02 / 角度决定能量</span>
+            <h3>直射得多，斜射摊薄</h3>
+            <p>
+              直射时，单位面积地表接收的阳光最多，白昼也更长；斜射时，同一束阳光
+              摊在更大的面积上，且白昼变短。北半球的夏至前后，正是“直射靠北 + 长昼”
+              两个效应叠加的时候。
+            </p>
+          </article>
+          <article>
+            <span>03 / 距离不是原因</span>
+            <h3>近日点反而在 1 月</h3>
+            <p>
+              地球轨道接近圆形：近日点在 1 月初（约 1.471 亿千米），远日点在 7 月初
+              （约 1.521 亿千米），相差仅约 3.3%。若距离主导季节，南北半球就不会
+              季节相反——事实恰恰相反。
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="section-pad" aria-labelledby="seasons-limits-title">
         <div class="section-heading">
-          <p class="section-index">03</p>
+          <p class="section-index">02</p>
           <div>
             <h2 id="seasons-limits-title">这个模型简化了什么</h2>
             <p>把简化说清楚，直觉才不会变成误解。</p>
@@ -5400,7 +5364,7 @@ void main() {
 
       <section class="sources section-pad" aria-labelledby="seasons-sources-title">
         <div class="section-heading light-heading">
-          <p class="section-index">04</p>
+          <p class="section-index">03</p>
           <div>
             <h2 id="seasons-sources-title">来源与核验路径</h2>
             <p>数值与结论以下列资料为准。</p>
@@ -5433,34 +5397,8 @@ void main() {
         </p>
       </section>
     </div>
-`;let zr=null,ti=null;const mn=i=>zr.querySelector(i),Rh=i=>[...zr.querySelectorAll(i)],_i=6,Oo={0:"春分",90:"夏至",180:"秋分",270:"冬至"},c_=["春分 → 夏至","夏至 → 秋分","秋分 → 冬至","冬至 → 春分"];function Uc(i,t){const e=-Math.tan(ue.degToRad(i))*Math.tan(ue.degToRad(t));return e<=-1?24:e>=1?0:Math.acos(e)/Math.PI*24}function h_(i,t){const e=document.createElement("canvas");e.width=256,e.height=96;const n=e.getContext("2d");n.font="600 44px 'PingFang SC', 'Microsoft YaHei', sans-serif",n.textAlign="center",n.textBaseline="middle",n.fillStyle="rgba(243, 239, 229, 0.92)",n.fillText(i,128,48);const s=new el(e);t.push(s);const r=new jr({map:s,transparent:!0,depthWrite:!1}),a=new Jo(r);return a.scale.set(1.5,.56,1),a}class d_{constructor(t){this.canvas=t,this.theta=0,this.playing=!1,this.textures=[],this.scene=new Hn,this.camera=new Se(42,1,.1,100),this.camera.position.set(0,7.5,10.5),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=4,this.controls.maxDistance=24,this.controls.enablePan=!1,this.buildScene(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize(),this.setTheta(0)}buildScene(){this.scene.add(new us(9676733,660772,.4));const t=new gh(16773330,2.4,0,0);this.scene.add(t);const e=new Tt(new Yt(.7,48,32),new jt({color:16757575}));this.scene.add(e);const n=[];for(let h=0;h<=160;h+=1){const d=h/160*Math.PI*2;n.push(new w(Math.cos(d)*_i,0,Math.sin(d)*_i))}this.scene.add(new Ce(new Nt().setFromPoints(n),new Te({color:7178143,transparent:!0,opacity:.4})));const s=new Yt(.08,16,12),r=new jt({color:15050022});Object.entries(Oo).forEach(([h,d])=>{const p=ue.degToRad(Number(h)),f=-_i*Math.sin(p),g=_i*Math.cos(p),v=new Tt(s.clone(),r.clone());v.position.set(f,0,g),this.scene.add(v);const m=h_(d,this.textures);m.position.set(f*1.12,.55,g*1.12),this.scene.add(m)}),s.dispose(),r.dispose(),this.earthGroup=new on,this.tiltGroup=new on,this.tiltGroup.rotation.z=-ue.degToRad(Fo),this.earthGroup.add(this.tiltGroup),this.earthMesh=new Tt(new Yt(.5,48,32),new ss({color:4158632,emissive:463391,shininess:18})),this.tiltGroup.add(this.earthMesh);const a=new Tt(new Yt(.505,18,12),new jt({color:10339298,wireframe:!0,transparent:!0,opacity:.14}));this.earthMesh.add(a);const o=new Nt().setFromPoints([new w(0,-.85,0),new w(0,.85,0)]);this.tiltGroup.add(new Ce(o,new Te({color:15050022})));const c=new Tt(new Yt(.05,12,8),new jt({color:14891570}));c.position.set(0,.85,0),this.tiltGroup.add(c);const l=[];for(let h=0;h<=96;h+=1){const d=h/96*Math.PI*2;l.push(new w(Math.cos(d)*.52,0,Math.sin(d)*.52))}this.tiltGroup.add(new Ce(new Nt().setFromPoints(l),new Te({color:15986661,transparent:!0,opacity:.5}))),this.scene.add(this.earthGroup),this.rayGeometry=new Nt().setFromPoints([new w(0,0,0),new w(0,0,_i)]),this.scene.add(new Ce(this.rayGeometry,new Te({color:16767370,transparent:!0,opacity:.35})))}setTheta(t){this.theta=(t%360+360)%360;const e=ue.degToRad(this.theta),n=-_i*Math.sin(e),s=_i*Math.cos(e);this.earthGroup.position.set(n,0,s);const r=this.rayGeometry.attributes.position;r.setXYZ(1,n,0,s),r.needsUpdate=!0}declinationDeg(){const t=ue.degToRad(this.theta),e=ue.degToRad(Fo);return ue.radToDeg(Math.asin(Math.sin(e)*Math.sin(t)))}resetCamera(){this.camera.position.set(0,7.5,10.5),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;t&&(this.camera.aspect=t.clientWidth/Math.max(1,t.clientHeight),this.camera.updateProjectionMatrix(),this.renderer.setSize(t.clientWidth,t.clientHeight,!1))}render(t){this.earthMesh.rotation.y+=t*1.6,this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),this.scene.traverse(t=>{t.geometry?.dispose(),Array.isArray(t.material)?t.material.forEach(e=>e.dispose()):t.material?.dispose()}),this.textures.forEach(t=>t.dispose()),this.renderer.dispose()}}function u_(i){const t=Math.round(i)%360;return Oo[t]?Oo[t]:c_[Math.floor(i/90)%4]}function kr(){const{lab:i}=ti,t=i.declinationDeg(),e=t>.05?"N":t<-.05?"S":"",n=e?Math.abs(t).toFixed(1)+"°"+e:"0.0°（赤道）";mn("#seasons-theta-output").textContent=Math.round(i.theta)+"°",mn("#seasons-decl").textContent=n,mn("#seasons-day-north").textContent=Uc(40,t).toFixed(1)+" 小时",mn("#seasons-day-south").textContent=Uc(-40,t).toFixed(1)+" 小时",mn("#seasons-noon-alt").textContent=(90-Math.abs(40-t)).toFixed(1)+"°",mn("#seasons-status").textContent=u_(i.theta)+" · 直射 "+n,Rh(".seasons-jumps button").forEach(s=>{s.classList.toggle("is-active",Number(s.dataset.theta)===Math.round(i.theta)%360)})}function p_(){const{lab:i}=ti,t=mn("#seasons-theta"),e=mn("#seasons-play");t.addEventListener("input",n=>{i.playing=!1,e.textContent="播放公转",e.setAttribute("aria-pressed","false"),i.setTheta(Number(n.target.value)),kr()}),Rh(".seasons-jumps button").forEach(n=>{n.addEventListener("click",()=>{i.playing=!1,e.textContent="播放公转",e.setAttribute("aria-pressed","false");const s=Number(n.dataset.theta);t.value=String(s),i.setTheta(s),kr()})}),e.addEventListener("click",()=>{i.playing=!i.playing,e.textContent=i.playing?"暂停公转":"播放公转",e.setAttribute("aria-pressed",String(i.playing))}),mn("#seasons-reset").addEventListener("click",()=>i.resetCamera())}const f_={id:"seasons",name:"四季",getDefaultParams(){return{theta:0,tiltDeg:Fo}},init(i){zr=i,i.innerHTML=l_,ti={lab:new d_(mn("#seasons-canvas"))},p_(),kr()},update(i){if(!ti)return;const t=i?.delta??0,{lab:e}=ti;e.playing&&(e.setTheta(e.theta+t*12),mn("#seasons-theta").value=String(Math.round(e.theta)),kr()),e.render(t)},dispose(){ti&&(ti.lab.dispose(),ti=null,zr=null)}},Ch=29.53,br=3.2,m_=`
+`;let zr=null,ti=null;const mn=i=>zr.querySelector(i),Rh=i=>[...zr.querySelectorAll(i)],_i=6,Oo={0:"春分",90:"夏至",180:"秋分",270:"冬至"},c_=["春分 → 夏至","夏至 → 秋分","秋分 → 冬至","冬至 → 春分"];function Uc(i,t){const e=-Math.tan(ue.degToRad(i))*Math.tan(ue.degToRad(t));return e<=-1?24:e>=1?0:Math.acos(e)/Math.PI*24}function h_(i,t){const e=document.createElement("canvas");e.width=256,e.height=96;const n=e.getContext("2d");n.font="600 44px 'PingFang SC', 'Microsoft YaHei', sans-serif",n.textAlign="center",n.textBaseline="middle",n.fillStyle="rgba(243, 239, 229, 0.92)",n.fillText(i,128,48);const s=new el(e);t.push(s);const r=new jr({map:s,transparent:!0,depthWrite:!1}),a=new Jo(r);return a.scale.set(1.5,.56,1),a}class d_{constructor(t){this.canvas=t,this.theta=0,this.playing=!1,this.textures=[],this.scene=new Hn,this.camera=new Se(42,1,.1,100),this.camera.position.set(0,15.5,17),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=4,this.controls.maxDistance=30,this.controls.enablePan=!1,this.buildScene(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize(),this.setTheta(0)}buildScene(){this.scene.add(new us(9676733,660772,.4));const t=new gh(16773330,2.4,0,0);this.scene.add(t);const e=new Tt(new Yt(.7,48,32),new jt({color:16757575}));this.scene.add(e);const n=[];for(let h=0;h<=160;h+=1){const d=h/160*Math.PI*2;n.push(new w(Math.cos(d)*_i,0,Math.sin(d)*_i))}this.scene.add(new Ce(new Nt().setFromPoints(n),new Te({color:7178143,transparent:!0,opacity:.4})));const s=new Yt(.08,16,12),r=new jt({color:15050022});Object.entries(Oo).forEach(([h,d])=>{const p=ue.degToRad(Number(h)),f=-_i*Math.sin(p),g=_i*Math.cos(p),v=new Tt(s.clone(),r.clone());v.position.set(f,0,g),this.scene.add(v);const m=h_(d,this.textures);m.position.set(f*1.12,.55,g*1.12),this.scene.add(m)}),s.dispose(),r.dispose(),this.earthGroup=new on,this.tiltGroup=new on,this.tiltGroup.rotation.z=-ue.degToRad(Fo),this.earthGroup.add(this.tiltGroup),this.earthMesh=new Tt(new Yt(.5,48,32),new ss({color:4158632,emissive:463391,shininess:18})),this.tiltGroup.add(this.earthMesh);const a=new Tt(new Yt(.505,18,12),new jt({color:10339298,wireframe:!0,transparent:!0,opacity:.14}));this.earthMesh.add(a);const o=new Nt().setFromPoints([new w(0,-.85,0),new w(0,.85,0)]);this.tiltGroup.add(new Ce(o,new Te({color:15050022})));const c=new Tt(new Yt(.05,12,8),new jt({color:14891570}));c.position.set(0,.85,0),this.tiltGroup.add(c);const l=[];for(let h=0;h<=96;h+=1){const d=h/96*Math.PI*2;l.push(new w(Math.cos(d)*.52,0,Math.sin(d)*.52))}this.tiltGroup.add(new Ce(new Nt().setFromPoints(l),new Te({color:15986661,transparent:!0,opacity:.5}))),this.scene.add(this.earthGroup),this.rayGeometry=new Nt().setFromPoints([new w(0,0,0),new w(0,0,_i)]),this.scene.add(new Ce(this.rayGeometry,new Te({color:16767370,transparent:!0,opacity:.35})))}setTheta(t){this.theta=(t%360+360)%360;const e=ue.degToRad(this.theta),n=-_i*Math.sin(e),s=_i*Math.cos(e);this.earthGroup.position.set(n,0,s);const r=this.rayGeometry.attributes.position;r.setXYZ(1,n,0,s),r.needsUpdate=!0}declinationDeg(){const t=ue.degToRad(this.theta),e=ue.degToRad(Fo);return ue.radToDeg(Math.asin(Math.sin(e)*Math.sin(t)))}resetCamera(){this.camera.position.set(0,15.5,17),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;t&&(this.camera.aspect=t.clientWidth/Math.max(1,t.clientHeight),this.camera.updateProjectionMatrix(),this.renderer.setSize(t.clientWidth,t.clientHeight,!1))}render(t){this.earthMesh.rotation.y+=t*1.6,this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),this.scene.traverse(t=>{t.geometry?.dispose(),Array.isArray(t.material)?t.material.forEach(e=>e.dispose()):t.material?.dispose()}),this.textures.forEach(t=>t.dispose()),this.renderer.dispose()}}function u_(i){const t=Math.round(i)%360;return Oo[t]?Oo[t]:c_[Math.floor(i/90)%4]}function kr(){const{lab:i}=ti,t=i.declinationDeg(),e=t>.05?"N":t<-.05?"S":"",n=e?Math.abs(t).toFixed(1)+"°"+e:"0.0°（赤道）";mn("#seasons-theta-output").textContent=Math.round(i.theta)+"°",mn("#seasons-decl").textContent=n,mn("#seasons-day-north").textContent=Uc(40,t).toFixed(1)+" 小时",mn("#seasons-day-south").textContent=Uc(-40,t).toFixed(1)+" 小时",mn("#seasons-noon-alt").textContent=(90-Math.abs(40-t)).toFixed(1)+"°",mn("#seasons-status").textContent=u_(i.theta)+" · 直射 "+n,Rh(".seasons-jumps button").forEach(s=>{s.classList.toggle("is-active",Number(s.dataset.theta)===Math.round(i.theta)%360)})}function p_(){const{lab:i}=ti,t=mn("#seasons-theta"),e=mn("#seasons-play");t.addEventListener("input",n=>{i.playing=!1,e.textContent="播放公转",e.setAttribute("aria-pressed","false"),i.setTheta(Number(n.target.value)),kr()}),Rh(".seasons-jumps button").forEach(n=>{n.addEventListener("click",()=>{i.playing=!1,e.textContent="播放公转",e.setAttribute("aria-pressed","false");const s=Number(n.dataset.theta);t.value=String(s),i.setTheta(s),kr()})}),e.addEventListener("click",()=>{i.playing=!i.playing,e.textContent=i.playing?"暂停公转":"播放公转",e.setAttribute("aria-pressed",String(i.playing))}),mn("#seasons-reset").addEventListener("click",()=>i.resetCamera())}const f_={id:"seasons",name:"四季",getDefaultParams(){return{theta:0,tiltDeg:Fo}},init(i){zr=i,i.innerHTML=l_,ti={lab:new d_(mn("#seasons-canvas"))},p_(),kr()},update(i){if(!ti)return;const t=i?.delta??0,{lab:e}=ti;e.playing&&(e.setTheta(e.theta+t*12),mn("#seasons-theta").value=String(Math.round(e.theta)),kr()),e.render(t)},dispose(){ti&&(ti.lab.dispose(),ti=null,zr=null)}},Ch=29.53,br=3.2,m_=`
     <style>
-      .moonp-hero {
-        max-width: var(--max);
-        margin: 0 auto;
-        padding: clamp(56px, 7vw, 110px) var(--gutter) clamp(24px, 3vw, 48px);
-      }
-      .moonp-kicker {
-        margin: 0 0 18px;
-        color: var(--red);
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .moonp-hero h1 {
-        margin: 0 0 20px;
-        font-family: var(--serif);
-        font-size: clamp(40px, 5.6vw, 82px);
-        line-height: 1.08;
-        letter-spacing: -0.04em;
-      }
-      .moonp-lead {
-        max-width: 660px;
-        margin: 0;
-        color: var(--muted);
-        font-size: clamp(16px, 1.6vw, 19px);
-      }
       .moonp-intuition {
         padding-top: clamp(40px, 5vw, 70px);
         padding-bottom: clamp(40px, 5vw, 70px);
@@ -5638,60 +5576,24 @@ void main() {
     </style>
 
     <div class="moonp-scene" id="main">
-      <header class="moonp-hero">
-        <p class="moonp-kicker">FIG. 03 / MOON PHASES LAB</p>
-        <h1>月亮没有变，<br />变的是我们的视角</h1>
-        <p class="moonp-lead">
-          太阳永远照亮月球的一半。月球绕地球公转时，我们看到那被照亮的半球
-          以不同的侧面朝向我们——这就是月相。
-        </p>
-      </header>
-
-      <section class="moonp-intuition section-pad" aria-labelledby="moonp-intuition-title">
-        <div class="section-heading">
-          <p class="section-index">01</p>
-          <div>
-            <h2 id="moonp-intuition-title">直觉模型</h2>
-            <p>月相不是地球影子，而是“日–地–月”三者夹角的几何结果。</p>
-          </div>
-        </div>
-        <div class="moonp-copy">
-          <article>
-            <span>01 / 永远半亮</span>
-            <h3>太阳光近似平行入射</h3>
-            <p>
-              太阳距离约为地月距离的 390 倍，射到地月系统的阳光可以视为平行光束。
-              无论月球在轨道何处，它总有一半被照亮、一半处于黑夜——变化的只是
-              我们能看到亮面的多少。
-            </p>
-          </article>
-          <article>
-            <span>02 / 夹角决定形状</span>
-            <h3>相位角从新月数起</h3>
-            <p>
-              新月时月球位于太阳与地球之间，亮面背对我们；满月时地球居中，
-              亮面正对我们。从新月起算的相位角每转过约 45°，就依次出现
-              娥眉月、上弦月、盈凸月、满月，再对称地亏回去。
-            </p>
-          </article>
-          <article>
-            <span>03 / 常见误解</span>
-            <h3>月相不是地影</h3>
-            <p>
-              地球影子落在月面上的现象叫月食，只发生在满月且三者近乎精确成一线时。
-              日常的月相圆缺与地影无关——不然弦月的明暗界线不会是那条柔和的椭圆弧。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section-pad" aria-labelledby="moonp-lab-title" style="padding-top: clamp(30px, 4vw, 60px);">
-        <div class="section-heading">
-          <p class="section-index">02</p>
-          <div>
-            <h2 id="moonp-lab-title">互动实验：转动月球</h2>
-            <p>拖动滑杆改变月球的轨道相位角，右侧小窗同步给出从地球看到的月相。</p>
-          </div>
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="figure-no">FIG. 03 / MOON PHASES LAB</p>
+          <h1>月亮没有变，<br />变的是<br />我们的视角</h1>
+          <p class="hero-lead">
+            太阳永远照亮月球的一半。月球绕地球公转时，我们看到那被照亮的半球
+            以不同的侧面朝向我们——这就是月相。
+          </p>
+          <a class="primary-action" href="#moonp-intuition">
+            开始实验
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M14 7l5 5-5 5" />
+            </svg>
+          </a>
+          <p class="hero-note">
+            拖动旋转 · 滚轮缩放 · 滑杆改变轨道相位角<br />
+            右侧小窗同步显示从地球看到的月相。
+          </p>
         </div>
 
         <div class="lab-shell" aria-label="月相交互实验">
@@ -5754,9 +5656,47 @@ void main() {
         </div>
       </section>
 
+      <section class="moonp-intuition section-pad" id="moonp-intuition" aria-labelledby="moonp-intuition-title">
+        <div class="section-heading">
+          <p class="section-index">01</p>
+          <div>
+            <h2 id="moonp-intuition-title">直觉模型</h2>
+            <p>月相不是地球影子，而是“日–地–月”三者夹角的几何结果。</p>
+          </div>
+        </div>
+        <div class="moonp-copy">
+          <article>
+            <span>01 / 永远半亮</span>
+            <h3>太阳光近似平行入射</h3>
+            <p>
+              太阳距离约为地月距离的 390 倍，射到地月系统的阳光可以视为平行光束。
+              无论月球在轨道何处，它总有一半被照亮、一半处于黑夜——变化的只是
+              我们能看到亮面的多少。
+            </p>
+          </article>
+          <article>
+            <span>02 / 夹角决定形状</span>
+            <h3>相位角从新月数起</h3>
+            <p>
+              新月时月球位于太阳与地球之间，亮面背对我们；满月时地球居中，
+              亮面正对我们。从新月起算的相位角每转过约 45°，就依次出现
+              娥眉月、上弦月、盈凸月、满月，再对称地亏回去。
+            </p>
+          </article>
+          <article>
+            <span>03 / 常见误解</span>
+            <h3>月相不是地影</h3>
+            <p>
+              地球影子落在月面上的现象叫月食，只发生在满月且三者近乎精确成一线时。
+              日常的月相圆缺与地影无关——不然弦月的明暗界线不会是那条柔和的椭圆弧。
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="section-pad" aria-labelledby="moonp-months-title">
         <div class="section-heading">
-          <p class="section-index">03</p>
+          <p class="section-index">02</p>
           <div>
             <h2 id="moonp-months-title">两种“一个月”</h2>
             <p>月球转回同一位置，和月相转回同一形状，不是同一件事。</p>
@@ -5789,7 +5729,7 @@ void main() {
 
       <section class="section-pad" aria-labelledby="moonp-limits-title" style="padding-top: 0;">
         <div class="section-heading">
-          <p class="section-index">04</p>
+          <p class="section-index">03</p>
           <div>
             <h2 id="moonp-limits-title">这个模型简化了什么</h2>
             <p>把简化说清楚，直觉才不会变成误解。</p>
@@ -5833,7 +5773,7 @@ void main() {
 
       <section class="sources section-pad" aria-labelledby="moonp-sources-title">
         <div class="section-heading light-heading">
-          <p class="section-index">05</p>
+          <p class="section-index">04</p>
           <div>
             <h2 id="moonp-sources-title">来源与核验路径</h2>
             <p>数值与结论以下列资料为准。</p>
@@ -5866,34 +5806,8 @@ void main() {
         </p>
       </section>
     </div>
-`;let Gr=null,On=null;const _n=i=>Gr.querySelector(i),Ph=i=>[...Gr.querySelectorAll(i)];function g_(i){const t=(i%360+360)%360;return t<11.25||t>=348.75?"新月":t<78.75?"娥眉月":t<101.25?"上弦月":t<168.75?"盈凸月":t<191.25?"满月":t<258.75?"亏凸月":t<281.25?"下弦月":"残月"}class __{constructor(t){this.canvas=t,this.alpha=0,this.playing=!1,this.textures=[],this.scene=new Hn,this.camera=new Se(42,1,.1,100),this.camera.position.set(0,6.2,7.6),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=3,this.controls.maxDistance=20,this.controls.enablePan=!1,this.buildScene(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize(),this.setAlpha(0)}makeLabelSprite(t){const e=document.createElement("canvas");e.width=384,e.height=96;const n=e.getContext("2d");n.font="600 38px 'PingFang SC', 'Microsoft YaHei', sans-serif",n.textAlign="center",n.textBaseline="middle",n.fillStyle="rgba(243, 239, 229, 0.9)",n.fillText(t,192,48);const s=new el(e);this.textures.push(s);const r=new Jo(new jr({map:s,transparent:!0,depthWrite:!1}));return r.scale.set(2.1,.52,1),r}buildScene(){this.scene.add(new us(9676733,660772,.35));const t=new li(16774102,2.6);t.position.set(12,0,0),this.scene.add(t),this.earthMesh=new Tt(new Yt(.5,48,32),new ss({color:4158632,emissive:463391,shininess:18})),this.scene.add(this.earthMesh);const e=[];for(let s=0;s<=128;s+=1){const r=s/128*Math.PI*2;e.push(new w(Math.cos(r)*br,0,Math.sin(r)*br))}this.scene.add(new Ce(new Nt().setFromPoints(e),new Te({color:7178143,transparent:!0,opacity:.4}))),this.moonMesh=new Tt(new Yt(.22,40,28),new ss({color:12170408,emissive:658706,shininess:6})),this.scene.add(this.moonMesh),[-2.4,0,2.4].forEach(s=>{const r=new ll(new w(-1,0,0),new w(6.4,0,s),1.8,15050022,.34,.15);this.scene.add(r)});const n=this.makeLabelSprite("阳光 · 平行入射");n.position.set(5.9,.8,0),this.scene.add(n)}setAlpha(t){this.alpha=(t%360+360)%360;const e=ue.degToRad(this.alpha);this.moonMesh.position.set(Math.cos(e)*br,0,-Math.sin(e)*br),this.moonMesh.rotation.y=e}illuminatedFraction(){return(1-Math.cos(ue.degToRad(this.alpha)))/2}resetCamera(){this.camera.position.set(0,6.2,7.6),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;t&&(this.camera.aspect=t.clientWidth/Math.max(1,t.clientHeight),this.camera.updateProjectionMatrix(),this.renderer.setSize(t.clientWidth,t.clientHeight,!1))}render(t){this.earthMesh.rotation.y+=t*.9,this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),this.scene.traverse(t=>{t.geometry?.dispose(),Array.isArray(t.material)?t.material.forEach(e=>e.dispose()):t.material?.dispose()}),this.textures.forEach(t=>t.dispose()),this.renderer.dispose()}}class v_{constructor(t){this.canvas=t,this.ctx=t.getContext("2d"),this.alpha=0,this.resizeObserver=new ResizeObserver(()=>this.draw()),this.resizeObserver.observe(t.parentElement),this.draw()}draw(){const t=this.canvas.getBoundingClientRect(),e=Math.min(window.devicePixelRatio||1,2),n=Math.max(1,t.width);this.canvas.width=Math.floor(n*e),this.canvas.height=Math.floor(n*e);const s=this.ctx;s.setTransform(e,0,0,e,0,0),s.fillStyle="#0a1524",s.fillRect(0,0,n,n);const r=n/2,a=n/2,o=n*.36,c=(this.alpha%360+360)%360,l=Math.cos(ue.degToRad(c)),h=c<=180,d="#242b38",p="#efe9da";s.save(),s.beginPath(),s.arc(r,a,o,0,Math.PI*2),s.clip(),s.fillStyle=d,s.fillRect(r-o,a-o,o*2,o*2),s.fillStyle=p,s.beginPath(),s.arc(r,a,o,-Math.PI/2,Math.PI/2,!h),s.closePath(),s.fill(),s.beginPath(),s.ellipse(r,a,o*Math.abs(l),o,0,0,Math.PI*2),s.fillStyle=l>0?d:p,s.fill(),s.fillStyle="rgba(10, 15, 24, 0.14)",[[-.32,-.18,.16],[.2,.26,.12],[.05,-.36,.09],[-.12,.32,.07]].forEach(([f,g,v])=>{s.beginPath(),s.arc(r+f*o*1.6,a+g*o*1.6,v*o,0,Math.PI*2),s.fill()}),s.restore(),s.strokeStyle="rgba(255, 255, 255, 0.28)",s.lineWidth=1,s.beginPath(),s.arc(r,a,o,0,Math.PI*2),s.stroke()}setAlpha(t){this.alpha=t,this.draw()}dispose(){this.resizeObserver.disconnect()}}function Hr(){const{lab:i,inset:t}=On,e=g_(i.alpha),n=Math.round(i.illuminatedFraction()*100),s=i.alpha/360*Ch;_n("#moonp-phase-output").textContent=Math.round(i.alpha)+"°",_n("#moonp-name").textContent=e,_n("#moonp-illum").textContent=n+"%",_n("#moonp-age").textContent="第 "+s.toFixed(1)+" 天",_n("#moonp-status").textContent=e+" · 照亮 "+n+"%",t.setAlpha(i.alpha),Ph(".moonp-jumps button").forEach(r=>{r.classList.toggle("is-active",Number(r.dataset.phase)===Math.round(i.alpha)%360)})}function x_(){const{lab:i}=On,t=_n("#moonp-phase"),e=_n("#moonp-play");t.addEventListener("input",n=>{i.playing=!1,e.textContent="播放公转",e.setAttribute("aria-pressed","false"),i.setAlpha(Number(n.target.value)),Hr()}),Ph(".moonp-jumps button").forEach(n=>{n.addEventListener("click",()=>{i.playing=!1,e.textContent="播放公转",e.setAttribute("aria-pressed","false");const s=Number(n.dataset.phase);t.value=String(s),i.setAlpha(s),Hr()})}),e.addEventListener("click",()=>{i.playing=!i.playing,e.textContent=i.playing?"暂停公转":"播放公转",e.setAttribute("aria-pressed",String(i.playing))}),_n("#moonp-reset").addEventListener("click",()=>i.resetCamera())}const M_={id:"moon-phases",name:"月相",getDefaultParams(){return{alpha:0,synodicDays:Ch}},init(i){Gr=i,i.innerHTML=m_,On={lab:new __(_n("#moonp-canvas")),inset:new v_(_n("#moonp-inset-canvas"))},x_(),Hr()},update(i){if(!On)return;const t=i?.delta??0,{lab:e}=On;e.playing&&(e.setAlpha(e.alpha+t*18),_n("#moonp-phase").value=String(Math.round(e.alpha)),Hr()),e.render(t)},dispose(){On&&(On.lab.dispose(),On.inset.dispose(),On=null,Gr=null)}},Nc=.78,ka=.94,Ga=3,Fc=.09,b_=.46,y_=`
+`;let Gr=null,On=null;const _n=i=>Gr.querySelector(i),Ph=i=>[...Gr.querySelectorAll(i)];function g_(i){const t=(i%360+360)%360;return t<11.25||t>=348.75?"新月":t<78.75?"娥眉月":t<101.25?"上弦月":t<168.75?"盈凸月":t<191.25?"满月":t<258.75?"亏凸月":t<281.25?"下弦月":"残月"}class __{constructor(t){this.canvas=t,this.alpha=0,this.playing=!1,this.textures=[],this.scene=new Hn,this.camera=new Se(42,1,.1,100),this.camera.position.set(0,14,17.5),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=3,this.controls.maxDistance=26,this.controls.enablePan=!1,this.buildScene(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize(),this.setAlpha(0)}makeLabelSprite(t){const e=document.createElement("canvas");e.width=384,e.height=96;const n=e.getContext("2d");n.font="600 38px 'PingFang SC', 'Microsoft YaHei', sans-serif",n.textAlign="center",n.textBaseline="middle",n.fillStyle="rgba(243, 239, 229, 0.9)",n.fillText(t,192,48);const s=new el(e);this.textures.push(s);const r=new Jo(new jr({map:s,transparent:!0,depthWrite:!1}));return r.scale.set(2.1,.52,1),r}buildScene(){this.scene.add(new us(9676733,660772,.35));const t=new li(16774102,2.6);t.position.set(12,0,0),this.scene.add(t),this.earthMesh=new Tt(new Yt(.5,48,32),new ss({color:4158632,emissive:463391,shininess:18})),this.scene.add(this.earthMesh);const e=[];for(let s=0;s<=128;s+=1){const r=s/128*Math.PI*2;e.push(new w(Math.cos(r)*br,0,Math.sin(r)*br))}this.scene.add(new Ce(new Nt().setFromPoints(e),new Te({color:7178143,transparent:!0,opacity:.4}))),this.moonMesh=new Tt(new Yt(.22,40,28),new ss({color:12170408,emissive:658706,shininess:6})),this.scene.add(this.moonMesh),[-2.4,0,2.4].forEach(s=>{const r=new ll(new w(-1,0,0),new w(6.4,0,s),1.8,15050022,.34,.15);this.scene.add(r)});const n=this.makeLabelSprite("阳光 · 平行入射");n.position.set(5.9,.8,0),this.scene.add(n)}setAlpha(t){this.alpha=(t%360+360)%360;const e=ue.degToRad(this.alpha);this.moonMesh.position.set(Math.cos(e)*br,0,-Math.sin(e)*br),this.moonMesh.rotation.y=e}illuminatedFraction(){return(1-Math.cos(ue.degToRad(this.alpha)))/2}resetCamera(){this.camera.position.set(0,14,17.5),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;t&&(this.camera.aspect=t.clientWidth/Math.max(1,t.clientHeight),this.camera.updateProjectionMatrix(),this.renderer.setSize(t.clientWidth,t.clientHeight,!1))}render(t){this.earthMesh.rotation.y+=t*.9,this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),this.scene.traverse(t=>{t.geometry?.dispose(),Array.isArray(t.material)?t.material.forEach(e=>e.dispose()):t.material?.dispose()}),this.textures.forEach(t=>t.dispose()),this.renderer.dispose()}}class v_{constructor(t){this.canvas=t,this.ctx=t.getContext("2d"),this.alpha=0,this.resizeObserver=new ResizeObserver(()=>this.draw()),this.resizeObserver.observe(t.parentElement),this.draw()}draw(){const t=this.canvas.getBoundingClientRect(),e=Math.min(window.devicePixelRatio||1,2),n=Math.max(1,t.width);this.canvas.width=Math.floor(n*e),this.canvas.height=Math.floor(n*e);const s=this.ctx;s.setTransform(e,0,0,e,0,0),s.fillStyle="#0a1524",s.fillRect(0,0,n,n);const r=n/2,a=n/2,o=n*.36,c=(this.alpha%360+360)%360,l=Math.cos(ue.degToRad(c)),h=c<=180,d="#242b38",p="#efe9da";s.save(),s.beginPath(),s.arc(r,a,o,0,Math.PI*2),s.clip(),s.fillStyle=d,s.fillRect(r-o,a-o,o*2,o*2),s.fillStyle=p,s.beginPath(),s.arc(r,a,o,-Math.PI/2,Math.PI/2,!h),s.closePath(),s.fill(),s.beginPath(),s.ellipse(r,a,o*Math.abs(l),o,0,0,Math.PI*2),s.fillStyle=l>0?d:p,s.fill(),s.fillStyle="rgba(10, 15, 24, 0.14)",[[-.32,-.18,.16],[.2,.26,.12],[.05,-.36,.09],[-.12,.32,.07]].forEach(([f,g,v])=>{s.beginPath(),s.arc(r+f*o*1.6,a+g*o*1.6,v*o,0,Math.PI*2),s.fill()}),s.restore(),s.strokeStyle="rgba(255, 255, 255, 0.28)",s.lineWidth=1,s.beginPath(),s.arc(r,a,o,0,Math.PI*2),s.stroke()}setAlpha(t){this.alpha=t,this.draw()}dispose(){this.resizeObserver.disconnect()}}function Hr(){const{lab:i,inset:t}=On,e=g_(i.alpha),n=Math.round(i.illuminatedFraction()*100),s=i.alpha/360*Ch;_n("#moonp-phase-output").textContent=Math.round(i.alpha)+"°",_n("#moonp-name").textContent=e,_n("#moonp-illum").textContent=n+"%",_n("#moonp-age").textContent="第 "+s.toFixed(1)+" 天",_n("#moonp-status").textContent=e+" · 照亮 "+n+"%",t.setAlpha(i.alpha),Ph(".moonp-jumps button").forEach(r=>{r.classList.toggle("is-active",Number(r.dataset.phase)===Math.round(i.alpha)%360)})}function x_(){const{lab:i}=On,t=_n("#moonp-phase"),e=_n("#moonp-play");t.addEventListener("input",n=>{i.playing=!1,e.textContent="播放公转",e.setAttribute("aria-pressed","false"),i.setAlpha(Number(n.target.value)),Hr()}),Ph(".moonp-jumps button").forEach(n=>{n.addEventListener("click",()=>{i.playing=!1,e.textContent="播放公转",e.setAttribute("aria-pressed","false");const s=Number(n.dataset.phase);t.value=String(s),i.setAlpha(s),Hr()})}),e.addEventListener("click",()=>{i.playing=!i.playing,e.textContent=i.playing?"暂停公转":"播放公转",e.setAttribute("aria-pressed",String(i.playing))}),_n("#moonp-reset").addEventListener("click",()=>i.resetCamera())}const M_={id:"moon-phases",name:"月相",getDefaultParams(){return{alpha:0,synodicDays:Ch}},init(i){Gr=i,i.innerHTML=m_,On={lab:new __(_n("#moonp-canvas")),inset:new v_(_n("#moonp-inset-canvas"))},x_(),Hr()},update(i){if(!On)return;const t=i?.delta??0,{lab:e}=On;e.playing&&(e.setAlpha(e.alpha+t*18),_n("#moonp-phase").value=String(Math.round(e.alpha)),Hr()),e.render(t)},dispose(){On&&(On.lab.dispose(),On.inset.dispose(),On=null,Gr=null)}},Nc=.78,ka=.94,Ga=3,Fc=.09,b_=.46,y_=`
     <style>
-      .tides-hero {
-        max-width: var(--max);
-        margin: 0 auto;
-        padding: clamp(56px, 7vw, 110px) var(--gutter) clamp(24px, 3vw, 48px);
-      }
-      .tides-kicker {
-        margin: 0 0 18px;
-        color: var(--red);
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .tides-hero h1 {
-        margin: 0 0 20px;
-        font-family: var(--serif);
-        font-size: clamp(40px, 5.6vw, 82px);
-        line-height: 1.08;
-        letter-spacing: -0.04em;
-      }
-      .tides-lead {
-        max-width: 660px;
-        margin: 0;
-        color: var(--muted);
-        font-size: clamp(16px, 1.6vw, 19px);
-      }
       .tides-intuition {
         padding-top: clamp(40px, 5vw, 70px);
         padding-bottom: clamp(40px, 5vw, 70px);
@@ -6021,61 +5935,24 @@ void main() {
     </style>
 
     <div class="tides-scene" id="main">
-      <header class="tides-hero">
-        <p class="tides-kicker">FIG. 04 / TIDES LAB</p>
-        <h1>月亮拉海水，<br />拉出两个隆起</h1>
-        <p class="tides-lead">
-          潮汐不是月亮“吸走”海水那么简单：近月侧与远月侧同时鼓起，
-          地球在双隆起下自转，多数海岸一天迎来约两次涨落。
-        </p>
-      </header>
-
-      <section class="tides-intuition section-pad" aria-labelledby="tides-intuition-title">
-        <div class="section-heading">
-          <p class="section-index">01</p>
-          <div>
-            <h2 id="tides-intuition-title">直觉模型</h2>
-            <p>关键不是引力本身，而是引力在地球两侧的“差值”。</p>
-          </div>
-        </div>
-        <div class="tides-copy">
-          <article>
-            <span>01 / 差异引力</span>
-            <h3>近侧拉得多，远侧拉得少</h3>
-            <p>
-              月球引力随距离衰减：地球近月一侧被拉得比地心更用力，远月一侧
-              被拉得更弱。以地心为参照，两侧海水都相对“向外”偏离——
-              这就是引潮力，也是双隆起的来源。
-            </p>
-          </article>
-          <article>
-            <span>02 / 立方反比</span>
-            <h3>引潮力 ∝ M / r³</h3>
-            <p>
-              引力按 1/r² 衰减，而引潮力是引力的差值，按 1/r³ 衰减。
-              太阳引力远强于月球，但因距离是地月距离的约 390 倍，
-              其引潮力反而只有月球的约 46%——月球主导潮汐。
-            </p>
-          </article>
-          <article>
-            <span>03 / 大潮小潮</span>
-            <h3>叠加还是抵消</h3>
-            <p>
-              朔（新月）与望（满月）时，日月引潮力方向成一线，隆起叠加，
-              形成大潮；上弦、下弦时两者相互垂直，部分抵消，形成小潮。
-              两者潮差通常相差可达一倍左右，随海区而异。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section-pad" aria-labelledby="tides-lab-title" style="padding-top: clamp(30px, 4vw, 60px);">
-        <div class="section-heading">
-          <p class="section-index">02</p>
-          <div>
-            <h2 id="tides-lab-title">互动实验：拉近月亮</h2>
-            <p>拖动距离滑杆观察隆起幅度按 1/r³ 变化；打开太阳影响，转动月球位置演示大潮与小潮。</p>
-          </div>
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="figure-no">FIG. 04 / TIDES LAB</p>
+          <h1>月亮拉海水，<br />拉出<br />两个隆起</h1>
+          <p class="hero-lead">
+            潮汐不是月亮“吸走”海水那么简单：近月侧与远月侧同时鼓起，
+            地球在双隆起下自转，多数海岸一天迎来约两次涨落。
+          </p>
+          <a class="primary-action" href="#tides-intuition">
+            开始实验
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M14 7l5 5-5 5" />
+            </svg>
+          </a>
+          <p class="hero-note">
+            拖动旋转 · 滚轮缩放 · 滑杆调节地月距离与公转位置<br />
+            隆起幅度已大幅夸张，引潮力按 1/r³ 真实关系计算。
+          </p>
         </div>
 
         <div class="lab-shell" aria-label="潮汐交互实验">
@@ -6142,9 +6019,48 @@ void main() {
         </div>
       </section>
 
+      <section class="tides-intuition section-pad" id="tides-intuition" aria-labelledby="tides-intuition-title">
+        <div class="section-heading">
+          <p class="section-index">01</p>
+          <div>
+            <h2 id="tides-intuition-title">直觉模型</h2>
+            <p>关键不是引力本身，而是引力在地球两侧的“差值”。</p>
+          </div>
+        </div>
+        <div class="tides-copy">
+          <article>
+            <span>01 / 差异引力</span>
+            <h3>近侧拉得多，远侧拉得少</h3>
+            <p>
+              月球引力随距离衰减：地球近月一侧被拉得比地心更用力，远月一侧
+              被拉得更弱。以地心为参照，两侧海水都相对“向外”偏离——
+              这就是引潮力，也是双隆起的来源。
+            </p>
+          </article>
+          <article>
+            <span>02 / 立方反比</span>
+            <h3>引潮力 ∝ M / r³</h3>
+            <p>
+              引力按 1/r² 衰减，而引潮力是引力的差值，按 1/r³ 衰减。
+              太阳引力远强于月球，但因距离是地月距离的约 390 倍，
+              其引潮力反而只有月球的约 46%——月球主导潮汐。
+            </p>
+          </article>
+          <article>
+            <span>03 / 大潮小潮</span>
+            <h3>叠加还是抵消</h3>
+            <p>
+              朔（新月）与望（满月）时，日月引潮力方向成一线，隆起叠加，
+              形成大潮；上弦、下弦时两者相互垂直，部分抵消，形成小潮。
+              两者潮差通常相差可达一倍左右，随海区而异。
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="section-pad" aria-labelledby="tides-limits-title">
         <div class="section-heading">
-          <p class="section-index">03</p>
+          <p class="section-index">02</p>
           <div>
             <h2 id="tides-limits-title">这个模型简化了什么</h2>
             <p>这里演示的是“平衡潮”理想模型——真实海潮要复杂得多。</p>
@@ -6190,7 +6106,7 @@ void main() {
 
       <section class="sources section-pad" aria-labelledby="tides-sources-title">
         <div class="section-heading light-heading">
-          <p class="section-index">04</p>
+          <p class="section-index">03</p>
           <div>
             <h2 id="tides-sources-title">来源与核验路径</h2>
             <p>数值与结论以下列资料为准。</p>
@@ -6223,7 +6139,7 @@ void main() {
         </p>
       </section>
     </div>
-`;let Bo=null,ei=null;const an=i=>Bo.querySelector(i);function Oc(i){return(3*i*i-1)/2}class S_{constructor(t){this.canvas=t,this.rel=1,this.beta=0,this.sunOn=!1,this.playing=!1,this.textures=[],this.scene=new Hn,this.camera=new Se(42,1,.1,100),this.camera.position.set(0,5.6,6.4),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=2.6,this.controls.maxDistance=18,this.controls.enablePan=!1,this.buildScene(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize(),this.apply()}makeLabelSprite(t){const e=document.createElement("canvas");e.width=384,e.height=96;const n=e.getContext("2d");n.font="600 38px 'PingFang SC', 'Microsoft YaHei', sans-serif",n.textAlign="center",n.textBaseline="middle",n.fillStyle="rgba(243, 239, 229, 0.9)",n.fillText(t,192,48);const s=new el(e);this.textures.push(s);const r=new Jo(new jr({map:s,transparent:!0,depthWrite:!1}));return r.scale.set(1.9,.48,1),r}buildScene(){this.scene.add(new us(11452370,660772,.7));const t=new li(16773336,1.7);t.position.set(4,6,3),this.scene.add(t),this.earthMesh=new Tt(new Yt(Nc,48,32),new ss({color:9075292,emissive:1183240,shininess:8})),this.scene.add(this.earthMesh);const e=new Tt(new Yt(.05,16,12),new jt({color:14891570}));e.position.set(Nc+.01,0,0),this.earthMesh.add(e),this.waterGeometry=new Yt(ka,96,64),this.baseDirections=Float32Array.from(this.waterGeometry.attributes.position.array);for(let a=0;a<this.baseDirections.length;a+=1)this.baseDirections[a]/=ka;this.waterMesh=new Tt(this.waterGeometry,new ss({color:3047352,transparent:!0,opacity:.72,shininess:70,specular:10077408})),this.scene.add(this.waterMesh);const n=[];for(let a=0;a<=128;a+=1){const o=a/128*Math.PI*2;n.push(new w(Math.cos(o)*Ga,0,Math.sin(o)*Ga))}this.orbitLine=new Ce(new Nt().setFromPoints(n),new Te({color:7178143,transparent:!0,opacity:.4})),this.scene.add(this.orbitLine),this.moonMesh=new Tt(new Yt(.16,32,24),new ss({color:12170408,emissive:658706,shininess:6})),this.scene.add(this.moonMesh),this.moonLabel=this.makeLabelSprite("月球"),this.scene.add(this.moonLabel),this.sunGroup=new on;const s=new Tt(new Yt(.3,32,20),new jt({color:16757575}));s.position.set(5.6,0,0),this.sunGroup.add(s),[-1,0,1].forEach(a=>{this.sunGroup.add(new ll(new w(-1,0,0),new w(5,0,a*1.2),1.1,15050022,.26,.12))});const r=this.makeLabelSprite("太阳（在远处）");r.position.set(5.6,.7,0),this.sunGroup.add(r),this.sunGroup.visible=!1,this.scene.add(this.sunGroup)}moonForceRel(){return 1/(this.rel*this.rel*this.rel)}apply(){const t=ue.degToRad(this.beta),e=new w(Math.cos(t),0,-Math.sin(t));this.moonMesh.position.copy(e).multiplyScalar(Ga*this.rel),this.moonLabel.position.copy(this.moonMesh.position).add(new w(0,.45,0)),this.orbitLine.scale.setScalar(this.rel);const n=Fc*this.moonForceRel(),s=Fc*b_,r=new w(1,0,0),a=this.waterGeometry.attributes.position,o=this.baseDirections,c=new w;for(let l=0;l<a.count;l+=1){c.set(o[l*3],o[l*3+1],o[l*3+2]);let h=n*Oc(c.dot(e));this.sunOn&&(h+=s*Oc(c.dot(r)));const d=ka+h;a.setXYZ(l,c.x*d,c.y*d,c.z*d)}a.needsUpdate=!0,this.waterGeometry.computeVertexNormals()}tideType(){if(!this.sunOn)return"—（未计太阳）";const t=this.beta%180,e=Math.min(t,180-t);return e<=30?"大潮（朔望）":e>=60?"小潮（上下弦）":"过渡"}resetCamera(){this.camera.position.set(0,5.6,6.4),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;t&&(this.camera.aspect=t.clientWidth/Math.max(1,t.clientHeight),this.camera.updateProjectionMatrix(),this.renderer.setSize(t.clientWidth,t.clientHeight,!1))}render(t){this.earthMesh.rotation.y+=t*.7,this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),this.scene.traverse(t=>{t.geometry?.dispose(),Array.isArray(t.material)?t.material.forEach(e=>e.dispose()):t.material?.dispose()}),this.textures.forEach(t=>t.dispose()),this.renderer.dispose()}}function Ps(){const{lab:i}=ei,t=i.moonForceRel();an("#tides-dist-output").textContent=i.rel.toFixed(2)+"×",an("#tides-angle-output").textContent=Math.round(i.beta)+"°",an("#tides-force").textContent=t.toFixed(2)+"×",an("#tides-type").textContent=i.tideType(),an("#tides-status").textContent="引潮力 "+t.toFixed(2)+"× · 太阳影响"+(i.sunOn?"开":"关")}function E_(){const{lab:i}=ei,t=an("#tides-play");an("#tides-dist").addEventListener("input",e=>{i.rel=Number(e.target.value),i.apply(),Ps()}),an("#tides-angle").addEventListener("input",e=>{i.playing=!1,t.textContent="播放公转",t.setAttribute("aria-pressed","false"),i.beta=Number(e.target.value),i.apply(),Ps()}),an("#tides-sun").addEventListener("click",e=>{i.sunOn=!i.sunOn;const n=e.currentTarget;n.setAttribute("aria-pressed",String(i.sunOn)),n.querySelector(".tides-toggle-state").textContent=i.sunOn?"开":"关",i.sunGroup.visible=i.sunOn,i.apply(),Ps()}),t.addEventListener("click",()=>{i.playing=!i.playing,t.textContent=i.playing?"暂停公转":"播放公转",t.setAttribute("aria-pressed",String(i.playing))}),an("#tides-reset").addEventListener("click",()=>i.resetCamera())}const w_={id:"tides",name:"潮汐",getDefaultParams(){return{rel:1,beta:0,sunOn:!1}},init(i){Bo=i,i.innerHTML=y_,ei={lab:new S_(an("#tides-canvas"))},E_(),Ps()},update(i){if(!ei)return;const t=i?.delta??0,{lab:e}=ei;e.playing&&(e.beta=((e.beta+t*16)%360+360)%360,an("#tides-angle").value=String(Math.round(e.beta)),e.apply(),Ps()),e.render(t)},dispose(){ei&&(ei.lab.dispose(),ei=null,Bo=null)}},dn=398600.4418,Nn=6371,Bc=60,T_=`
+`;let Bo=null,ei=null;const an=i=>Bo.querySelector(i);function Oc(i){return(3*i*i-1)/2}class S_{constructor(t){this.canvas=t,this.rel=1,this.beta=0,this.sunOn=!1,this.playing=!1,this.textures=[],this.scene=new Hn,this.camera=new Se(42,1,.1,100),this.camera.position.set(0,9.6,11.6),this.renderer=new Vn({canvas:t,antialias:!0,alpha:!0}),this.renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)),this.renderer.outputColorSpace=ye,this.renderer.setClearColor(464941,0),this.controls=new Wn(this.camera,t),this.controls.enableDamping=!0,this.controls.dampingFactor=.07,this.controls.minDistance=2.6,this.controls.maxDistance=22,this.controls.enablePan=!1,this.buildScene(),this.resizeObserver=new ResizeObserver(()=>this.resize()),this.resizeObserver.observe(t.parentElement),this.resize(),this.apply()}makeLabelSprite(t){const e=document.createElement("canvas");e.width=384,e.height=96;const n=e.getContext("2d");n.font="600 38px 'PingFang SC', 'Microsoft YaHei', sans-serif",n.textAlign="center",n.textBaseline="middle",n.fillStyle="rgba(243, 239, 229, 0.9)",n.fillText(t,192,48);const s=new el(e);this.textures.push(s);const r=new Jo(new jr({map:s,transparent:!0,depthWrite:!1}));return r.scale.set(1.9,.48,1),r}buildScene(){this.scene.add(new us(11452370,660772,.7));const t=new li(16773336,1.7);t.position.set(4,6,3),this.scene.add(t),this.earthMesh=new Tt(new Yt(Nc,48,32),new ss({color:9075292,emissive:1183240,shininess:8})),this.scene.add(this.earthMesh);const e=new Tt(new Yt(.05,16,12),new jt({color:14891570}));e.position.set(Nc+.01,0,0),this.earthMesh.add(e),this.waterGeometry=new Yt(ka,96,64),this.baseDirections=Float32Array.from(this.waterGeometry.attributes.position.array);for(let a=0;a<this.baseDirections.length;a+=1)this.baseDirections[a]/=ka;this.waterMesh=new Tt(this.waterGeometry,new ss({color:3047352,transparent:!0,opacity:.72,shininess:70,specular:10077408})),this.scene.add(this.waterMesh);const n=[];for(let a=0;a<=128;a+=1){const o=a/128*Math.PI*2;n.push(new w(Math.cos(o)*Ga,0,Math.sin(o)*Ga))}this.orbitLine=new Ce(new Nt().setFromPoints(n),new Te({color:7178143,transparent:!0,opacity:.4})),this.scene.add(this.orbitLine),this.moonMesh=new Tt(new Yt(.16,32,24),new ss({color:12170408,emissive:658706,shininess:6})),this.scene.add(this.moonMesh),this.moonLabel=this.makeLabelSprite("月球"),this.scene.add(this.moonLabel),this.sunGroup=new on;const s=new Tt(new Yt(.3,32,20),new jt({color:16757575}));s.position.set(5.6,0,0),this.sunGroup.add(s),[-1,0,1].forEach(a=>{this.sunGroup.add(new ll(new w(-1,0,0),new w(5,0,a*1.2),1.1,15050022,.26,.12))});const r=this.makeLabelSprite("太阳（在远处）");r.position.set(5.6,.7,0),this.sunGroup.add(r),this.sunGroup.visible=!1,this.scene.add(this.sunGroup)}moonForceRel(){return 1/(this.rel*this.rel*this.rel)}apply(){const t=ue.degToRad(this.beta),e=new w(Math.cos(t),0,-Math.sin(t));this.moonMesh.position.copy(e).multiplyScalar(Ga*this.rel),this.moonLabel.position.copy(this.moonMesh.position).add(new w(0,.45,0)),this.orbitLine.scale.setScalar(this.rel);const n=Fc*this.moonForceRel(),s=Fc*b_,r=new w(1,0,0),a=this.waterGeometry.attributes.position,o=this.baseDirections,c=new w;for(let l=0;l<a.count;l+=1){c.set(o[l*3],o[l*3+1],o[l*3+2]);let h=n*Oc(c.dot(e));this.sunOn&&(h+=s*Oc(c.dot(r)));const d=ka+h;a.setXYZ(l,c.x*d,c.y*d,c.z*d)}a.needsUpdate=!0,this.waterGeometry.computeVertexNormals()}tideType(){if(!this.sunOn)return"—（未计太阳）";const t=this.beta%180,e=Math.min(t,180-t);return e<=30?"大潮（朔望）":e>=60?"小潮（上下弦）":"过渡"}resetCamera(){this.camera.position.set(0,9.6,11.6),this.controls.target.set(0,0,0),this.controls.update()}resize(){const t=this.canvas.parentElement;t&&(this.camera.aspect=t.clientWidth/Math.max(1,t.clientHeight),this.camera.updateProjectionMatrix(),this.renderer.setSize(t.clientWidth,t.clientHeight,!1))}render(t){this.earthMesh.rotation.y+=t*.7,this.controls.update(),this.renderer.render(this.scene,this.camera)}dispose(){this.resizeObserver.disconnect(),this.controls.dispose(),this.scene.traverse(t=>{t.geometry?.dispose(),Array.isArray(t.material)?t.material.forEach(e=>e.dispose()):t.material?.dispose()}),this.textures.forEach(t=>t.dispose()),this.renderer.dispose()}}function Ps(){const{lab:i}=ei,t=i.moonForceRel();an("#tides-dist-output").textContent=i.rel.toFixed(2)+"×",an("#tides-angle-output").textContent=Math.round(i.beta)+"°",an("#tides-force").textContent=t.toFixed(2)+"×",an("#tides-type").textContent=i.tideType(),an("#tides-status").textContent="引潮力 "+t.toFixed(2)+"× · 太阳影响"+(i.sunOn?"开":"关")}function E_(){const{lab:i}=ei,t=an("#tides-play");an("#tides-dist").addEventListener("input",e=>{i.rel=Number(e.target.value),i.apply(),Ps()}),an("#tides-angle").addEventListener("input",e=>{i.playing=!1,t.textContent="播放公转",t.setAttribute("aria-pressed","false"),i.beta=Number(e.target.value),i.apply(),Ps()}),an("#tides-sun").addEventListener("click",e=>{i.sunOn=!i.sunOn;const n=e.currentTarget;n.setAttribute("aria-pressed",String(i.sunOn)),n.querySelector(".tides-toggle-state").textContent=i.sunOn?"开":"关",i.sunGroup.visible=i.sunOn,i.apply(),Ps()}),t.addEventListener("click",()=>{i.playing=!i.playing,t.textContent=i.playing?"暂停公转":"播放公转",t.setAttribute("aria-pressed",String(i.playing))}),an("#tides-reset").addEventListener("click",()=>i.resetCamera())}const w_={id:"tides",name:"潮汐",getDefaultParams(){return{rel:1,beta:0,sunOn:!1}},init(i){Bo=i,i.innerHTML=y_,ei={lab:new S_(an("#tides-canvas"))},E_(),Ps()},update(i){if(!ei)return;const t=i?.delta??0,{lab:e}=ei;e.playing&&(e.beta=((e.beta+t*16)%360+360)%360,an("#tides-angle").value=String(Math.round(e.beta)),e.apply(),Ps()),e.render(t)},dispose(){ei&&(ei.lab.dispose(),ei=null,Bo=null)}},dn=398600.4418,Nn=6371,Bc=60,T_=`
   <style>
     .sat-scene .hero-lead { max-width: 460px; }
     .sat-scene #sat-canvas { width: 100%; height: 650px; cursor: grab; touch-action: none; }
@@ -6260,7 +6176,7 @@ void main() {
     <section class="hero" id="top">
       <div class="hero-copy">
         <p class="figure-no">FIG. 02 / ORBIT LAB</p>
-        <h1>抛出去的石头，<br />为什么<br />掉不下来？</h1>
+        <h1>抛出去的<br />石头，为什么<br />掉不下来？</h1>
         <p class="hero-lead">
           轨道不是“摆脱了重力”，而是一直在坠落、又一直错过地面。速度决定一切。
         </p>

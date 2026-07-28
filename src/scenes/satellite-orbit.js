@@ -44,7 +44,7 @@ const template = `
     <section class="hero" id="top">
       <div class="hero-copy">
         <p class="figure-no">FIG. 02 / ORBIT LAB</p>
-        <h1>抛出去的石头，<br />为什么<br />掉不下来？</h1>
+        <h1>抛出去的<br />石头，为什么<br />掉不下来？</h1>
         <p class="hero-lead">
           轨道不是“摆脱了重力”，而是一直在坠落、又一直错过地面。速度决定一切。
         </p>

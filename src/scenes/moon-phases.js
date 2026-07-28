@@ -7,32 +7,6 @@ const MOON_ORBIT_RADIUS = 3.2;
 
 const template = `
     <style>
-      .moonp-hero {
-        max-width: var(--max);
-        margin: 0 auto;
-        padding: clamp(56px, 7vw, 110px) var(--gutter) clamp(24px, 3vw, 48px);
-      }
-      .moonp-kicker {
-        margin: 0 0 18px;
-        color: var(--red);
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .moonp-hero h1 {
-        margin: 0 0 20px;
-        font-family: var(--serif);
-        font-size: clamp(40px, 5.6vw, 82px);
-        line-height: 1.08;
-        letter-spacing: -0.04em;
-      }
-      .moonp-lead {
-        max-width: 660px;
-        margin: 0;
-        color: var(--muted);
-        font-size: clamp(16px, 1.6vw, 19px);
-      }
       .moonp-intuition {
         padding-top: clamp(40px, 5vw, 70px);
         padding-bottom: clamp(40px, 5vw, 70px);
@@ -210,60 +184,24 @@ const template = `
     </style>
 
     <div class="moonp-scene" id="main">
-      <header class="moonp-hero">
-        <p class="moonp-kicker">FIG. 03 / MOON PHASES LAB</p>
-        <h1>月亮没有变，<br />变的是我们的视角</h1>
-        <p class="moonp-lead">
-          太阳永远照亮月球的一半。月球绕地球公转时，我们看到那被照亮的半球
-          以不同的侧面朝向我们——这就是月相。
-        </p>
-      </header>
-
-      <section class="moonp-intuition section-pad" aria-labelledby="moonp-intuition-title">
-        <div class="section-heading">
-          <p class="section-index">01</p>
-          <div>
-            <h2 id="moonp-intuition-title">直觉模型</h2>
-            <p>月相不是地球影子，而是“日–地–月”三者夹角的几何结果。</p>
-          </div>
-        </div>
-        <div class="moonp-copy">
-          <article>
-            <span>01 / 永远半亮</span>
-            <h3>太阳光近似平行入射</h3>
-            <p>
-              太阳距离约为地月距离的 390 倍，射到地月系统的阳光可以视为平行光束。
-              无论月球在轨道何处，它总有一半被照亮、一半处于黑夜——变化的只是
-              我们能看到亮面的多少。
-            </p>
-          </article>
-          <article>
-            <span>02 / 夹角决定形状</span>
-            <h3>相位角从新月数起</h3>
-            <p>
-              新月时月球位于太阳与地球之间，亮面背对我们；满月时地球居中，
-              亮面正对我们。从新月起算的相位角每转过约 45°，就依次出现
-              娥眉月、上弦月、盈凸月、满月，再对称地亏回去。
-            </p>
-          </article>
-          <article>
-            <span>03 / 常见误解</span>
-            <h3>月相不是地影</h3>
-            <p>
-              地球影子落在月面上的现象叫月食，只发生在满月且三者近乎精确成一线时。
-              日常的月相圆缺与地影无关——不然弦月的明暗界线不会是那条柔和的椭圆弧。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section-pad" aria-labelledby="moonp-lab-title" style="padding-top: clamp(30px, 4vw, 60px);">
-        <div class="section-heading">
-          <p class="section-index">02</p>
-          <div>
-            <h2 id="moonp-lab-title">互动实验：转动月球</h2>
-            <p>拖动滑杆改变月球的轨道相位角，右侧小窗同步给出从地球看到的月相。</p>
-          </div>
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="figure-no">FIG. 03 / MOON PHASES LAB</p>
+          <h1>月亮没有变，<br />变的是<br />我们的视角</h1>
+          <p class="hero-lead">
+            太阳永远照亮月球的一半。月球绕地球公转时，我们看到那被照亮的半球
+            以不同的侧面朝向我们——这就是月相。
+          </p>
+          <a class="primary-action" href="#moonp-intuition">
+            开始实验
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M14 7l5 5-5 5" />
+            </svg>
+          </a>
+          <p class="hero-note">
+            拖动旋转 · 滚轮缩放 · 滑杆改变轨道相位角<br />
+            右侧小窗同步显示从地球看到的月相。
+          </p>
         </div>
 
         <div class="lab-shell" aria-label="月相交互实验">
@@ -326,9 +264,47 @@ const template = `
         </div>
       </section>
 
+      <section class="moonp-intuition section-pad" id="moonp-intuition" aria-labelledby="moonp-intuition-title">
+        <div class="section-heading">
+          <p class="section-index">01</p>
+          <div>
+            <h2 id="moonp-intuition-title">直觉模型</h2>
+            <p>月相不是地球影子，而是“日–地–月”三者夹角的几何结果。</p>
+          </div>
+        </div>
+        <div class="moonp-copy">
+          <article>
+            <span>01 / 永远半亮</span>
+            <h3>太阳光近似平行入射</h3>
+            <p>
+              太阳距离约为地月距离的 390 倍，射到地月系统的阳光可以视为平行光束。
+              无论月球在轨道何处，它总有一半被照亮、一半处于黑夜——变化的只是
+              我们能看到亮面的多少。
+            </p>
+          </article>
+          <article>
+            <span>02 / 夹角决定形状</span>
+            <h3>相位角从新月数起</h3>
+            <p>
+              新月时月球位于太阳与地球之间，亮面背对我们；满月时地球居中，
+              亮面正对我们。从新月起算的相位角每转过约 45°，就依次出现
+              娥眉月、上弦月、盈凸月、满月，再对称地亏回去。
+            </p>
+          </article>
+          <article>
+            <span>03 / 常见误解</span>
+            <h3>月相不是地影</h3>
+            <p>
+              地球影子落在月面上的现象叫月食，只发生在满月且三者近乎精确成一线时。
+              日常的月相圆缺与地影无关——不然弦月的明暗界线不会是那条柔和的椭圆弧。
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section class="section-pad" aria-labelledby="moonp-months-title">
         <div class="section-heading">
-          <p class="section-index">03</p>
+          <p class="section-index">02</p>
           <div>
             <h2 id="moonp-months-title">两种“一个月”</h2>
             <p>月球转回同一位置，和月相转回同一形状，不是同一件事。</p>
@@ -361,7 +337,7 @@ const template = `
 
       <section class="section-pad" aria-labelledby="moonp-limits-title" style="padding-top: 0;">
         <div class="section-heading">
-          <p class="section-index">04</p>
+          <p class="section-index">03</p>
           <div>
             <h2 id="moonp-limits-title">这个模型简化了什么</h2>
             <p>把简化说清楚，直觉才不会变成误解。</p>
@@ -405,7 +381,7 @@ const template = `
 
       <section class="sources section-pad" aria-labelledby="moonp-sources-title">
         <div class="section-heading light-heading">
-          <p class="section-index">05</p>
+          <p class="section-index">04</p>
           <div>
             <h2 id="moonp-sources-title">来源与核验路径</h2>
             <p>数值与结论以下列资料为准。</p>
@@ -468,7 +444,8 @@ class MoonPhaseScene3D {
 
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    this.camera.position.set(0, 6.2, 7.6);
+    // 窄画布（约 559×650）下拉远视点，保证月球轨道与阳光箭头完整可见
+    this.camera.position.set(0, 14, 17.5);
 
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -479,7 +456,7 @@ class MoonPhaseScene3D {
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.07;
     this.controls.minDistance = 3;
-    this.controls.maxDistance = 20;
+    this.controls.maxDistance = 26;
     this.controls.enablePan = false;
 
     this.buildScene();
@@ -578,7 +555,7 @@ class MoonPhaseScene3D {
   }
 
   resetCamera() {
-    this.camera.position.set(0, 6.2, 7.6);
+    this.camera.position.set(0, 14, 17.5);
     this.controls.target.set(0, 0, 0);
     this.controls.update();
   }

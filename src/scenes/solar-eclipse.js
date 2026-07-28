@@ -5,8 +5,15 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const template = `
   <style>
-    .se-scene .hero { grid-template-columns: 1fr; }
-    .se-scene .hero-copy { max-width: 780px; }
+    .se-scene #se-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+      touch-action: none;
+    }
+    .se-scene #se-canvas:active { cursor: grabbing; }
     .se-intuition-copy { max-width: 850px; }
     .se-intuition-copy p { margin: 0 0 18px; color: var(--muted, #555); font-size: 16px; line-height: 1.9; }
     .se-intuition-copy p strong { color: inherit; }
@@ -42,7 +49,7 @@ const template = `
         <p class="hero-lead">
           日食是月球本影与半影扫过地表的几何事件。轨道倾角 5.1°，让这场对齐每年只成功几次。
         </p>
-        <a class="primary-action" href="#se-lab">
+        <a class="primary-action" href="#se-intuition">
           开始实验
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14M14 7l5 5-5 5" />
@@ -52,42 +59,6 @@ const template = `
           拖动旋转 · 滚轮缩放 · 滑杆移动月球<br />
           画面比例经过夸张，食型判定使用真实天文数值。
         </p>
-      </div>
-    </section>
-
-    <section class="section-pad" aria-labelledby="se-intuition-title">
-      <div class="section-heading">
-        <p class="section-index">01</p>
-        <div>
-          <h2 id="se-intuition-title">直觉模型：一次苛刻的三点对齐</h2>
-          <p>新月每月都有，日食却不是。差别藏在两个角度和一段距离里。</p>
-        </div>
-      </div>
-      <div class="se-intuition-copy">
-        <p>
-          太阳直径约为月球的 400 倍，距离也恰好约为月地距离的 400 倍——两者在天空中的视直径
-          几乎相同，都接近 0.5°。这一巧合让月球有机会不多不少地遮住日面，露出日冕。
-        </p>
-        <p>
-          但月球绕地轨道相对黄道面倾斜约 <strong>5.1°</strong>。多数新月时刻，月球从太阳
-          上方或下方数千公里处掠过，影子落进太空。只有当新月恰好发生在轨道与黄道的交点
-          附近，本影或半影才能碰到地球，这就是日食季每年只出现约两次的原因。
-        </p>
-        <p>
-          即使对齐成功，食型还取决于距离：月球本影平均长约 37.4 万公里，而月地平均距离约
-          38.4 万公里。月球离地球较近时本影尖端够得着地面，看到日全食；较远时本影在半空
-          收尖，地面进入其延长线（伪本影），看到的是日环食。
-        </p>
-      </div>
-    </section>
-
-    <section class="section-pad" id="se-lab" aria-labelledby="se-lab-title">
-      <div class="section-heading">
-        <p class="section-index">02</p>
-        <div>
-          <h2 id="se-lab-title">互动实验：移动月球，追踪影子</h2>
-          <p>0° 即新月方位。改变轨道位置、交点方位与月地距离，观察食型如何切换。</p>
-        </div>
       </div>
 
       <div class="lab-shell" aria-label="日食三维交互实验">
@@ -140,9 +111,35 @@ const template = `
       </div>
     </section>
 
+    <section class="section-pad" id="se-intuition" aria-labelledby="se-intuition-title">
+      <div class="section-heading">
+        <p class="section-index">01</p>
+        <div>
+          <h2 id="se-intuition-title">直觉模型：一次苛刻的三点对齐</h2>
+          <p>新月每月都有，日食却不是。差别藏在两个角度和一段距离里。</p>
+        </div>
+      </div>
+      <div class="se-intuition-copy">
+        <p>
+          太阳直径约为月球的 400 倍，距离也恰好约为月地距离的 400 倍——两者在天空中的视直径
+          几乎相同，都接近 0.5°。这一巧合让月球有机会不多不少地遮住日面，露出日冕。
+        </p>
+        <p>
+          但月球绕地轨道相对黄道面倾斜约 <strong>5.1°</strong>。多数新月时刻，月球从太阳
+          上方或下方数千公里处掠过，影子落进太空。只有当新月恰好发生在轨道与黄道的交点
+          附近，本影或半影才能碰到地球，这就是日食季每年只出现约两次的原因。
+        </p>
+        <p>
+          即使对齐成功，食型还取决于距离：月球本影平均长约 37.4 万公里，而月地平均距离约
+          38.4 万公里。月球离地球较近时本影尖端够得着地面，看到日全食；较远时本影在半空
+          收尖，地面进入其延长线（伪本影），看到的是日环食。
+        </p>
+      </div>
+    </section>
+
     <section class="section-pad" aria-labelledby="se-limits-title">
       <div class="section-heading">
-        <p class="section-index">03</p>
+        <p class="section-index">02</p>
         <div>
           <h2 id="se-limits-title">这个模型简化了什么</h2>
           <p>先说清楚画面与真实世界的差距，再谈直觉。</p>
@@ -178,7 +175,7 @@ const template = `
 
     <section class="sources section-pad" aria-labelledby="se-sources-title">
       <div class="section-heading light-heading">
-        <p class="section-index">04</p>
+        <p class="section-index">03</p>
         <div>
           <h2 id="se-sources-title">来源与核验路径</h2>
           <p>数值与机制描述以下列资料为准。</p>
@@ -256,8 +253,7 @@ class SolarEclipseScene3D {
     this.inclDeg = KM.INCL;
 
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(42, 1, 0.01, 300);
-    this.camera.position.set(2.6, 3.4, 8.6);
+    this.camera = new THREE.PerspectiveCamera(50, 1, 0.01, 300);
 
     this.renderer = new THREE.WebGLRenderer({
       canvas,
@@ -273,8 +269,9 @@ class SolarEclipseScene3D {
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.07;
     this.controls.minDistance = 3;
-    this.controls.maxDistance = 40;
+    this.controls.maxDistance = 90;
     this.controls.enablePan = false;
+    this.resetCamera();
 
     this.shadowGroup = new THREE.Group(); // 影锥 + 落点 + 日食带，参数变化时整组重建
     this.orbitGroup = new THREE.Group(); // 月球轨道环，倾角/交点变化时重建
@@ -583,8 +580,9 @@ class SolarEclipseScene3D {
   }
 
   resetCamera() {
-    this.camera.position.set(2.6, 3.4, 8.6);
-    this.controls.target.set(0, 0, 0);
+    // 窄画布（约 559×650）下的全景构图：太阳(-40)、月球轨道(±4)、地球与影锥一屏收齐
+    this.camera.position.set(-18.5, 16, 63);
+    this.controls.target.set(-18.5, 0.5, 0);
     this.controls.update();
   }
 
