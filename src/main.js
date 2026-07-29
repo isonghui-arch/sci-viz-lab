@@ -16,6 +16,7 @@ import shellDemoScene from "./scenes/shell-demo.js";
 import fourierScene from "./scenes/fourier.js";
 import galtonScene from "./scenes/galton.js";
 import doublePendulumScene from "./scenes/double-pendulum.js";
+import mandelbrotScene from "./scenes/mandelbrot.js";
 
 // 分类映射：导航分组依据（单一数据源）。场景自身带 category 时优先使用。
 // 新增场景只需要在 CATEGORY 里加一行（或场景自带 category），导航自动出现。
@@ -33,6 +34,7 @@ const CATEGORY = {
   "fourier": "math",
   "galton": "probability",
   "double-pendulum": "mechanics",
+  "mandelbrot": "math",
 };
 
 function reg(scene) {
@@ -53,6 +55,7 @@ reg(shellDemoScene);
 reg(fourierScene);
 reg(galtonScene);
 reg(doublePendulumScene);
+reg(mandelbrotScene);
 
 function start() {
   initSceneLoader({
