@@ -2,3 +2,8 @@ node_modules/
 .DS_Store
 npm-debug.log*
 
+# Temp diff/debug files
+.diff-*
+.head-*-old.*
+.git-diff-*.txt
+
