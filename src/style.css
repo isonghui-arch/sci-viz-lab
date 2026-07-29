@@ -1844,6 +1844,32 @@ footer a {
   -webkit-overflow-scrolling: touch;
 }
 
+.tab-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  padding-right: 14px;
+  margin-right: 6px;
+  border-right: 1px solid var(--rule);
+}
+
+.tab-group:last-child {
+  padding-right: 0;
+  margin-right: 0;
+  border-right: none;
+}
+
+.tab-group-label {
+  flex: 0 0 auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
 .tab-btn {
   flex: 0 0 auto;
   padding: 9px 18px;

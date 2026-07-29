@@ -1,5 +1,6 @@
 // scene-loader：管理当前激活场景、Tab 切换与统一渲染循环
-import { getScene } from "./scenes/registry.js";
+import { getScene, getAllScenes } from "./scenes/registry.js";
+import { buildSceneTabs } from "./scene-shell.js";
 
 const state = {
   container: null,
@@ -87,9 +88,11 @@ function loop(now) {
   }
 }
 
-export function initSceneLoader({ container, tabs, defaultScene }) {
+export function initSceneLoader({ container, nav, defaultScene }) {
   state.container = container;
-  state.tabs = [...tabs];
+  // 导航由注册表自动生成：注册即上线，无需再改 index.html 或对齐注册顺序
+  nav.innerHTML = buildSceneTabs(getAllScenes());
+  state.tabs = [...nav.querySelectorAll(".tab-btn")];
   state.tabs.forEach((tab) => {
     tab.addEventListener("click", () => activateScene(tab.dataset.scene));
   });
