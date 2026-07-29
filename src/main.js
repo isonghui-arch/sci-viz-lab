@@ -13,6 +13,7 @@ import satelliteOrbitScene from "./scenes/satellite-orbit.js";
 import plateTectonicsScene from "./scenes/plate-tectonics.js";
 import lightRefractionScene from "./scenes/light-refraction.js";
 import shellDemoScene from "./scenes/shell-demo.js";
+import fourierScene from "./scenes/fourier.js";
 
 // 分类映射：导航分组依据（单一数据源）。场景自身带 category 时优先使用。
 // 新增场景只需要在 CATEGORY 里加一行（或场景自带 category），导航自动出现。
@@ -27,6 +28,7 @@ const CATEGORY = {
   "satellite-orbit": "mechanics",
   "light-refraction": "mechanics",
   "plate-tectonics": "geoscience",
+  "fourier": "math",
 };
 
 function reg(scene) {
@@ -44,6 +46,7 @@ reg(satelliteOrbitScene);
 reg(plateTectonicsScene);
 reg(lightRefractionScene);
 reg(shellDemoScene);
+reg(fourierScene);
 
 function start() {
   initSceneLoader({
