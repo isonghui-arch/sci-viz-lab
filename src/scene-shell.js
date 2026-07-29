@@ -10,6 +10,7 @@ export const SCENE_CATEGORIES = [
   { id: "astronomy", label: "天文" },
   { id: "mechanics", label: "力学" },
   { id: "geoscience", label: "地学" },
+  { id: "probability", label: "概率" },
 ];
 
 // 由注册表生成「分组导航」HTML。新增场景只需在 registerScene 时带上 category，
