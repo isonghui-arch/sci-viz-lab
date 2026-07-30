@@ -36,6 +36,12 @@ import airOxygenScene from "./scenes/air-oxygen.js";
 import solubilityScene from "./scenes/solubility.js";
 import respirationScene from "./scenes/respiration.js";
 import enzymeScene from "./scenes/enzyme.js";
+import slidingRheostatScene from "./scenes/sliding-rheostat.js";
+import electromagneticInductionScene from "./scenes/electromagnetic-induction.js";
+import metalActivityScene from "./scenes/metal-activity.js";
+import carbonDioxideScene from "./scenes/carbon-dioxide.js";
+import digestiveSystemScene from "./scenes/digestive-system.js";
+import reflexArcScene from "./scenes/reflex-arc.js";
 
 // 分类映射：导航分组依据（单一数据源）。场景自身带 category 时优先使用。
 // 新增场景只需要在 CATEGORY 里加一行（或场景自带 category），导航自动出现。
@@ -73,6 +79,12 @@ const CATEGORY = {
   solubility: "chemistry",
   respiration: "biology",
   enzyme: "biology",
+  "sliding-rheostat": "physics",
+  "electromagnetic-induction": "physics",
+  "metal-activity": "chemistry",
+  "carbon-dioxide": "chemistry",
+  "digestive-system": "biology",
+  "reflex-arc": "biology",
 };
 
 function reg(scene) {
@@ -113,6 +125,12 @@ reg(airOxygenScene);
 reg(solubilityScene);
 reg(respirationScene);
 reg(enzymeScene);
+reg(slidingRheostatScene);
+reg(electromagneticInductionScene);
+reg(metalActivityScene);
+reg(carbonDioxideScene);
+reg(digestiveSystemScene);
+reg(reflexArcScene);
 
 function start() {
   initSceneLoader({

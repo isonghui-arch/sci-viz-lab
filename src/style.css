@@ -202,7 +202,7 @@ nav a:focus-visible::after {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(450px, 0.84fr) minmax(700px, 1.55fr);
+  grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.55fr);
   gap: clamp(36px, 4vw, 64px);
   align-items: center;
   min-height: auto;
@@ -259,11 +259,12 @@ p {
 h1 {
   margin-bottom: 30px;
   font-family: var(--serif);
-  font-size: clamp(58px, 4.8vw, 88px);
+  font-size: clamp(42px, 4.2vw, 76px);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.055em;
-  white-space: nowrap;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 h1::first-line {
