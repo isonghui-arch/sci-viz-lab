@@ -20,6 +20,10 @@ import mandelbrotScene from "./scenes/mandelbrot.js";
 import seismicWavesScene from "./scenes/seismic-waves.js";
 import circuitOhmScene from "./scenes/circuit-ohm.js";
 import electrolysisScene from "./scenes/electrolysis.js";
+import convexLensScene from "./scenes/convex-lens.js";
+import combustionScene from "./scenes/combustion.js";
+import microscopeScene from "./scenes/microscope.js";
+import photosynthesisScene from "./scenes/photosynthesis.js";
 
 // 分类映射：导航分组依据（单一数据源）。场景自身带 category 时优先使用。
 // 新增场景只需要在 CATEGORY 里加一行（或场景自带 category），导航自动出现。
@@ -41,6 +45,10 @@ const CATEGORY = {
   "seismic-waves": "geoscience",
   "circuit-ohm": "physics",
   electrolysis: "chemistry",
+  "convex-lens": "physics",
+  combustion: "chemistry",
+  microscope: "biology",
+  photosynthesis: "biology",
 };
 
 function reg(scene) {
@@ -65,6 +73,10 @@ reg(mandelbrotScene);
 reg(seismicWavesScene);
 reg(circuitOhmScene);
 reg(electrolysisScene);
+reg(convexLensScene);
+reg(combustionScene);
+reg(microscopeScene);
+reg(photosynthesisScene);
 
 function start() {
   initSceneLoader({
