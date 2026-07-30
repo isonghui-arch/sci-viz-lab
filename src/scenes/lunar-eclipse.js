@@ -56,8 +56,8 @@ const template = `
           </svg>
         </a>
         <p class="hero-note">
-          拖动旋转 · 滚轮缩放 · 滑杆或播放键推动月球<br />
-          画面距离经过压缩，食分由真实公里数值计算。
+          左键拖动旋转 · 滚轮缩放 · 右键拖动平移（可把地球移到画面中心）<br />
+          滑杆或播放键推动月球 · 画面距离经过压缩，食分由真实公里数值计算。
         </p>
       </div>
 
@@ -94,11 +94,18 @@ const template = `
             <button id="le-play" class="accent-button" type="button" aria-pressed="false">
               播放入影过程
             </button>
+            <button id="le-focus-earth" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                <circle cx="12" cy="12" r="2.6" fill="currentColor" />
+              </svg>
+              聚焦地球
+            </button>
             <button id="le-reset-camera" type="button">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M4 12a8 8 0 1 0 2.34-5.66M4 4v6h6" />
               </svg>
-              重置视角
+              全景视角
             </button>
           </div>
         </aside>
@@ -263,9 +270,10 @@ class LunarEclipseScene3D {
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.07;
     this.controls.minDistance = 3;
-    this.controls.maxDistance = 90;
-    this.controls.enablePan = false;
-    this.resetCamera();
+    this.controls.maxDistance = 120;
+    this.controls.enablePan = true; // 允许平移：右键拖动可把地球拖到画面中心
+    this.controls.screenSpacePanning = false;
+    this.focusEarth(); // 默认把地球置于画面中心
 
     this.moonBaseColor = new THREE.Color(0xcfc9bc);
     this.moonPenumbraColor = new THREE.Color(0x8d897f);
@@ -469,9 +477,16 @@ class LunarEclipseScene3D {
   }
 
   resetCamera() {
-    // 窄画布（约 559×650）下的全景构图：太阳(-40)、地球影锥(0→+7)与月球轨道一屏收齐
+    // 全景构图：太阳(-40)、地球影锥(0→+7)与月球轨道一屏收齐
     this.camera.position.set(-18.5, 16, 63);
     this.controls.target.set(-18.5, 0.5, 0);
+    this.controls.update();
+  }
+
+  // 聚焦地球：把地球(原点)置于画面中心，可绕其旋转/缩放观察影锥与月球入影
+  focusEarth() {
+    this.camera.position.set(-3, 6, 18);
+    this.controls.target.set(0, 0, 0);
     this.controls.update();
   }
 
@@ -566,6 +581,7 @@ function wireInteractions() {
   });
 
   $("#le-reset-camera").addEventListener("click", () => scene3d.resetCamera());
+  $("#le-focus-earth").addEventListener("click", () => scene3d.focusEarth());
 }
 
 export default {

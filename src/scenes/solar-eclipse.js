@@ -56,7 +56,7 @@ const template = `
           </svg>
         </a>
         <p class="hero-note">
-          拖动旋转 · 滚轮缩放 · 滑杆移动月球<br />
+          左键拖动旋转 · 滚轮缩放 · 右键拖动平移（可把地球移到画面中心）<br />
           画面比例经过夸张，食型判定使用真实天文数值。
         </p>
       </div>
@@ -100,11 +100,17 @@ const template = `
             <button id="se-incl-toggle" class="accent-button" type="button" aria-pressed="false">
               假想倾角 = 0°
             </button>
+            <button id="se-focus-earth" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
+              </svg>
+              聚焦地球
+            </button>
             <button id="se-reset-camera" type="button">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M4 12a8 8 0 1 0 2.34-5.66M4 4v6h6" />
               </svg>
-              重置视角
+              全景视角
             </button>
           </div>
         </aside>
@@ -269,9 +275,10 @@ class SolarEclipseScene3D {
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.07;
     this.controls.minDistance = 3;
-    this.controls.maxDistance = 90;
-    this.controls.enablePan = false;
-    this.resetCamera();
+    this.controls.maxDistance = 120;
+    this.controls.enablePan = true; // 允许平移：右键拖动可把地球拖到画面中心
+    this.controls.screenSpacePanning = false;
+    this.focusEarth(); // 默认把地球置于画面中心
 
     this.shadowGroup = new THREE.Group(); // 影锥 + 落点 + 日食带，参数变化时整组重建
     this.orbitGroup = new THREE.Group(); // 月球轨道环，倾角/交点变化时重建
@@ -580,9 +587,16 @@ class SolarEclipseScene3D {
   }
 
   resetCamera() {
-    // 窄画布（约 559×650）下的全景构图：太阳(-40)、月球轨道(±4)、地球与影锥一屏收齐
+    // 全景构图：太阳(-40)、月球轨道(±4)、地球与影锥一屏收齐
     this.camera.position.set(-18.5, 16, 63);
     this.controls.target.set(-18.5, 0.5, 0);
+    this.controls.update();
+  }
+
+  // 聚焦地球：把地球(原点)置于画面中心，可绕其旋转/缩放观察本影落点与日食带
+  focusEarth() {
+    this.camera.position.set(-3, 6, 18);
+    this.controls.target.set(0, 0, 0);
     this.controls.update();
   }
 
@@ -675,6 +689,7 @@ function wireInteractions() {
     syncReadout();
   });
 
+  $("#se-focus-earth").addEventListener("click", () => scene3d.focusEarth());
   $("#se-reset-camera").addEventListener("click", () => scene3d.resetCamera());
 }
 

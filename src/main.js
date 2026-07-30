@@ -18,6 +18,8 @@ import galtonScene from "./scenes/galton.js";
 import doublePendulumScene from "./scenes/double-pendulum.js";
 import mandelbrotScene from "./scenes/mandelbrot.js";
 import seismicWavesScene from "./scenes/seismic-waves.js";
+import circuitOhmScene from "./scenes/circuit-ohm.js";
+import electrolysisScene from "./scenes/electrolysis.js";
 
 // 分类映射：导航分组依据（单一数据源）。场景自身带 category 时优先使用。
 // 新增场景只需要在 CATEGORY 里加一行（或场景自带 category），导航自动出现。
@@ -37,6 +39,8 @@ const CATEGORY = {
   "double-pendulum": "mechanics",
   "mandelbrot": "math",
   "seismic-waves": "geoscience",
+  "circuit-ohm": "physics",
+  electrolysis: "chemistry",
 };
 
 function reg(scene) {
@@ -59,6 +63,8 @@ reg(galtonScene);
 reg(doublePendulumScene);
 reg(mandelbrotScene);
 reg(seismicWavesScene);
+reg(circuitOhmScene);
+reg(electrolysisScene);
 
 function start() {
   initSceneLoader({
