@@ -30,6 +30,12 @@ import lightReflectionScene from "./scenes/light-reflection.js";
 import acidBaseScene from "./scenes/acid-base.js";
 import seedGerminationScene from "./scenes/seed-germination.js";
 import bloodCirculationScene from "./scenes/blood-circulation.js";
+import waveSoundScene from "./scenes/wave-sound.js";
+import newtonSecondScene from "./scenes/newton-second.js";
+import airOxygenScene from "./scenes/air-oxygen.js";
+import solubilityScene from "./scenes/solubility.js";
+import respirationScene from "./scenes/respiration.js";
+import enzymeScene from "./scenes/enzyme.js";
 
 // 分类映射：导航分组依据（单一数据源）。场景自身带 category 时优先使用。
 // 新增场景只需要在 CATEGORY 里加一行（或场景自带 category），导航自动出现。
@@ -61,6 +67,12 @@ const CATEGORY = {
   "acid-base": "chemistry",
   "seed-germination": "biology",
   "blood-circulation": "biology",
+  "wave-sound": "physics",
+  "newton-second": "physics",
+  "air-oxygen": "chemistry",
+  solubility: "chemistry",
+  respiration: "biology",
+  enzyme: "biology",
 };
 
 function reg(scene) {
@@ -95,6 +107,12 @@ reg(lightReflectionScene);
 reg(acidBaseScene);
 reg(seedGerminationScene);
 reg(bloodCirculationScene);
+reg(waveSoundScene);
+reg(newtonSecondScene);
+reg(airOxygenScene);
+reg(solubilityScene);
+reg(respirationScene);
+reg(enzymeScene);
 
 function start() {
   initSceneLoader({
