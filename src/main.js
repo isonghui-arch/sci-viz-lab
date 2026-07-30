@@ -24,6 +24,12 @@ import convexLensScene from "./scenes/convex-lens.js";
 import combustionScene from "./scenes/combustion.js";
 import microscopeScene from "./scenes/microscope.js";
 import photosynthesisScene from "./scenes/photosynthesis.js";
+import leverBalanceScene from "./scenes/lever-balance.js";
+import buoyancyScene from "./scenes/buoyancy.js";
+import lightReflectionScene from "./scenes/light-reflection.js";
+import acidBaseScene from "./scenes/acid-base.js";
+import seedGerminationScene from "./scenes/seed-germination.js";
+import bloodCirculationScene from "./scenes/blood-circulation.js";
 
 // 分类映射：导航分组依据（单一数据源）。场景自身带 category 时优先使用。
 // 新增场景只需要在 CATEGORY 里加一行（或场景自带 category），导航自动出现。
@@ -49,6 +55,12 @@ const CATEGORY = {
   combustion: "chemistry",
   microscope: "biology",
   photosynthesis: "biology",
+  "lever-balance": "physics",
+  buoyancy: "physics",
+  "light-reflection": "physics",
+  "acid-base": "chemistry",
+  "seed-germination": "biology",
+  "blood-circulation": "biology",
 };
 
 function reg(scene) {
@@ -77,6 +89,12 @@ reg(convexLensScene);
 reg(combustionScene);
 reg(microscopeScene);
 reg(photosynthesisScene);
+reg(leverBalanceScene);
+reg(buoyancyScene);
+reg(lightReflectionScene);
+reg(acidBaseScene);
+reg(seedGerminationScene);
+reg(bloodCirculationScene);
 
 function start() {
   initSceneLoader({
