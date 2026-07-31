@@ -42,6 +42,12 @@ import metalActivityScene from "./scenes/metal-activity.js";
 import carbonDioxideScene from "./scenes/carbon-dioxide.js";
 import digestiveSystemScene from "./scenes/digestive-system.js";
 import reflexArcScene from "./scenes/reflex-arc.js";
+import twoForceBalanceScene from "./scenes/two-force-balance.js";
+import frictionScene from "./scenes/friction.js";
+import massConservationScene from "./scenes/mass-conservation.js";
+import oxygenPrepScene from "./scenes/oxygen-prep.js";
+import cellOsmosisScene from "./scenes/cell-osmosis.js";
+import breathingScene from "./scenes/breathing.js";
 
 // 分类映射：导航分组依据（单一数据源）。场景自身带 category 时优先使用。
 // 新增场景只需要在 CATEGORY 里加一行（或场景自带 category），导航自动出现。
@@ -85,6 +91,12 @@ const CATEGORY = {
   "carbon-dioxide": "chemistry",
   "digestive-system": "biology",
   "reflex-arc": "biology",
+  "two-force-balance": "physics",
+  "friction": "physics",
+  "mass-conservation": "chemistry",
+  "oxygen-prep": "chemistry",
+  "cell-osmosis": "biology",
+  "breathing": "biology",
 };
 
 function reg(scene) {
@@ -131,6 +143,12 @@ reg(metalActivityScene);
 reg(carbonDioxideScene);
 reg(digestiveSystemScene);
 reg(reflexArcScene);
+reg(twoForceBalanceScene);
+reg(frictionScene);
+reg(massConservationScene);
+reg(oxygenPrepScene);
+reg(cellOsmosisScene);
+reg(breathingScene);
 
 function start() {
   initSceneLoader({
